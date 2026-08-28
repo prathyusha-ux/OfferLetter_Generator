@@ -1,0 +1,163 @@
+* { box-sizing: border-box; }
+      button{
+        padding: 14px 20px;
+        background: #0b63e5;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-right: 8px;
+      }
+      body {
+        background-color: #f5f5f5;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 0 15px;
+        color: #111111;
+      }
+      input, select, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        margin-top: 6px;
+        font-size: 15px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        color: #111111;
+        border: 1px solid #d9d9d9;
+        border-radius: 8px;
+      }
+      h1 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #111111;
+      }
+      fieldset {
+        margin-bottom: 18px;
+        padding: 18px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        background: #ffffff;
+      }
+      button:hover {
+        background: #094fbb;
+      }
+      legend {
+        font-weight: 700;
+        padding: 0 6px;
+        color: #111111;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #111111;
+      }
+      
+      #customLocationField, #bondFields{
+        display:none;
+      }
+      #customLocationField.show, #bondFields.show{
+        display:block;
+      }
+      .toggle-row{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        margin-top:10px;
+      }
+      .toggle-row input{
+        width:auto;
+      }
+      .toggle-row label{
+        margin:0;
+      }
+      #previewStatus{
+        font-size:13px;
+        font-weight:bold;
+      }
+      #letterEmpty{
+        color:#555;
+        font-style:italic;
+      }
+      #letterOutput{
+        display:none;
+        background:#fff;
+        color:#222;
+        padding:24px;
+        margin-top:15px;
+        border:1px solid #ccc;
+      }
+      #letterOutput.show{
+        display:block;
+      }
+      .letter-title{
+        text-align:center;
+        font-weight:bold;
+        text-transform:uppercase;
+        margin:14px 0 18px;
+      }
+      .letter-sheet h3{
+        margin:18px 0 8px;
+        border-bottom:1px solid #ddd;
+        padding-bottom:4px;
+      }
+      .salary-table{
+        width:100%;
+        border-collapse:collapse;
+        margin:10px 0;
+        font-size:13px;
+      }
+      .salary-table th{
+        background:#333;
+        color:#fff;
+        text-align:left;
+        padding:6px 8px;
+      }
+      .salary-table th.num, .salary-table td.num{
+        text-align:right;
+      }
+      .salary-table td{
+        padding:6px 8px;
+        border-bottom:1px solid #eee;
+      }
+      .salary-table tr.subhead td{
+        font-weight:bold;
+        background:#f4f1ea;
+      }
+      .salary-table tr.total td{
+        font-weight:bold;
+        border-top:2px solid #333;
+      }
+      .letter-foot-note{
+        font-size:11px;
+        color:#777;
+      }
+      .sign-line{
+        display:flex;
+        gap:10px;
+        margin-bottom:10px;
+      }
+      .sign-line .lbl{
+        width:90px;
+        font-size:12px;
+        color:#777;
+      }
+      .sign-line .fill{
+        flex:1;
+        border-bottom:1px solid #333;
+        min-height:18px;
+      }
+      @media print{
+        form, h1{ display:none !important; }
+        #letterOutput{ border:none; padding:0; }
+      }
+      
+      .salary-table tr, .letter-sheet h3, .sign-block, .sign-line{
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
