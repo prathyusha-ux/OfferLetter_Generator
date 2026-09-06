@@ -29,12 +29,12 @@ const cors = require('cors');
 const app = express();
 
 // Increase the body size limit — a PDF as base64 can be a few MB
-app.use(express.json({ limit: '15mb' }));
-
-// Only allow requests from your frontend's domain
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN || '*', // set ALLOWED_ORIGIN in production
 }));
+
+// Increase the body size limit — a PDF as base64 can be several MB
+app.use(express.json({ limit: '30mb' }));
 
 app.get('/', (req, res) => {
   res.send('Offer letter backend is running.');
