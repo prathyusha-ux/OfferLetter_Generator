@@ -1,0 +1,341 @@
+*{ box-sizing: border-box; }
+      button{
+        padding: 14px 20px;
+        background: #0b63e5;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-right: 8px;
+      }
+      body {
+        background-color: #f5f5f5;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 0 15px;
+        color: #111111;
+      }
+      input, select, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        margin-top: 6px;
+        font-size: 15px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        color: #111111;
+        border: 1px solid #d9d9d9;
+        border-radius: 8px;
+      }
+      h1 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #111111;
+      }
+      fieldset {
+        margin-bottom: 18px;
+        padding: 18px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        background: #ffffff;
+      }
+      button:hover {
+        background: #094fbb;
+      }
+      legend {
+        font-weight: 700;
+        padding: 0 6px;
+        color: #111111;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #111111;
+      }
+      
+      #customLocationField, #bondFields{
+        display:none;
+      }
+      #customLocationField.show, #bondFields.show{
+        display:block;
+      }
+      .toggle-row{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        margin-top:10px;
+      }
+      .toggle-row input{
+        width:auto;
+      }
+      .toggle-row label{
+        margin:0;
+      }
+      #previewStatus{
+        font-size:13px;
+        font-weight:bold;
+      }
+      button:disabled{
+        background:#a9c3ea;
+        cursor:not-allowed;
+      }
+      button.icon-btn{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+      }
+      #editBtn{
+        background:#2e7d32;
+      }
+      #editBtn:hover{
+        background:#1b5e20;
+      }
+      #editBtn.active{
+        background:#c62828;
+      }
+      #editBtn.active:hover{
+        background:#a02020;
+      }
+      .email-row{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+        align-items:center;
+        margin-top:14px;
+      }
+      .email-row input{
+        flex:1 1 260px;
+        margin-top:0;
+      }
+      .email-row button{
+        margin-top:0;
+        flex:0 0 auto;
+      }
+      #letterOutput.editing .page{
+        outline:2px dashed #0b63e5;
+        outline-offset:6px;
+      }
+      #letterOutput.editing .page-body[contenteditable="true"]:focus{
+        outline:2px solid #0b63e5;
+      }
+      #editHint{
+        font-size:12px;
+        color:#0b63e5;
+        font-weight:600;
+        display:none;
+        margin-top:8px;
+      }
+      #editHint.show{
+        display:block;
+      }
+      #letterEmpty{
+        color:#555;
+        font-style:italic;
+      }
+      #letterOutput{
+        display:none;
+        background:#fff;
+        color:#222;
+        padding:24px;
+        margin-top:15px;
+        border:1px solid #ccc;
+      }
+      #letterOutput.show{
+        display:block;
+      }
+      .letter-title{
+        text-align:center;
+        font-weight:bold;
+        text-transform:uppercase;
+        margin:14px 0 18px;
+      }
+      .letter-sheet h3{
+        margin:18px 0 8px;
+        border-bottom:1px solid #ddd;
+        padding-bottom:4px;
+      }
+      .salary-table{
+        width:100%;
+        border-collapse:collapse;
+        margin:10px 0;
+        font-size:13px;
+      }
+      .salary-table th{
+        background:#333;
+        color:#fff;
+        text-align:left;
+        padding:6px 8px;
+      }
+      .salary-table th.num, .salary-table td.num{
+        text-align:right;
+      }
+      .salary-table td{
+        padding:6px 8px;
+        border-bottom:1px solid #eee;
+      }
+      .salary-table tr.subhead td{
+        font-weight:bold;
+        background:#f4f1ea;
+      }
+      .salary-table tr.total td{
+        font-weight:bold;
+        border-top:2px solid #333;
+      }
+      .letter-foot-note{
+        font-size:11px;
+        color:#777;
+      }
+      .sign-line{
+        display:flex;
+        gap:10px;
+        margin-bottom:10px;
+      }
+      .sign-line .lbl{
+        width:90px;
+        font-size:12px;
+        color:#777;
+      }
+      .sign-line .fill{
+        flex: 0 0 150px;
+        border-bottom:1px solid #333;
+        min-height:18px;
+      }
+      @media print{
+        form, h1{ display:none !important; }
+        #letterOutput{ border:none; padding:0; }
+      }
+      
+      .salary-table tr, .letter-sheet h3, .sign-block, .sign-line{
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* ------------------------------------------------------------------
+       * PAGE CONTAINERS — restored from the working version; script.js's
+       * buildPage1()-buildPage4() render markup that depends on these
+       * classes (.page, .letterhead, .company-name, .letter-footer, etc.)
+       * ------------------------------------------------------------------ */
+      #letterOutput{
+        max-width: none;
+        padding: 0;
+        background: transparent;
+        border: none;
+      }
+      #letterOutput.show{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+      .page{
+        width: 210mm;
+        min-height: 297mm;
+        background: #fff;
+        color: #222;
+        padding: 18mm 16mm 14mm;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+        break-after: page;
+        /* Matches the reference letter: system sans-serif (Segoe UI on
+           Windows, San Francisco on Mac), not Calibri. */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+      .page h3{
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .page .letter-title{
+        font-size: 16px;
+      }
+      .page .company-name{
+        font-size: 13px;
+      }
+      .page .company-tagline{
+        font-size: 10px;
+      }
+      .page .letter-footer{
+        font-size: 10px;
+      }
+      .page .salary-table{
+        font-size: 13px;
+      }
+      .page .letter-foot-note{
+        font-size: 11px;
+      }
+      .page .sign-line .lbl{
+        font-size: 12px;
+      }
+      .page .stamp-img{
+        width: 140px;
+        height: auto;
+        margin-top: 8px;
+        display: block;
+      }
+      .page:last-child{
+        page-break-after: auto;
+        break-after: auto;
+      }
+      .page-body{
+        flex: 1 0 auto;
+      }
+      .letterhead{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+      /* Real logo image — replaces the old placeholder "UX" circle.
+         Sized to the same 52px footprint so the letterhead layout is unchanged. */
+      .logo-img{
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        flex-shrink: 0;
+      }
+      .company-name{
+        font-weight: 700;
+        font-size: 13px;
+        color: #111;
+      }
+      .company-tagline{
+        font-size: 10px;
+        color: #555;
+      }
+      .letter-footer{
+        margin-top: 16px;
+        border-top: 1px solid #ccc;
+        padding-top: 6px;
+        font-size: 9px;
+        text-align: center;
+        color: #555;
+      }
+      .letter-footer .gst{
+        font-weight: 700;
+        color: #1a3f7a;
+      }
+      .page p{
+        text-align: justify;
+        line-height: 1.5;
+      }
+
+      @media print{
+        .page{
+          border: none;
+          margin: 0;
+          box-shadow: none;
+        }
+        #letterOutput.show{
+          gap: 0;
+        }
+      }

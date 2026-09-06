@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UX Interfacely — Offer Letter Generator</title>
+<link rel="stylesheet" href="offerletter.css">
+</head>
+<body>
+  <h1>Offer Letter Generator</h1>
+
+  <form id="offerForm" onsubmit="return false;">
+    <fieldset>
+      <legend>Recipient</legend>
+
+      <label for="empName">Full Name</label>
+      <input id="empName" type="text" placeholder="e.g. Ogirala Lakshmi Prathyusha">
+
+      <label for="doj">Date of Joining</label>
+      <input id="doj" type="date">
+
+      <label for="letterDate">Letter Date (statement date)</label>
+      <input id="letterDate" type="date">
+
+      <label for="jobTitle">Job Title</label>
+      <input id="jobTitle" type="text" placeholder="e.g. SOFTWARE ENGINEER L1">
+
+      <label for="department">Department</label>
+      <input id="department" type="text" placeholder="e.g. Services">
+
+      <label for="roleDesc">Role Description</label>
+      <textarea id="roleDesc" rows="3" placeholder="e.g. As a Frontend Developer, you will develop responsive web applications..."></textarea>
+
+      <label for="workLocation">Work Location</label>
+      <select id="workLocation">
+        <option value="Hyderabad Corporate Office - WFH">Hyderabad Corporate Office - WFH</option>
+        <option value="Hyderabad Corporate Office">Hyderabad Corporate Office</option>
+        <option value="__custom">Other (type below)</option>
+      </select>
+      <div id="customLocationField">
+        <input id="customLocation" type="text" placeholder="Custom work location">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Compensation</legend>
+
+      <label for="annualCtc">Annual CTC (₹)</label>
+      <input id="annualCtc" type="number" min="0" placeholder="e.g. 300000">
+
+      <label for="variablePay">Annual Variable Pay (₹)</label>
+      <input id="variablePay" type="number" min="0" placeholder="e.g. 30000">
+
+      <label for="noticePeriod">Notice Period (days)</label>
+      <input id="noticePeriod" type="number" min="0" value="90">
+
+      <div class="toggle-row">
+        <input id="bondToggle" type="checkbox">
+        <label for="bondToggle">Include Service Bond Clause</label>
+      </div>
+      <div id="bondFields">
+        <label for="bondYears">Bond Duration (years)</label>
+        <input id="bondYears" type="number" min="1" value="1">
+        <label for="bondAmount">Bond Amount (₹, whole lakhs)</label>
+        <input id="bondAmount" type="number" min="0" step="100000" placeholder="e.g. 200000">
+      </div>
+    </fieldset>
+
+    <button id="generateBtn" type="button">Generate Offer Letter</button>
+    <button id="printBtn" type="button">Download as PDF</button>
+    <button id="editBtn" type="button" class="icon-btn" disabled>&#9998; Edit Letter</button>
+
+    <div class="email-row">
+      <input id="emailInput" type="email" placeholder="Recipient's email address">
+      <button id="emailBtn" type="button" class="icon-btn" disabled>&#9993; Email Offer Letter</button>
+    </div>
+  </form>
+
+  <p id="previewStatus"></p>
+  <p id="letterEmpty">No letter generated yet. Fill in the form and click "Generate Offer Letter".</p>
+  <p id="editHint">Editing on — click directly into the letter text to make changes, then click "Done Editing" to lock them in.</p>
+
+  <div id="letterOutput"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+  </body>
+  </html>
+
