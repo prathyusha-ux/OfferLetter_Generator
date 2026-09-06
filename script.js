@@ -359,7 +359,7 @@ async function handlePrintClick() {
   printButton.disabled = true;
   printButton.textContent = 'Preparing PDF...';
 
-  const RENDER_SCALE = 2;
+  const RENDER_SCALE = 1;
   const { jsPDF } = window.jspdf;
   let pdf = null;
 
@@ -383,7 +383,7 @@ async function handlePrintClick() {
 
       const widthMm = (canvas.width / RENDER_SCALE) * PX_TO_MM;
       const heightMm = (canvas.height / RENDER_SCALE) * PX_TO_MM;
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/png',0.7);
 
       if (!pdf) {
         pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [widthMm, heightMm] });
