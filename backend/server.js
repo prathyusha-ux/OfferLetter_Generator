@@ -25,23 +25,24 @@
 
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer');
 
 const app = express();
+const upload = multer({ limits: { fileSize: 20 * 1024 * 1024 } }); // 20MB
 
-// Increase the body size limit — a PDF as base64 can be a few MB
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN || '*', // set ALLOWED_ORIGIN in production
+  origin: process.env.ALLOWED_ORIGIN || '*',
 }));
 
-// Increase the body size limit — a PDF as base64 can be several MB
-app.use(express.json({ limit: '30mb' }));
+app.use(express.json({ limit: '2mb' })); // for small JSON only, PDF no longer goes through here
 
 app.get('/', (req, res) => {
   res.send('Offer letter backend is running.');
 });
 
-app.post('/api/send-offer', async (req, res) => {
-  const { recipient, candidateName, jobTitle, pdfBase64 } = req.body || {};
+app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
+  const { recipient, candidateName, jobTitle } = req.body || {};
+  const pdfBase64 = req.file ? req.file.buffer.toString('base64') : null;
 
   // Basic validation
   if (!recipient || !pdfBase64) {
