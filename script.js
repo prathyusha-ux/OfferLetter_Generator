@@ -470,8 +470,7 @@ async function buildLetterPdfBase64() {
       pdf.addImage(imgData, 'PNG', 0, 0, widthMm, heightMm);
     }
   }
-  const dataUri = pdf.output('datauristring');
-  return dataUri.split(',')[1];
+ return pdf.output('blob');
 }
 
 async function handleEmailClick() {
@@ -494,12 +493,17 @@ async function handleEmailClick() {
   const originalLabel = emailBtn.innerHTML;
   emailBtn.innerHTML = 'Sending...';
   try {
-    const pdfBase64 = await buildLetterPdfBase64();
-    const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ recipient, candidateName: name, jobTitle, pdfBase64 }),
-    });
+const pdfBlob = await buildLetterPdfBlob();
+const formData = new FormData();
+formData.append('recipient', recipient);
+formData.append('candidateName', name);
+formData.append('jobTitle', jobTitle);
+formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
+
+const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
+  method: 'POST',
+  body: formData,
+});
     const result = await response.json();
     if (!response.ok) {
       throw new Error(result.error || 'Failed to send email');
