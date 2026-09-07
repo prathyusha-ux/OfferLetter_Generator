@@ -503,7 +503,7 @@ async function handleEmailClick() {
     formData.append('jobTitle', jobTitle);
     formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
 
-    const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
+    const response = await fetch('https://offerletter-generator-1.onrender.com', {
       method: 'POST',
       body: formData,
     });
