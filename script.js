@@ -524,6 +524,30 @@ async function buildLetterPdfBlob() {
   }
   return pdf.output('blob');
 }
+function setupYesNoToggle(groupName, fieldsId) {
+  const buttons = document.querySelectorAll(`.yn-btn[data-group="${groupName}"]`);
+  const fields = getElement(fieldsId);
+  if (!buttons.length || !fields) return;
+ 
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+ 
+      if (btn.dataset.value === 'yes') {
+        fields.classList.add('show');
+      } else {
+        fields.classList.remove('show');
+      }
+    });
+  });
+}
+ 
+safeSetup('bonus yes/no toggle', () => setupYesNoToggle('bonus', 'bonusFields'));
+safeSetup('variable pay yes/no toggle', () => setupYesNoToggle('variablePayToggle', 'variablePayToggleFields'));
+safeSetup('pf yes/no toggle', () => setupYesNoToggle('pf', 'pfFields'));
+safeSetup('tds yes/no toggle', () => setupYesNoToggle('tds', 'tdsFields'));
+ 
 safeSetup('generateBtn click listener', () => {
   getElement('generateBtn').addEventListener('click', handleGenerateClick);
 });
