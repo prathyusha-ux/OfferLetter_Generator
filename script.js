@@ -437,41 +437,6 @@ function handleEditClick() {
  * the PDF (reusing the existing export) and then opens a pre-filled
  * mailto: draft so the user just has to attach the file that was saved.
  * ----------------------------------------------------------------------- */
-async function buildLetterPdfBlob() {
-  if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
-    throw new Error('The PDF library failed to load — check your internet connection and reload the page.');
-  }
-  const pageEls = Array.from(document.querySelectorAll('#letterOutput .page'));
-  if (pageEls.length === 0) {
-    throw new Error('Nothing to export — generate the letter first.');
-  }
-  const RENDER_SCALE = 1;
-  const { jsPDF } = window.jspdf;
-  let pdf = null;
-  for (let i = 0; i < pageEls.length; i++) {
-    const pageEl = pageEls[i];
-    const canvas = await html2canvas(pageEl, {
-      scale: RENDER_SCALE,
-      useCORS: true,
-      backgroundColor: '#ffffff',
-      scrollX: 0,
-      scrollY: -window.scrollY,
-      windowWidth: document.documentElement.scrollWidth,
-      windowHeight: document.documentElement.scrollHeight,
-    });
-    const widthMm = (canvas.width / RENDER_SCALE) * PX_TO_MM;
-    const heightMm = (canvas.height / RENDER_SCALE) * PX_TO_MM;
-    const imgData = canvas.toDataURL('image/jpeg', 0.7);
-    if (!pdf) {
-      pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [widthMm, heightMm] });
-      pdf.addImage(imgData, 'JPEG', 0, 0, widthMm, heightMm);
-    } else {
-      pdf.addPage([widthMm, heightMm], 'portrait');
-      pdf.addImage(imgData, 'JPEG', 0, 0, widthMm, heightMm);
-    }
-  }
-  return pdf.output('blob');
-}
 
 async function handleEmailClick() {
   const letterHasBeenGenerated = getElement('letterOutput').classList.contains('show');
