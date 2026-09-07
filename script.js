@@ -569,5 +569,5 @@ safeSetup('editBtn click listener', () => {
   getElement('editBtn').addEventListener('click', handleEditClick);
 });
 safeSetup('emailBtn click listener', () => {
-  getElement('emailBtn').addEventListener('click', handleEmailClick;
+  getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
