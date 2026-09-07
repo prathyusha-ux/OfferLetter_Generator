@@ -76,6 +76,43 @@
       .toggle-row label{
         margin:0;
       }
+ 
+      /* Yes/No toggle buttons — Bonus, Variable Pay, Provident Fund, TDS */
+      #bonusFields, #variablePayToggleFields, #pfFields, #tdsFields{
+        display:none;
+      }
+      #bonusFields.show, #variablePayToggleFields.show, #pfFields.show, #tdsFields.show{
+        display:block;
+      }
+      .yes-no-row{
+        display:flex;
+        gap:8px;
+        margin-top:6px;
+      }
+      .yn-btn{
+        flex:1;
+        padding:10px 14px;
+        background:#ffffff;
+        color:#111111;
+        border:1px solid #d9d9d9;
+        border-radius:8px;
+        font-size:14px;
+        font-weight:600;
+        cursor:pointer;
+        margin:0;
+      }
+      .yn-btn.active{
+        background:#0b63e5;
+        color:#ffffff;
+        border-color:#0b63e5;
+      }
+      .yn-btn:hover{
+        background:#e8f0fe;
+      }
+      .yn-btn.active:hover{
+        background:#094fbb;
+      }
+ 
       #previewStatus{
         font-size:13px;
         font-weight:bold;
@@ -214,7 +251,7 @@
         page-break-inside: avoid;
         break-inside: avoid;
       }
-
+ 
       /* ------------------------------------------------------------------
        * PAGE CONTAINERS — restored from the working version; script.js's
        * buildPage1()-buildPage4() render markup that depends on these
@@ -328,7 +365,7 @@
         text-align: justify;
         line-height: 1.5;
       }
-
+ 
       @media print{
         .page{
           border: none;

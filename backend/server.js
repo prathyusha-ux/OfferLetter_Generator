@@ -89,11 +89,11 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
   const subject = `Offer Letter - ${name}`;
 
   // Fixed company/sender details — edit these to match your actual signature block
-  const SENDER_NAME = 'Mrudhula Gajjarapu';
-  const SENDER_TITLE = 'Product Manager at UXINTERFACELY IT SOLUTIONS';
+  const SENDER_NAME = 'Haripriya Gopisetti';
+  const SENDER_TITLE = 'Human Resources at UXINTERFACELY IT SOLUTIONS';
   const COMPANY_NAME = 'UXINTERFACELY IT SOLUTIONS LLP';
   const COMPANY_WEBSITE = 'www.uxinterfacely.com';
-  const SENDER_EMAIL = 'mrudhula@uxinterfacely.com';
+  const SENDER_EMAIL = 'hr@uxinterfacely.com';
   const SENDER_PHONE = '+91 9381460883';
 
   const bodyHtml = `
