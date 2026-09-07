@@ -28,25 +28,25 @@ const cors = require('cors');
 const multer = require('multer');
 
 const app = express();
-const upload = multer({ limits: { fileSize: 20 * 1024 * 1024 } }); // 20MB
+const upload = multer({ limits: { fileSize: 20 * 1024 * 1024 } }); // 20MB limit
 
+// CORS must run before body parsing, so error responses (e.g. 413) still get CORS headers
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN || '*',
 }));
 
-app.use(express.json({ limit: '2mb' })); // for small JSON only, PDF no longer goes through here
+app.use(express.json({ limit: '2mb' })); // small JSON only — the PDF now comes as multipart file, not base64
 
 app.get('/', (req, res) => {
   res.send('Offer letter backend is running.');
 });
 
 app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
-  const { recipient, candidateName, jobTitle } = req.body || {};
+  const { recipient, candidateName, jobTitle, doj, workLocation, logoDataUri } = req.body || {};
   const pdfBase64 = req.file ? req.file.buffer.toString('base64') : null;
 
-  // Basic validation
   if (!recipient || !pdfBase64) {
-    return res.status(400).json({ error: 'recipient and pdfBase64 are required' });
+    return res.status(400).json({ error: 'recipient and pdf file are required' });
   }
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(recipient)) {
@@ -55,14 +55,62 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
 
   const name = candidateName || 'Candidate';
   const role = jobTitle || 'the offered role';
+  const joiningDate = doj || 'the agreed date';
+  const location = workLocation || 'our office';
   const subject = `Offer Letter - ${name}`;
+
+  // Fixed company/sender details — edit these to match your actual signature block
+  const SENDER_NAME = 'Mrudhula Gajjarapu';
+  const SENDER_TITLE = 'Product Manager at UXINTERFACELY IT SOLUTIONS';
+  const COMPANY_NAME = 'UXINTERFACELY IT SOLUTIONS LLP';
+  const COMPANY_WEBSITE = 'www.uxinterfacely.com';
+  const SENDER_EMAIL = 'mrudhula@uxinterfacely.com';
+  const SENDER_PHONE = '+91 9381460883';
+
+  const bodyHtml = `
+    <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#111;max-width:700px;">
+      <p>Hi ${name},</p>
+      <p><strong style="color:#1a73e8;">Congratulations</strong>! We are pleased to offer you the position of
+      ${role} at ${COMPANY_NAME}, with your date of joining scheduled for ${joiningDate}.</p>
+      <p>We are confident that your skills and experience will be a valuable addition to our team and
+      contribute to the growth of our organization.</p>
+      <p>You will be part of the Company's Services Department, and your roles and responsibilities may
+      evolve based on business requirements. As ${COMPANY_NAME} is a start-up company, sometimes your role
+      may completely change as per the requirements of the company, and you are expected to adapt
+      accordingly.</p>
+      <p>Your work location will be our ${location}.<br/>
+      Your office timings will be 10:00 AM to 7:00 PM, which must be followed strictly, along with a
+      1-hour lunch break. You will be working 5 days a week.</p>
+      <p>You are required to adhere to all company policies, procedures, and maintain strict
+      confidentiality regarding company information, including your compensation details.</p>
+      <p><strong>Kindly sign and accept the attached below offer letter and share it along with your PAN
+      card and Aadhaar card details by replying to this same email ID.</strong></p>
+      <p>We look forward to having you onboard and wish you a successful journey with us.</p>
+      <p>Best Regards,</p>
+      <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;">
+        <tr>
+          <td style="border:1px solid #ddd;">
+            ${logoDataUri ? `<img src="${logoDataUri}" alt="logo" style="max-width:120px;">` : ''}
+          </td>
+          <td style="border:1px solid #ddd;">
+            <div>${SENDER_NAME}</div>
+            <div>${SENDER_TITLE}</div>
+            <div><a href="https://${COMPANY_WEBSITE}">${COMPANY_WEBSITE}</a></div>
+            <div><strong>${COMPANY_NAME}</strong></div>
+            <div><a href="mailto:${SENDER_EMAIL}">${SENDER_EMAIL}</a></div>
+            <div>${SENDER_PHONE}</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  `;
+
   const bodyText =
     `Dear ${name},\n\n` +
     `Please find attached your offer letter for the position of ${role}.\n\n` +
-    `Regards,\nUX Interfacely`;
+    `Regards,\n${COMPANY_NAME}`;
 
   try {
-    // 1. Send the email via Resend
     const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -73,7 +121,7 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
         from: process.env.FROM_EMAIL,
         to: [recipient],
         subject: subject,
-        text: bodyText,
+        ...(bodyHtml ? { html: bodyHtml } : { text: bodyText }),
         attachments: [
           {
             filename: `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`,
@@ -90,7 +138,6 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
       return res.status(502).json({ error: 'Failed to send email', details: resendData });
     }
 
-    // 2. Log the send in Supabase (optional)
     if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
       try {
         await fetch(`${process.env.SUPABASE_URL}/rest/v1/offer_sends`, {
@@ -121,7 +168,6 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
   }
 });
 
-// Render sets PORT automatically — don't hardcode it
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
