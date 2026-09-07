@@ -437,6 +437,58 @@ function handleEditClick() {
  * the PDF (reusing the existing export) and then opens a pre-filled
  * mailto: draft so the user just has to attach the file that was saved.
  * ----------------------------------------------------------------------- */
+
+async function handleEmailClick() {
+  const letterHasBeenGenerated = getElement('letterOutput').classList.contains('show');
+  if (!letterHasBeenGenerated) {
+    alert('Generate the offer letter first.');
+    return;
+  }
+  const emailInput = getElement('emailInput');
+  const recipient = emailInput.value.trim();
+  if (!recipient || !emailInput.checkValidity()) {
+    alert('Enter a valid recipient email address.');
+    emailInput.focus();
+    return;
+  }
+  const name = getElement('empName').value.trim() || 'Candidate';
+  const jobTitle = getElement('jobTitle').value.trim() || 'the offered role';
+
+  const emailBtn = getElement('emailBtn');
+  emailBtn.disabled = true;
+  const originalLabel = emailBtn.innerHTML;
+  emailBtn.innerHTML = 'Sending...';
+
+  try {
+    const pdfBlob = await buildLetterPdfBlob();
+
+    const formData = new FormData();
+    formData.append('recipient', recipient);
+    formData.append('candidateName', name);
+    formData.append('jobTitle', jobTitle);
+    formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
+
+    const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to send email');
+    }
+
+    alert(`Offer letter sent to ${recipient}.`);
+  } catch (err) {
+    console.error('Email send failed:', err);
+    alert('Could not send the email.\n\nDetails: ' + (err && err.message ? err.message : err));
+  } finally {
+    emailBtn.disabled = false;
+    emailBtn.innerHTML = originalLabel;
+  }
+}
+
 async function buildLetterPdfBlob() {
   if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
     throw new Error('The PDF library failed to load — check your internet connection and reload the page.');
@@ -472,51 +524,6 @@ async function buildLetterPdfBlob() {
   }
   return pdf.output('blob');
 }
-
-async function handleEmailClick() {
-  const letterHasBeenGenerated = getElement('letterOutput').classList.contains('show');
-  if (!letterHasBeenGenerated) {
-    alert('Generate the offer letter first.');
-    return;
-  }
-  const emailInput = getElement('emailInput');
-  const recipient = emailInput.value.trim();
-  if (!recipient || !emailInput.checkValidity()) {
-    alert('Enter a valid recipient email address.');
-    emailInput.focus();
-    return;
-  }
-  const name = getElement('empName').value.trim() || 'Candidate';
-  const jobTitle = getElement('jobTitle').value.trim() || 'the offered role';
-  const emailBtn = getElement('emailBtn');
-  emailBtn.disabled = true;
-  const originalLabel = emailBtn.innerHTML;
-  emailBtn.innerHTML = 'Sending...';
-  try {
-const pdfBlob = await buildLetterPdfBlob();
-const formData = new FormData();
-formData.append('recipient', recipient);
-formData.append('candidateName', name);
-formData.append('jobTitle', jobTitle);
-formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
-
-const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
-  method: 'POST',
-  body: formData,
-});
-    const result = await response.json();
-    if (!response.ok) {
-      throw new Error(result.error || 'Failed to send email');
-    }
-    alert(`Offer letter sent to ${recipient}.`);
-  } catch (err) {
-    console.error('Email send failed:', err);
-    alert('Could not send the email.\n\nDetails: ' + (err && err.message ? err.message : err));
-  } finally {
-    emailBtn.disabled = false;
-    emailBtn.innerHTML = originalLabel;
-  }
-}
 safeSetup('generateBtn click listener', () => {
   getElement('generateBtn').addEventListener('click', handleGenerateClick);
 });
@@ -527,5 +534,5 @@ safeSetup('editBtn click listener', () => {
   getElement('editBtn').addEventListener('click', handleEditClick);
 });
 safeSetup('emailBtn click listener', () => {
-  getElement('emailBtn').addEventListener('click', handleEmailClick_updated);
+  getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
