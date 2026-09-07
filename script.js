@@ -524,29 +524,26 @@ async function buildLetterPdfBlob() {
   }
   return pdf.output('blob');
 }
-function setupYesNoToggle(groupName, fieldsId) {
-  const buttons = document.querySelectorAll(`.yn-btn[data-group="${groupName}"]`);
+function setupRadioToggle(radioName, fieldsId) {
+  const radios = document.querySelectorAll(`input[name="${radioName}"]`);
   const fields = getElement(fieldsId);
-  if (!buttons.length || !fields) return;
+  if (!radios.length || !fields) return;
  
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      buttons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
- 
-      if (btn.dataset.value === 'yes') {
+  radios.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      if (radio.checked && radio.value === 'yes') {
         fields.classList.add('show');
-      } else {
+      } else if (radio.checked && radio.value === 'no') {
         fields.classList.remove('show');
       }
     });
   });
 }
  
-safeSetup('bonus yes/no toggle', () => setupYesNoToggle('bonus', 'bonusFields'));
-safeSetup('variable pay yes/no toggle', () => setupYesNoToggle('variablePayToggle', 'variablePayToggleFields'));
-safeSetup('pf yes/no toggle', () => setupYesNoToggle('pf', 'pfFields'));
-safeSetup('tds yes/no toggle', () => setupYesNoToggle('tds', 'tdsFields'));
+safeSetup('bonus radio toggle', () => setupRadioToggle('bonusRadio', 'bonusFields'));
+safeSetup('variable pay radio toggle', () => setupRadioToggle('variablePayToggleRadio', 'variablePayToggleFields'));
+safeSetup('pf radio toggle', () => setupRadioToggle('pfRadio', 'pfFields'));
+safeSetup('tds radio toggle', () => setupRadioToggle('tdsRadio', 'tdsFields'));
  
 safeSetup('generateBtn click listener', () => {
   getElement('generateBtn').addEventListener('click', handleGenerateClick);

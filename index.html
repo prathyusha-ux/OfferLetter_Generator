@@ -65,9 +65,9 @@
       </div>
  
       <label>Bonus</label>
-      <div class="yes-no-row">
-        <button type="button" class="yn-btn" data-group="bonus" data-value="yes">Yes</button>
-        <button type="button" class="yn-btn active" data-group="bonus" data-value="no">No</button>
+      <div class="radio-row">
+        <label class="radio-option"><input type="radio" name="bonusRadio" value="yes"> Yes</label>
+        <label class="radio-option"><input type="radio" name="bonusRadio" value="no" checked> No</label>
       </div>
       <div id="bonusFields">
         <label for="bonusAmount">Bonus Amount (₹)</label>
@@ -75,9 +75,9 @@
       </div>
  
       <label>Variable Pay (toggle)</label>
-      <div class="yes-no-row">
-        <button type="button" class="yn-btn" data-group="variablePayToggle" data-value="yes">Yes</button>
-        <button type="button" class="yn-btn active" data-group="variablePayToggle" data-value="no">No</button>
+      <div class="radio-row">
+        <label class="radio-option"><input type="radio" name="variablePayToggleRadio" value="yes"> Yes</label>
+        <label class="radio-option"><input type="radio" name="variablePayToggleRadio" value="no" checked> No</label>
       </div>
       <div id="variablePayToggleFields">
         <label for="variablePayToggleAmount">Variable Pay Amount (₹)</label>
@@ -85,9 +85,9 @@
       </div>
  
       <label>Provident Fund</label>
-      <div class="yes-no-row">
-        <button type="button" class="yn-btn" data-group="pf" data-value="yes">Yes</button>
-        <button type="button" class="yn-btn active" data-group="pf" data-value="no">No</button>
+      <div class="radio-row">
+        <label class="radio-option"><input type="radio" name="pfRadio" value="yes"> Yes</label>
+        <label class="radio-option"><input type="radio" name="pfRadio" value="no" checked> No</label>
       </div>
       <div id="pfFields">
         <label for="pfAmount">Provident Fund Amount (₹)</label>
@@ -95,9 +95,9 @@
       </div>
  
       <label>TDS</label>
-      <div class="yes-no-row">
-        <button type="button" class="yn-btn" data-group="tds" data-value="yes">Yes</button>
-        <button type="button" class="yn-btn active" data-group="tds" data-value="no">No</button>
+      <div class="radio-row">
+        <label class="radio-option"><input type="radio" name="tdsRadio" value="yes"> Yes</label>
+        <label class="radio-option"><input type="radio" name="tdsRadio" value="no" checked> No</label>
       </div>
       <div id="tdsFields">
         <label for="tdsAmount">TDS Amount (₹)</label>
