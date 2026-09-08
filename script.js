@@ -266,7 +266,7 @@ function buildPage2(values) {
   const noticeWords = numberToWords(values.noticePeriodDays);
   return pageWrapper(`
     <h3>Salary:</h3>
-    <p>Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum and ${formatRupees(values.variableAmount)}/- variable pay and it completely depends</p>
+    <p>Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum and ${formatRupees(values.variablePayToggleAmount)}/- variable pay and it completely depends</p>
     <p>Please note salary structure of the ${COMPANY.name}, may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the ${COMPANY.name}, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever</p>
 
     <h3>ANNUAL SALARY REVISION:</h3>
