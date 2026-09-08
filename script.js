@@ -121,13 +121,15 @@ function calculateSalaryBreakdown(annualCtc) {
   const tdsIncluded = document.querySelector('input[name="tdsRadio"]:checked')?.value === 'yes';
   const tdsAmount = tdsIncluded ? (Number(getElement('tdsAmount').value) || 0) : 0;
 
-  // Gross monthly earnings: Basic + HRA + Special Allowance, plus Bonus/Variable if toggled on
-  let grossPerMonth = basic + hra + specialAllowance;
-  if (bonusIncluded) grossPerMonth += bonusAmount;
-  if (variableIncluded) grossPerMonth += variableAmount;
+  // Gross monthly earnings used for Take Home = Basic + HRA + Special Allowance only.
+  // Bonus and Variable Pay are shown as separate informational line items in the
+  // table, but are intentionally NOT added into the Take Home calculation.
+  const grossPerMonth = basic + hra + specialAllowance;
 
-  // Total deductions: Professional Tax always, plus PF/TDS if toggled on
-  const totalDeductions = professionalTax + pfDeduction + tdsAmount;
+  // Total deductions used for Take Home = Professional Tax + PF (if toggled on) only.
+  // TDS is shown as a separate informational line item, but is intentionally NOT
+  // subtracted in the Take Home calculation.
+  const totalDeductions = professionalTax + pfDeduction;
 
   const takeHomePerMonth = grossPerMonth - totalDeductions;
 
@@ -348,9 +350,9 @@ function buildSalaryTableHtml(salary, values) {
         <tr class="subhead"><td colspan="3">Deductions</td></tr>
         ${pfRow}
         <tr><td>Professional Tax</td><td class="num">${formatRupees(salary.professionalTax)}</td><td class="num">${formatRupees(salary.professionalTax * 12)}</td></tr>
-        ${tdsRow}
         <tr class="subhead"><td>Total Deductions</td><td class="num">${formatRupees(salary.totalDeductions)}</td><td class="num">${formatRupees(salary.totalDeductions * 12)}</td></tr>
         <tr class="total"><td>Take Home</td><td class="num">${formatRupees(salary.takeHomePerMonth)}</td><td class="num">${formatRupees(salary.takeHomePerMonth * 12)}</td></tr>
+        ${tdsRow}
       </tbody>
     </table>
     <p class="letter-foot-note">#The Indicative Performance Pay amount as per the current performance pay policy may vary depending upon the performance of individual and of the company. The management reserves the rights to amend policy at any point of time.</p>
@@ -645,4 +647,3 @@ safeSetup('editBtn click listener', () => {
 safeSetup('emailBtn click listener', () => {
   getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
-
