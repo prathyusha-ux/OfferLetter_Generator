@@ -314,9 +314,25 @@ function buildPage3(values) {
 }
 
 function buildSalaryTableHtml(salary, values) {
-  const variableRow = values.variablePay
-    ? `<tr><td>Variable Pay</td><td class="num"></td><td class="num">${formatRupees(values.variablePay)}</td></tr>`
+  // Bonus / Variable Pay only appear when their Yes/No toggle is set to Yes
+  const bonusRow = salary.bonusIncluded
+    ? `<tr><td>Bonus</td><td class="num"></td><td class="num">${formatRupees(salary.bonusAmount)}</td></tr>`
     : '';
+  const variableRow = salary.variableIncluded
+    ? `<tr><td>Variable Pay</td><td class="num"></td><td class="num">${formatRupees(salary.variableAmount)}</td></tr>`
+    : '';
+
+  // Provident Fund (employee share) only appears when its toggle is Yes.
+  // Employer PF is used internally in the Special Allowance calculation
+  // above and is intentionally never shown as its own row here.
+  const pfRow = salary.pfIncluded
+    ? `<tr><td>Provident Fund</td><td class="num">${formatRupees(salary.pfDeduction)}</td><td class="num">${formatRupees(salary.pfDeduction * 12)}</td></tr>`
+    : '';
+  // TDS only appears when its toggle is Yes
+  const tdsRow = salary.tdsIncluded
+    ? `<tr><td>TDS</td><td class="num">${formatRupees(salary.tdsAmount)}</td><td class="num">${formatRupees(salary.tdsAmount * 12)}</td></tr>`
+    : '';
+
   return `
     <table class="salary-table">
       <thead>
@@ -327,11 +343,12 @@ function buildSalaryTableHtml(salary, values) {
         <tr><td>House Rent Allowance(HRA)</td><td class="num">${formatRupees(salary.hra)}</td><td class="num">${formatRupees(salary.hra * 12)}</td></tr>
         <tr><td>Special Allowance</td><td class="num">${formatRupees(salary.specialAllowance)}</td><td class="num">${formatRupees(salary.specialAllowance * 12)}</td></tr>
         <tr class="subhead"><td>Total CTC</td><td class="num">${formatRupees(salary.ctcPerMonth)}</td><td class="num">${formatRupees(values.annualCtc)}</td></tr>
+        ${bonusRow}
         ${variableRow}
         <tr class="subhead"><td colspan="3">Deductions</td></tr>
-        <tr><td>PF-Employee</td><td class="num">${formatRupees(salary.employeePf)}</td><td class="num">${formatRupees(salary.employeePf * 12)}</td></tr>
-        <tr><td>PF-Employer</td><td class="num">${formatRupees(salary.employerPf)}</td><td class="num">${formatRupees(salary.employerPf * 12)}</td></tr>
+        ${pfRow}
         <tr><td>Professional Tax</td><td class="num">${formatRupees(salary.professionalTax)}</td><td class="num">${formatRupees(salary.professionalTax * 12)}</td></tr>
+        ${tdsRow}
         <tr class="subhead"><td>Total Deductions</td><td class="num">${formatRupees(salary.totalDeductions)}</td><td class="num">${formatRupees(salary.totalDeductions * 12)}</td></tr>
         <tr class="total"><td>Take Home</td><td class="num">${formatRupees(salary.takeHomePerMonth)}</td><td class="num">${formatRupees(salary.takeHomePerMonth * 12)}</td></tr>
       </tbody>
@@ -628,3 +645,4 @@ safeSetup('editBtn click listener', () => {
 safeSetup('emailBtn click listener', () => {
   getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
+
