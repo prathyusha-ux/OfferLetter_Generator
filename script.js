@@ -68,20 +68,91 @@ function toLakhsPhrase(amount) {
 /* ----------------------------------------------------------------------- *
  * SALARY CALCULATION — flat PF policy used in this letter
  * ----------------------------------------------------------------------- */
-function calculateSalaryBreakdown(annualCtc) {
-  const ctcPerMonth = annualCtc / 12;
-  const basic = Math.round(ctcPerMonth * 0.5);
-  const hra = Math.round(ctcPerMonth * 0.2);
-  const specialAllowance = Math.round(ctcPerMonth - basic - hra);
-  const employeePf = COMPANY.pfMonthlyCap;
-  const employerPf = COMPANY.pfMonthlyCap;
-  const professionalTax = COMPANY.professionalTaxMonthly;
-  const totalDeductions = employeePf + employerPf + professionalTax;
-  const takeHomePerMonth = ctcPerMonth - employeePf - employerPf - professionalTax;
-  return { ctcPerMonth, basic, hra, specialAllowance, employeePf, employerPf,
-           professionalTax, totalDeductions, takeHomePerMonth };
-}
+// Replace your existing calculateSalaryBreakdown function with this one.
+// Same call signature — calculateSalaryBreakdown(annualCtc) — so anywhere
+// that already calls it (e.g. inside buildPage2/buildPage3) keeps working.
+// Original field names (basic, hra, specialAllowance, employeePf, employerPf,
+// professionalTax, totalDeductions, takeHomePerMonth, ctcPerMonth) are kept;
+// new fields are added at the end for Bonus / Variable Pay / TDS.
 
+function calculateSalaryBreakdown(annualCtc) {
+  // Monthly salary = annual salary / 12
+  const ctcPerMonth = annualCtc / 12;
+
+  // Basic salary = 50% of Monthly salary
+  const basic = Math.round(ctcPerMonth * 0.5);
+
+  // HRA = 40% of Basic
+  const hra = Math.round(basic * 0.4);
+
+  // PF share formula, used for BOTH:
+  //  - employer's contribution (subtracted inside Special Allowance)
+  //  - employee's contribution (shown in the Provident Fund deduction field)
+  // if basic > 15000 -> flat 1800, else 12% of basic
+  const pfShare = basic > 15000
+    ? COMPANY.pfMonthlyCap
+    : Math.round(basic * 0.12);
+
+  const employeePf = pfShare;
+  const employerPf = pfShare;
+
+  // Special allowance = Basic - HRA - (employer PF share)
+  const specialAllowance = Math.round(basic - hra - employerPf);
+
+  // Auto-fill the PF Employee input field on the form with this value
+  const pfEmployeeInput = getElement('pfEmployee');
+  if (pfEmployeeInput) {
+    pfEmployeeInput.value = employeePf;
+  }
+
+  // Professional tax — fixed
+  const professionalTax = COMPANY.professionalTaxMonthly;
+
+  // Toggle states — Bonus / Variable Pay / Provident Fund / TDS
+  const bonusIncluded = document.querySelector('input[name="bonusRadio"]:checked')?.value === 'yes';
+  const bonusAmount = bonusIncluded ? (Number(getElement('bonusAmount').value) || 0) : 0;
+
+  const variableIncluded = document.querySelector('input[name="variablePayToggleRadio"]:checked')?.value === 'yes';
+  const variableAmount = variableIncluded ? (Number(getElement('variablePayToggleAmount').value) || 0) : 0;
+
+  const pfIncluded = document.querySelector('input[name="pfRadio"]:checked')?.value === 'yes';
+  const pfDeduction = pfIncluded ? employeePf : 0;
+
+  const tdsIncluded = document.querySelector('input[name="tdsRadio"]:checked')?.value === 'yes';
+  const tdsAmount = tdsIncluded ? (Number(getElement('tdsAmount').value) || 0) : 0;
+
+  // Gross monthly earnings: Basic + HRA + Special Allowance, plus Bonus/Variable if toggled on
+  let grossPerMonth = basic + hra + specialAllowance;
+  if (bonusIncluded) grossPerMonth += bonusAmount;
+  if (variableIncluded) grossPerMonth += variableAmount;
+
+  // Total deductions: Professional Tax always, plus PF/TDS if toggled on
+  const totalDeductions = professionalTax + pfDeduction + tdsAmount;
+
+  const takeHomePerMonth = grossPerMonth - totalDeductions;
+
+  return {
+    ctcPerMonth,
+    basic,
+    hra,
+    specialAllowance,
+    employeePf,
+    employerPf,
+    professionalTax,
+    totalDeductions,
+    takeHomePerMonth,
+    // New fields for the toggled items
+    bonusIncluded,
+    bonusAmount,
+    variableIncluded,
+    variableAmount,
+    pfIncluded,
+    pfDeduction,
+    tdsIncluded,
+    tdsAmount,
+    grossPerMonth,
+  };
+}
 /* ----------------------------------------------------------------------- *
  * FORM WIRING
  * Wrapped defensively: if any expected element is missing (e.g. an HTML/JS
