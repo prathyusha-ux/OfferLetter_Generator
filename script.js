@@ -1,7 +1,4 @@
-
-/* ----------------------------------------------------------------------- *
- * COMPANY CONSTANTS — identical on every letter
- * ---function getElement(id) {
+function getElement(id) {
   return document.getElementById(id);
 }
 
@@ -637,4 +634,3 @@ safeSetup('editBtn click listener', () => {
 safeSetup('emailBtn click listener', () => {
   getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
--------------------------------------------------------------------- */
