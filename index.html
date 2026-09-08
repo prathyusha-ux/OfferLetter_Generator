@@ -13,7 +13,7 @@
       <legend>Recipient</legend>
 
       <label for="empName">Full Name</label>
-      <input id="empName" type="text" placeholder="e.g. Ogirala Lakshmi Prathyusha">
+      <input id="empName" type="text" placeholder="Full name of the employee">
 
       <label for="doj">Date of Joining</label>
       <input id="doj" type="date">
@@ -22,19 +22,21 @@
       <input id="letterDate" type="date">
 
       <label for="jobTitle">Job Title</label>
-      <input id="jobTitle" type="text" placeholder="e.g. SOFTWARE ENGINEER L1">
+      <input id="jobTitle" type="text" placeholder="Job title of the employee">
+
 
       <label for="department">Department</label>
-      <input id="department" type="text" placeholder="e.g. Services">
+      <input id="department" type="text" placeholder="Department of the employee">
 
       <label for="roleDesc">Role Description</label>
-      <textarea id="roleDesc" rows="3" placeholder="e.g. As a Frontend Developer, you will develop responsive web applications..."></textarea>
+      <textarea id="roleDesc" rows="3" placeholder="Description of the role and responsibilities..."></textarea>
 
       <label for="workLocation">Work Location</label>
       <select id="workLocation">
         <option value="Hyderabad Corporate Office - WFH">Hyderabad Corporate Office - WFH</option>
-        <option value="Hyderabad Corporate Office">Hyderabad Corporate Office</option>
-        <option value="__custom">Other (type below)</option>
+        <option value="Hyderabad Corporate Office">Hyderabad Corporate Office-WFO</option>
+        <option value="__custom">Hyderabad Corporate Office - Hybrid
+        </option>
       </select>
       <div id="customLocationField">
         <input id="customLocation" type="text" placeholder="Custom work location">
@@ -45,7 +47,7 @@
       <legend>Compensation</legend>
 
       <label for="annualCtc">Annual CTC (₹)</label>
-      <input id="annualCtc" type="number" min="0" placeholder="e.g. 300000">
+      <input id="annualCtc" type="number" min="0" placeholder="Enter the annual CTC in rupees">
 
 
       <label for="noticePeriod">Notice Period (days)</label>
@@ -59,7 +61,7 @@
         <label for="bondYears">Bond Duration (years)</label>
         <input id="bondYears" type="number" min="1" value="1">
         <label for="bondAmount">Bond Amount (₹, whole lakhs)</label>
-        <input id="bondAmount" type="number" min="0" step="100000" placeholder="e.g. 200000">
+        <input id="bondAmount" type="number" min="0" step="100000" placeholder="Enter the bond amount in rupees">
       </div>
 
 
@@ -80,9 +82,9 @@
       </div>
       <div id="pfFields">
         <label for="pfEmployee">PF Employee Contribution (₹)</label>
-        <input id="pfEmployee" type="number" min="0" placeholder="e.g. 1800">
+        <input id="pfEmployee" type="number" min="0" placeholder="Enter the employee's PF contribution in rupees">
         <label for="pfEmployer">PF Employer Contribution (₹)</label>
-        <input id="pfEmployer" type="number" min="0" placeholder="e.g. 1800">
+        <input id="pfEmployer" type="number" min="0" placeholder="Enter the employer's PF contribution in rupees">
       </div>
 
       <label>TDS</label>
@@ -92,7 +94,7 @@
       </div>
       <div id="tdsFields">
         <label for="tdsAmount">TDS Amount (₹)</label>
-        <input id="tdsAmount" type="number" min="0" placeholder="e.g. 5000">
+        <input id="tdsAmount" type="number" min="0" placeholder="Enter the TDS amount in rupees">
       </div>
     </fieldset>
 
