@@ -73,7 +73,7 @@ function toLakhsPhrase(amount) {
 // that already calls it (e.g. inside buildPage2/buildPage3) keeps working.
 // Original field names (basic, hra, specialAllowance, employeePf, employerPf,
 // professionalTax, totalDeductions, takeHomePerMonth, ctcPerMonth) are kept;
-// new fields are added at the end for Bonus / Variable Pay / TDS.
+// new fields are added at the end for Variable Pay / TDS.
 
 function calculateSalaryBreakdown(annualCtc) {
   // Monthly salary = annual salary / 12
@@ -108,10 +108,7 @@ function calculateSalaryBreakdown(annualCtc) {
   // Professional tax — fixed
   const professionalTax = COMPANY.professionalTaxMonthly;
 
-  // Toggle states — Bonus / Variable Pay / Provident Fund / TDS
-  const bonusIncluded = document.querySelector('input[name="bonusRadio"]:checked')?.value === 'yes';
-  const bonusAmount = bonusIncluded ? (Number(getElement('bonusAmount').value) || 0) : 0;
-
+  // Toggle states — Variable Pay / Provident Fund / TDS
   const variableIncluded = document.querySelector('input[name="variablePayToggleRadio"]:checked')?.value === 'yes';
   const variableAmount = variableIncluded ? (Number(getElement('variablePayToggleAmount').value) || 0) : 0;
 
@@ -122,7 +119,7 @@ function calculateSalaryBreakdown(annualCtc) {
   const tdsAmount = tdsIncluded ? (Number(getElement('tdsAmount').value) || 0) : 0;
 
   // Gross monthly earnings used for Take Home = Basic + HRA + Special Allowance only.
-  // Bonus and Variable Pay are shown as separate informational line items in the
+  // Variable Pay is shown as a separate informational line item in the
   // table, but are intentionally NOT added into the Take Home calculation.
   const grossPerMonth = basic + hra + specialAllowance;
 
@@ -144,8 +141,6 @@ function calculateSalaryBreakdown(annualCtc) {
     totalDeductions,
     takeHomePerMonth,
     // New fields for the toggled items
-    bonusIncluded,
-    bonusAmount,
     variableIncluded,
     variableAmount,
     pfIncluded,
@@ -207,7 +202,6 @@ function readFormValues() {
     workLocation: workLocation,
     roleDesc: getElement('roleDesc').value.trim(),
     annualCtc: parseFloat(getElement('annualCtc').value) || 0,
-    variablePay: parseFloat(getElement('variablePay').value) || 0,
     noticePeriodDays: parseInt(getElement('noticePeriod').value) || 90,
     includeBond: getElement('bondToggle').checked,
     bondYears: parseInt(getElement('bondYears').value) || 1,
@@ -274,7 +268,7 @@ function buildPage2(values) {
   const noticeWords = numberToWords(values.noticePeriodDays);
   return pageWrapper(`
     <h3>Salary:</h3>
-    <p>Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum and ${formatRupees(values.variablePay)}/- variable pay and its completely depends .</p>
+    <p>Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum, as per the salary structure detailed below.</p>
     <p>Please note salary structure of the ${COMPANY.name}, may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the ${COMPANY.name}, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever</p>
 
     <h3>ANNUAL SALARY REVISION:</h3>
@@ -316,10 +310,7 @@ function buildPage3(values) {
 }
 
 function buildSalaryTableHtml(salary, values) {
-  // Bonus / Variable Pay only appear when their Yes/No toggle is set to Yes
-  const bonusRow = salary.bonusIncluded
-    ? `<tr><td>Bonus</td><td class="num"></td><td class="num">${formatRupees(salary.bonusAmount)}</td></tr>`
-    : '';
+  // Variable Pay only appears when its Yes/No toggle is set to Yes
   const variableRow = salary.variableIncluded
     ? `<tr><td>Variable Pay</td><td class="num"></td><td class="num">${formatRupees(salary.variableAmount)}</td></tr>`
     : '';
@@ -345,7 +336,6 @@ function buildSalaryTableHtml(salary, values) {
         <tr><td>House Rent Allowance(HRA)</td><td class="num">${formatRupees(salary.hra)}</td><td class="num">${formatRupees(salary.hra * 12)}</td></tr>
         <tr><td>Special Allowance</td><td class="num">${formatRupees(salary.specialAllowance)}</td><td class="num">${formatRupees(salary.specialAllowance * 12)}</td></tr>
         <tr class="subhead"><td>Total CTC</td><td class="num">${formatRupees(salary.ctcPerMonth)}</td><td class="num">${formatRupees(values.annualCtc)}</td></tr>
-        ${bonusRow}
         ${variableRow}
         <tr class="subhead"><td colspan="3">Deductions</td></tr>
         ${pfRow}
@@ -630,7 +620,6 @@ function setupRadioToggle(radioName, fieldsId) {
   });
 }
  
-safeSetup('bonus radio toggle', () => setupRadioToggle('bonusRadio', 'bonusFields'));
 safeSetup('variable pay radio toggle', () => setupRadioToggle('variablePayToggleRadio', 'variablePayToggleFields'));
 safeSetup('pf radio toggle', () => setupRadioToggle('pfRadio', 'pfFields'));
 safeSetup('tds radio toggle', () => setupRadioToggle('tdsRadio', 'tdsFields'));
