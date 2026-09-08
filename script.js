@@ -123,10 +123,8 @@ function calculateSalaryBreakdown(annualCtc) {
   // table, but are intentionally NOT added into the Take Home calculation.
   const grossPerMonth = basic + hra + specialAllowance;
 
-  // Total deductions used for Take Home = Professional Tax + PF (if toggled on) only.
-  // TDS is shown as a separate informational line item, but is intentionally NOT
-  // subtracted in the Take Home calculation.
-  const totalDeductions = professionalTax + pfDeduction;
+  // Total deductions used for Take Home = Professional Tax + PF (if toggled on) + TDS (if toggled on).
+  const totalDeductions = professionalTax + pfDeduction + tdsAmount;
 
   const takeHomePerMonth = grossPerMonth - totalDeductions;
 
