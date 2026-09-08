@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -7,29 +7,29 @@
 </head>
 <body>
   <h1>Offer Letter Generator</h1>
- 
+
   <form id="offerForm" onsubmit="return false;">
     <fieldset>
       <legend>Recipient</legend>
- 
+
       <label for="empName">Full Name</label>
       <input id="empName" type="text" placeholder="e.g. Ogirala Lakshmi Prathyusha">
- 
+
       <label for="doj">Date of Joining</label>
       <input id="doj" type="date">
- 
+
       <label for="letterDate">Letter Date (statement date)</label>
       <input id="letterDate" type="date">
- 
+
       <label for="jobTitle">Job Title</label>
       <input id="jobTitle" type="text" placeholder="e.g. SOFTWARE ENGINEER L1">
- 
+
       <label for="department">Department</label>
       <input id="department" type="text" placeholder="e.g. Services">
- 
+
       <label for="roleDesc">Role Description</label>
       <textarea id="roleDesc" rows="3" placeholder="e.g. As a Frontend Developer, you will develop responsive web applications..."></textarea>
- 
+
       <label for="workLocation">Work Location</label>
       <select id="workLocation">
         <option value="Hyderabad Corporate Office - WFH">Hyderabad Corporate Office - WFH</option>
@@ -40,19 +40,19 @@
         <input id="customLocation" type="text" placeholder="Custom work location">
       </div>
     </fieldset>
- 
+
     <fieldset>
       <legend>Compensation</legend>
- 
+
       <label for="annualCtc">Annual CTC (₹)</label>
       <input id="annualCtc" type="number" min="0" placeholder="e.g. 300000">
- 
+
       <label for="variablePay">Annual Variable Pay (₹)</label>
       <input id="variablePay" type="number" min="0" placeholder="e.g. 30000">
- 
+
       <label for="noticePeriod">Notice Period (days)</label>
       <input id="noticePeriod" type="number" min="0" value="90">
- 
+
       <div class="toggle-row">
         <input id="bondToggle" type="checkbox">
         <label for="bondToggle">Include Service Bond Clause</label>
@@ -63,7 +63,7 @@
         <label for="bondAmount">Bond Amount (₹, whole lakhs)</label>
         <input id="bondAmount" type="number" min="0" step="100000" placeholder="e.g. 200000">
       </div>
- 
+
       <label>Bonus</label>
       <div class="radio-row">
         <label class="radio-option"><input type="radio" name="bonusRadio" value="yes"> Yes</label>
@@ -73,7 +73,7 @@
         <label for="bonusAmount">Bonus Amount (₹)</label>
         <input id="bonusAmount" type="number" min="0" placeholder="e.g. 20000">
       </div>
- 
+
       <label>Variable Pay (toggle)</label>
       <div class="radio-row">
         <label class="radio-option"><input type="radio" name="variablePayToggleRadio" value="yes"> Yes</label>
@@ -83,17 +83,19 @@
         <label for="variablePayToggleAmount">Variable Pay Amount (₹)</label>
         <input id="variablePayToggleAmount" type="number" min="0" placeholder="e.g. 30000">
       </div>
- 
+
       <label>Provident Fund</label>
       <div class="radio-row">
         <label class="radio-option"><input type="radio" name="pfRadio" value="yes"> Yes</label>
         <label class="radio-option"><input type="radio" name="pfRadio" value="no" checked> No</label>
       </div>
       <div id="pfFields">
-        <label for="pfAmount">Provident Fund Amount (₹)</label>
-        <input id="pfAmount" type="number" min="0" placeholder="e.g. 18000">
+        <label for="pfEmployee">PF Employee Contribution (₹)</label>
+        <input id="pfEmployee" type="number" min="0" placeholder="e.g. 1800">
+        <label for="pfEmployer">PF Employer Contribution (₹)</label>
+        <input id="pfEmployer" type="number" min="0" placeholder="e.g. 1800">
       </div>
- 
+
       <label>TDS</label>
       <div class="radio-row">
         <label class="radio-option"><input type="radio" name="tdsRadio" value="yes"> Yes</label>
@@ -104,27 +106,25 @@
         <input id="tdsAmount" type="number" min="0" placeholder="e.g. 5000">
       </div>
     </fieldset>
- 
+
     <button id="generateBtn" type="button">Generate Offer Letter</button>
     <button id="printBtn" type="button">Download as PDF</button>
     <button id="editBtn" type="button" class="icon-btn" disabled>&#9998; Edit Letter</button>
- 
+
     <div class="email-row">
       <input id="emailInput" type="email" placeholder="Recipient's email address">
       <button id="emailBtn" type="button" class="icon-btn" disabled>&#9993; Email Offer Letter</button>
     </div>
   </form>
- 
+
   <p id="previewStatus"></p>
   <p id="letterEmpty">No letter generated yet. Fill in the form and click "Generate Offer Letter".</p>
   <p id="editHint">Editing on — click directly into the letter text to make changes, then click "Done Editing" to lock them in.</p>
- 
+
   <div id="letterOutput"></div>
- 
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
   </body>
   </html>
- 
-
