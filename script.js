@@ -1,6 +1,12 @@
 
 /* ----------------------------------------------------------------------- *
  * COMPANY CONSTANTS — identical on every letter
+ * ---function getElement(id) {
+  return document.getElementById(id);
+}
+
+/* ----------------------------------------------------------------------- *
+ * COMPANY CONSTANTS — identical on every letter
  * ----------------------------------------------------------------------- */
 const COMPANY = {
   name: 'UX INTERFACELY IT SOLUTIONS LLP',
@@ -631,3 +637,4 @@ safeSetup('editBtn click listener', () => {
 safeSetup('emailBtn click listener', () => {
   getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
+-------------------------------------------------------------------- */
