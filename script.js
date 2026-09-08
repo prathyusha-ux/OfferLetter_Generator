@@ -340,9 +340,9 @@ function buildSalaryTableHtml(salary, values) {
         <tr class="subhead"><td colspan="3">Deductions</td></tr>
         ${pfRow}
         <tr><td>Professional Tax</td><td class="num">${formatRupees(salary.professionalTax)}</td><td class="num">${formatRupees(salary.professionalTax * 12)}</td></tr>
+        ${tdsRow}
         <tr class="subhead"><td>Total Deductions</td><td class="num">${formatRupees(salary.totalDeductions)}</td><td class="num">${formatRupees(salary.totalDeductions * 12)}</td></tr>
         <tr class="total"><td>Take Home</td><td class="num">${formatRupees(salary.takeHomePerMonth)}</td><td class="num">${formatRupees(salary.takeHomePerMonth * 12)}</td></tr>
-        ${tdsRow}
       </tbody>
     </table>
     <p class="letter-foot-note">#The Indicative Performance Pay amount as per the current performance pay policy may vary depending upon the performance of individual and of the company. The management reserves the rights to amend policy at any point of time.</p>
