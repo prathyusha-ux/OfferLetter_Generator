@@ -1,4 +1,4 @@
- <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -13,7 +13,7 @@
       <legend>Recipient</legend>
 
       <label for="empName">Full Name</label>
-      <input id="empName" type="text" placeholder="e.g. Ogirala Lakshmi Prathyusha">
+      <input id="empName" type="text" placeholder="Please enter full name here">
 
       <label for="doj">Date of Joining</label>
       <input id="doj" type="date">
@@ -22,13 +22,13 @@
       <input id="letterDate" type="date">
 
       <label for="jobTitle">Job Title</label>
-      <input id="jobTitle" type="text" placeholder="e.g. SOFTWARE ENGINEER L1">
+      <input id="jobTitle" type="text" placeholder="Please enter job title here">
 
       <label for="department">Department</label>
-      <input id="department" type="text" placeholder="e.g. Services">
+      <input id="department" type="text" placeholder="Please enter department here">
 
       <label for="roleDesc">Role Description</label>
-      <textarea id="roleDesc" rows="3" placeholder="e.g. As a Frontend Developer, you will develop responsive web applications..."></textarea>
+      <textarea id="roleDesc" rows="3" placeholder="Please enter role description here"></textarea>
 
       <label for="workLocation">Work Location</label>
       <select id="workLocation">
@@ -37,7 +37,7 @@
         <option value="__custom">Other (type below)</option>
       </select>
       <div id="customLocationField">
-        <input id="customLocation" type="text" placeholder="Custom work location">
+        <input id="customLocation" type="text" placeholder="Please enter work location here">
       </div>
     </fieldset>
 
@@ -45,13 +45,10 @@
       <legend>Compensation</legend>
 
       <label for="annualCtc">Annual CTC (₹)</label>
-      <input id="annualCtc" type="number" min="0" placeholder="e.g. 300000">
-
-      <label for="variablePay">Annual Variable Pay (₹)</label>
-      <input id="variablePay" type="number" min="0" placeholder="e.g. 30000">
+      <input id="annualCtc" type="number" min="0" placeholder="Please enter annual CTC here">
 
       <label for="noticePeriod">Notice Period (days)</label>
-      <input id="noticePeriod" type="number" min="0" value="90">
+      <input id="noticePeriod" type="number" min="0" placeholder="Please enter notice period here" value="90">
 
       <div class="toggle-row">
         <input id="bondToggle" type="checkbox">
@@ -59,21 +56,19 @@
       </div>
       <div id="bondFields">
         <label for="bondYears">Bond Duration (years)</label>
-        <input id="bondYears" type="number" min="1" value="1">
+        <input id="bondYears" type="number" min="1" placeholder="Please enter bond duration here" value="1">
         <label for="bondAmount">Bond Amount (₹, whole lakhs)</label>
-        <input id="bondAmount" type="number" min="0" step="100000" placeholder="e.g. 200000">
+        <input id="bondAmount" type="number" min="0" step="100000" placeholder="Please enter bond amount here">
       </div>
 
-  
-
-      <label>Variable Pay (toggle)</label>
+      <label>Variable Pay</label>
       <div class="radio-row">
         <label class="radio-option"><input type="radio" name="variablePayToggleRadio" value="yes"> Yes</label>
         <label class="radio-option"><input type="radio" name="variablePayToggleRadio" value="no" checked> No</label>
       </div>
       <div id="variablePayToggleFields">
         <label for="variablePayToggleAmount">Variable Pay Amount (₹)</label>
-        <input id="variablePayToggleAmount" type="number" min="0" placeholder="e.g. 30000">
+        <input id="variablePayToggleAmount" type="number" min="0" placeholder="Please enter variable pay amount here">
       </div>
 
       <label>Provident Fund</label>
@@ -83,9 +78,9 @@
       </div>
       <div id="pfFields">
         <label for="pfEmployee">PF Employee Contribution (₹)</label>
-        <input id="pfEmployee" type="number" min="0" placeholder="e.g. 1800">
+        <input id="pfEmployee" type="number" min="0" placeholder="Auto-calculated" readonly>
         <label for="pfEmployer">PF Employer Contribution (₹)</label>
-        <input id="pfEmployer" type="number" min="0" placeholder="e.g. 1800">
+        <input id="pfEmployer" type="number" min="0" placeholder="Auto-calculated" readonly>
       </div>
 
       <label>TDS</label>
@@ -95,7 +90,7 @@
       </div>
       <div id="tdsFields">
         <label for="tdsAmount">TDS Amount (₹)</label>
-        <input id="tdsAmount" type="number" min="0" placeholder="e.g. 5000">
+        <input id="tdsAmount" type="number" min="0" placeholder="Please enter TDS amount here">
       </div>
     </fieldset>
 
@@ -104,7 +99,7 @@
     <button id="editBtn" type="button" class="icon-btn" disabled>&#9998; Edit Letter</button>
 
     <div class="email-row">
-      <input id="emailInput" type="email" placeholder="Recipient's email address">
+      <input id="emailInput" type="email" placeholder="Please enter recipient's email here">
       <button id="emailBtn" type="button" class="icon-btn" disabled>&#9993; Email Offer Letter</button>
     </div>
   </form>
