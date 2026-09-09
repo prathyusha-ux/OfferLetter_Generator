@@ -154,7 +154,7 @@ button:hover{
   background: #094fbb;
 }
 .btn-wide{
-  width: 60%;
+  width: 220px;
   max-width: 100%;
   padding: 10px;
   font-size: 13px;
@@ -231,16 +231,35 @@ button.icon-btn{
   flex-direction: column;
   page-break-after: always;
   break-after: page;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
+  /* Calibri is the reference doc's font; falls back to metric-compatible
+     Carlito, then to system sans-serif if neither is available. */
+  font-family: Calibri, Carlito, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.page p{
+  text-align: justify;
+  line-height: 1.4;
+  margin: 0 0 14px;
+}
+.page h3{
+  font-size: 14px;
+  font-weight: 700;
+  margin: 18px 0 6px;
+}
+.page .letter-title{
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: #1155cc;
+  letter-spacing: 0.4px;
+  margin: 0 0 22px;
 }
 .page:last-child{
   page-break-after: auto;
   break-after: auto;
 }
-.page h3{ font-size: 15px; font-weight: 700; }
-.page .letter-title{ font-size: 16px; text-align:center; font-weight:bold; text-transform:uppercase; margin:14px 0 18px; }
 .page .company-name{ font-weight: 700; font-size: 13px; color: #111; }
 .page .company-tagline{ font-size: 10px; color: #555; }
 .page .letter-footer{
@@ -263,7 +282,6 @@ button.icon-btn{
 .page .sign-line .lbl{ width:90px; font-size:12px; color:#777; }
 .page .sign-line .fill{ flex: 0 0 150px; border-bottom:1px solid #333; min-height:18px; }
 .page .stamp-img{ width: 140px; height: auto; margin-top: 8px; display: block; }
-.page p{ text-align: justify; line-height: 1.5; }
 .page-body{ flex: 1 0 auto; }
 .letterhead{ display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .logo-img{ width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; }
