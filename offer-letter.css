@@ -147,10 +147,10 @@ button:hover{
   background: #094fbb;
 }
 .btn-wide{
-  width: 100%;
-  padding: 11px;
-  font-size: 14px;
-  order: -1; /* keep the main Generate button visually first, full width */
+  width: auto;
+  padding: 9px 18px;
+  font-size: 13px;
+  order: -1; /* keep the main Generate button visually first */
 }
 
 button:disabled{
