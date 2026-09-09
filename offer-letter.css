@@ -176,7 +176,15 @@ button.icon-btn{
 #editBtn:hover{ background:#1b5e20; }
 #editBtn.active{ background:#c62828; }
 #editBtn.active:hover{ background:#a02020; }
-
+#printBtn{
+  width: 220px;   /* change this number — smaller = narrower, larger = wider */
+}
+#editBtn{
+  width:220px;
+}
+#emailBtn{
+  width:220px;
+}
 /* ---------- Status / hint text ---------- */
 
 #previewStatus{
