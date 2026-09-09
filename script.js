@@ -612,6 +612,56 @@ function setupRadioToggle(radioName, fieldsId) {
     });
   });
 }
+
+// Paste this anywhere at the top level of script.js
+// Restricts each field to the right kind of input as the user types.
+
+function restrictToAlphabets(elementId) {
+  const el = getElement(elementId);
+  if (!el) return;
+  el.addEventListener('input', () => {
+    // Letters and spaces only
+    el.value = el.value.replace(/[^A-Za-z\s]/g, '');
+  });
+}
+
+function restrictToAlphanumeric(elementId) {
+  const el = getElement(elementId);
+  if (!el) return;
+  el.addEventListener('input', () => {
+    // Letters, numbers, and spaces (for fields like Job Title: "SOFTWARE ENGINEER L1")
+    el.value = el.value.replace(/[^A-Za-z0-9\s]/g, '');
+  });
+}
+
+function restrictToNumbers(elementId) {
+  const el = getElement(elementId);
+  if (!el) return;
+  el.addEventListener('input', () => {
+    // Digits only (belt-and-suspenders on top of type="number",
+    // which some browsers/mobile keyboards don't fully enforce)
+    el.value = el.value.replace(/[^0-9]/g, '');
+  });
+}
+
+// Apply to each field
+safeSetup('input restrictions', () => {
+  restrictToAlphabets('empName');
+  restrictToAlphabets('department');
+  restrictToAlphanumeric('jobTitle');       // allows "SOFTWARE ENGINEER L1"
+  restrictToAlphabets('customLocation');
+
+  restrictToNumbers('annualCtc');
+  restrictToNumbers('variablePayToggleAmount');
+  restrictToNumbers('noticePeriod');
+  restrictToNumbers('bondYears');
+  restrictToNumbers('bondAmount');
+  restrictToNumbers('tdsAmount');
+
+  // Email field: native type="email" already restricts to valid email
+  // characters and format; checkValidity() (already used in handleEmailClick)
+  // enforces the full pattern on submit — no extra restriction needed here.
+});
  
 safeSetup('variable pay radio toggle', () => setupRadioToggle('variablePayToggleRadio', 'variablePayToggleFields'));
 safeSetup('pf radio toggle', () => setupRadioToggle('pfRadio', 'pfFields'));
