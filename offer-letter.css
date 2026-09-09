@@ -147,7 +147,7 @@ button:hover{
   background: #094fbb;
 }
 .btn-wide{
-  width: 160px;
+  width: 60%;
   max-width: 100%;
   padding: 10px;
   font-size: 13px;
