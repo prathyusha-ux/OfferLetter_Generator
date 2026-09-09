@@ -21,8 +21,8 @@ h1 {
 .form-grid{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px 20px;
-  margin-bottom: 20px;
+  gap: 28px 24px;
+  margin-bottom: 28px;
 }
 
 .field-group{
@@ -119,18 +119,19 @@ input[readonly]{
 .button-row{
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
+  margin-top: 6px;
 }
 
 button{
-  padding: 14px 20px;
+  padding: 9px 14px;
   background: #ffffff;
   color: #111111;
   border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 700;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
 }
 button:hover{
@@ -147,8 +148,8 @@ button:hover{
 }
 .btn-wide{
   width: 100%;
-  padding: 16px;
-  font-size: 16px;
+  padding: 11px;
+  font-size: 14px;
   order: -1; /* keep the main Generate button visually first, full width */
 }
 
