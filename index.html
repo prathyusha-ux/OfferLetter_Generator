@@ -13,56 +13,56 @@
 
       <div class="field-group">
         <label for="empName">Full Name</label>
-        <input id="empName" type="text" placeholder="Please enter full name here">
+        <input id="empName" type="text" placeholder="Please enter full name here" required>
       </div>
 
       <div class="field-group">
         <label for="doj">Date of Joining</label>
-        <input id="doj" type="date">
+        <input id="doj" type="date" 
+        required>
       </div>
 
       <div class="field-group">
         <label for="letterDate">Letter Date</label>
-        <input id="letterDate" type="date">
+        <input id="letterDate" type="date" required>
+
       </div>
 
       <div class="field-group">
         <label for="jobTitle">Job Title</label>
-        <input id="jobTitle" type="text" placeholder="Please enter job title here">
+        <input id="jobTitle" type="text" placeholder="Please enter job title here" required>
       </div>
 
       <div class="field-group">
         <label for="department">Department</label>
-        <input id="department" type="text" placeholder="Please enter department here">
+        <input id="department" type="text" placeholder="Please enter department here" required>
       </div>
 
       <div class="field-group span-2">
         <label for="roleDesc">Role Description</label>
-        <textarea id="roleDesc" rows="1" placeholder="Please enter role description here"></textarea>
+        <textarea id="roleDesc" rows="1" placeholder="Please enter role description here" required></textarea>
       </div>
 
       <div class="field-group">
         <label for="workLocation">Work Location</label>
-        <select id="workLocation">
+        <select id="workLocation" required>
+          <option value="">Please select a location</option>
           <option value="Hyderabad Corporate Office - WFH">Hyderabad Corporate Office - WFH</option>
           <option value="Hyderabad Corporate Office">Hyderabad Corporate Office</option>
-          <option value="__custom">Other (type below)</option>
+          <option value="Hyderabad Corporate Office-Hybrid">Hyderabad Corporate Office-Hybrid</option>
         </select>
       </div>
 
-      <div class="field-group" id="customLocationField">
-        <label for="customLocation">Custom Location</label>
-        <input id="customLocation" type="text" placeholder="Please enter work location here">
-      </div>
+      
 
       <div class="field-group">
         <label for="annualCtc">Annual CTC (₹)</label>
-        <input id="annualCtc" type="number" min="0" placeholder="Please enter annual CTC here">
+        <input id="annualCtc" type="number" min="0" placeholder="Please enter annual CTC here" required>
       </div>
 
       <div class="field-group">
         <label for="noticePeriod">Notice Period (days)</label>
-        <input id="noticePeriod" type="number" min="0" placeholder="Please enter notice period here" value="90">
+        <input id="noticePeriod" type="number" min="0" placeholder="Please enter notice period here" value="90" required>
       </div>
 
       <div class="field-group">

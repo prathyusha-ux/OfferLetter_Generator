@@ -395,6 +395,11 @@ function displayLetter(letterHtml) {
 }
 
 function handleGenerateClick() {
+  const offerForm = getElement('offerForm');
+if (!offerForm.checkValidity()) {
+  offerForm.reportValidity();
+  return;
+}
   const values = readFormValues();
   if (!formValuesAreValid(values)) return;
   const salary = calculateSalaryBreakdown(values.annualCtc);
