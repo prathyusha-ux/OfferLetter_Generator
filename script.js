@@ -653,4 +653,4 @@ safeSetup('live PF auto-calc', () => {
   document.querySelectorAll('input[name="pfRadio"]').forEach((radio) => {
     radio.addEventListener('change', recalc);
   });
-});v
+});
