@@ -403,11 +403,35 @@ function displayLetter(letterHtml) {
 }
 
 function handleGenerateClick() {
+  if (!checkRequiredFieldsInSequence()) return;
   const values = readFormValues();
   if (!formValuesAreValid(values)) return;
   const salary = calculateSalaryBreakdown(values.annualCtc);
   const letterHtml = buildLetterPages(values, salary);
   displayLetter(letterHtml);
+}
+
+// Checks required fields IN ORDER, top to bottom. Stops at the first one
+// that's empty, focuses it, and shows "Please fill this field" — so the
+// user is guided through them one at a time instead of everything
+// flagging at once.
+function checkRequiredFieldsInSequence() {
+  const requiredFieldIdsInOrder = [
+    'empName', 'doj', 'letterDate', 'jobTitle',
+    'department', 'roleDesc', 'annualCtc', 'noticePeriod',
+  ];
+  for (let i = 0; i < requiredFieldIdsInOrder.length; i++) {
+    const el = getElement(requiredFieldIdsInOrder[i]);
+    if (!el) continue;
+    if (!el.value || !el.value.trim()) {
+      el.setCustomValidity('Please fill this field');
+      el.reportValidity();
+      el.focus();
+      return false;
+    }
+    el.setCustomValidity('');
+  }
+  return true;
 }
 
 /* ----------------------------------------------------------------------- *
@@ -720,3 +744,4 @@ safeSetup('input character restrictions', () => {
   // emailInput is left to the native type="email" + existing
   // checkValidity() check already used in handleEmailClick.
 });
+
