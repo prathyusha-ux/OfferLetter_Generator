@@ -262,11 +262,14 @@ function buildPage1(values) {
   `, true);
 }
 
-function buildPage2(values) {
+function buildPage2(values, salary) {
   const noticeWords = numberToWords(values.noticePeriodDays);
+  const remunerationLine = salary && salary.variableIncluded
+    ? `Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum and ${formatRupees(salary.variableAmount)}/- variable pay and its completely depends .`
+    : `Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum.`;
   return pageWrapper(`
     <h3>Salary:</h3>
-    <p>Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum, as per the salary structure detailed below.</p>
+    <p>${remunerationLine}</p>
     <p>Please note salary structure of the ${COMPANY.name}, may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the ${COMPANY.name}, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever</p>
 
     <h3>ANNUAL SALARY REVISION:</h3>
@@ -369,7 +372,7 @@ function buildPage4(values, salary) {
 function buildLetterPages(values, salary) {
   return [
     buildPage1(values),
-    buildPage2(values),
+    buildPage2(values, salary),
     buildPage3(values),
     buildPage4(values, salary),
   ].join('');
