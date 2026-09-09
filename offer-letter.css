@@ -118,10 +118,17 @@ input[readonly]{
 
 .button-row{
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  flex-direction: column;
   align-items: center;
+  gap: 6px;
   margin-top: 6px;
+}
+
+.secondary-buttons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
 }
 
 button{
@@ -147,13 +154,12 @@ button:hover{
   background: #094fbb;
 }
 .btn-wide{
-  width: 60%;
+  width: 220px;
   max-width: 100%;
   padding: 10px;
   font-size: 13px;
   font-weight: 700;
   border-radius: 6px;
-  order: -1;
   margin-bottom: 4px;
 }
 
@@ -176,15 +182,7 @@ button.icon-btn{
 #editBtn:hover{ background:#1b5e20; }
 #editBtn.active{ background:#c62828; }
 #editBtn.active:hover{ background:#a02020; }
-#printBtn{
-  width: 160px;   /* change this number — smaller = narrower, larger = wider */
-}
-#editBtn{
-  width:160px;
-}
-#emailBtn{
-  width:160px;
-}
+
 /* ---------- Status / hint text ---------- */
 
 #previewStatus{
