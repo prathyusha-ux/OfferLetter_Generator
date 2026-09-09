@@ -303,8 +303,7 @@ function buildPage3(values) {
 
     ${bondHtml}
 
-    <p>Yours faithfully,<br>For ${COMPANY.name}</p>
-  `, false);
+   `)
 }
 
 function buildSalaryTableHtml(salary, values) {
