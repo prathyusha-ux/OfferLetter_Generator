@@ -328,7 +328,7 @@ function buildSalaryTableHtml(salary, values) {
         <tr><td>Basic</td><td class="num">${formatRupees(salary.basic)}</td><td class="num">${formatRupees(salary.basic * 12)}</td></tr>
         <tr><td>House Rent Allowance(HRA)</td><td class="num">${formatRupees(salary.hra)}</td><td class="num">${formatRupees(salary.hra * 12)}</td></tr>
         <tr><td>Special Allowance</td><td class="num">${formatRupees(salary.specialAllowance)}</td><td class="num">${formatRupees(salary.specialAllowance * 12)}</td></tr>
-        <tr class="subhead"><td>Total CTC</td><td class="num">${formatRupees(salary.ctcPerMonth)}</td><td class="num">${formatRupees(values.annualCtc)}</td></tr>
+        <tr class="subhead"><td>Gross Pay</td><td class="num">${formatRupees(salary.ctcPerMonth)}</td><td class="num">${formatRupees(values.annualCtc)}</td></tr>
         ${variableRow}
         <tr class="subhead"><td colspan="3">Deductions</td></tr>
         ${pfRow}
