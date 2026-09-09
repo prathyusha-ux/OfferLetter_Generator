@@ -654,3 +654,69 @@ safeSetup('live PF auto-calc', () => {
     radio.addEventListener('change', recalc);
   });
 });
+
+// Show "Please fill this first" if the user leaves a required field empty
+// and moves on to another field (fires on blur, not just on form submit).
+safeSetup('fill-first validation on blur', () => {
+  const requiredFieldIds = [
+    'empName', 'doj', 'letterDate', 'jobTitle',
+    'department', 'roleDesc', 'annualCtc', 'noticePeriod',
+  ];
+  requiredFieldIds.forEach((id) => {
+    const el = getElement(id);
+    if (!el) return;
+    el.addEventListener('blur', () => {
+      if (!el.value || !el.value.trim()) {
+        el.setCustomValidity('Please fill this first');
+        el.reportValidity();
+      } else {
+        el.setCustomValidity('');
+      }
+    });
+    el.addEventListener('input', () => {
+      el.setCustomValidity('');
+    });
+  });
+});
+
+// Restrict each field to the right kind of character as the user types.
+safeSetup('input character restrictions', () => {
+  function restrictToAlphabets(elementId) {
+    const el = getElement(elementId);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      el.value = el.value.replace(/[^A-Za-z\s]/g, '');
+    });
+  }
+  function restrictToAlphanumeric(elementId) {
+    const el = getElement(elementId);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      el.value = el.value.replace(/[^A-Za-z0-9\s]/g, '');
+    });
+  }
+  function restrictToNumbers(elementId) {
+    const el = getElement(elementId);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      el.value = el.value.replace(/[^0-9]/g, '');
+    });
+  }
+
+  restrictToAlphabets('empName');
+  restrictToAlphabets('department');
+  restrictToAlphabets('customLocation');
+  restrictToAlphanumeric('jobTitle'); // allows "SOFTWARE ENGINEER L1"
+
+  restrictToNumbers('annualCtc');
+  restrictToNumbers('noticePeriod');
+  restrictToNumbers('variablePayToggleAmount');
+  restrictToNumbers('tdsAmount');
+  restrictToNumbers('bondYears');
+  restrictToNumbers('bondAmount');
+
+  // roleDesc (textarea) is left free-form on purpose — descriptions need
+  // punctuation and mixed content.
+  // emailInput is left to the native type="email" + existing
+  // checkValidity() check already used in handleEmailClick.
+});
