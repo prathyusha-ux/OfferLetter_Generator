@@ -99,10 +99,14 @@ function calculateSalaryBreakdown(annualCtc) {
   // Special allowance = Basic - HRA - (employer PF share)
   const specialAllowance = Math.round(basic - hra - employerPf);
 
-  // Auto-fill the PF Employee input field on the form with this value
+  // Auto-fill both PF fields on the form with the calculated values
   const pfEmployeeInput = getElement('pfEmployee');
   if (pfEmployeeInput) {
     pfEmployeeInput.value = employeePf;
+  }
+  const pfEmployerInput = getElement('pfEmployer');
+  if (pfEmployerInput) {
+    pfEmployerInput.value = employerPf;
   }
 
   // Professional tax — fixed
@@ -633,3 +637,20 @@ safeSetup('editBtn click listener', () => {
 safeSetup('emailBtn click listener', () => {
   getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
+
+// Live PF auto-calculation: recalculates and fills the PF field(s) the
+// moment the user types an Annual CTC or changes the PF toggle, instead
+// of waiting for "Generate Offer Letter" to be clicked.
+safeSetup('live PF auto-calc', () => {
+  const recalc = () => {
+    const ctc = parseFloat(getElement('annualCtc').value) || 0;
+    calculateSalaryBreakdown(ctc);
+  };
+
+  const ctcInput = getElement('annualCtc');
+  if (ctcInput) ctcInput.addEventListener('input', recalc);
+
+  document.querySelectorAll('input[name="pfRadio"]').forEach((radio) => {
+    radio.addEventListener('change', recalc);
+  });
+});v
