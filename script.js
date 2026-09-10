@@ -404,7 +404,7 @@ function buildPage4(values, salary) {
     </div>
 
     <p style="margin-top:24px;">Regards<br><strong>${COMPANY.name}</strong></p>
-    <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">
+    <img class="stamp-img" src="signature.png" alt="Company stamp and signature">
   `, false);
 }
 
