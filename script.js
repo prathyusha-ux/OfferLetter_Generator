@@ -756,11 +756,30 @@ safeSetup('input character restrictions', () => {
       el.value = el.value.replace(/[^0-9]/g, '');
     });
   }
+  function restrictToAlphanumericStartingWithLetter(elementId) {
+  const el = getElement(elementId);
+  if (!el) return;
+  
+  el.addEventListener('input', () => {
+    let value = el.value;
+
+    if (value.length === 1) {
+      // If it's the first character, remove it if it's not a letter
+      el.value = value.replace(/[^A-Za-z]/g, '');
+    } else if (value.length > 1) {
+      // Keep the first character, and strip non-alphanumeric characters from the rest
+      const firstChar = value.charAt(0);
+      const remainingChars = value.slice(1).replace(/[^A-Za-z0-9]/g, '');
+      el.value = firstChar + remainingChars;
+    }
+  });
+}
+
 
   restrictToAlphabets('empName');
   restrictToAlphabets('department');
   restrictToAlphabets('customLocation');
-  restrictToAlphanumeric('jobTitle'); // allows "SOFTWARE ENGINEER L1"
+  restrictToAlphanumericStartingWithLetter('jobTitle');// allows "SOFTWARE ENGINEER L1"
 
   restrictToNumbers('annualCtc');
   restrictToNumbers('noticePeriod');
