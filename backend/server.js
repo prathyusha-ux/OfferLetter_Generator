@@ -138,8 +138,8 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
             <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_TITLE}</div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;"><a href="https://${COMPANY_WEBSITE}" style="color:#1a73e8;">${COMPANY_WEBSITE}</a></div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;"><strong>${COMPANY_NAME}</strong></div>
-            <div style="${TEXT_STYLE}margin:0 0 4px 0;">UX Interfacely</div>
-            <div style="${TEXT_STYLE}margin:0;">${SENDER_PHONE}</div>
+            <div style="${TEXT_STYLE}margin:0 0 4px 0;"><a href="mailto:${SENDER_EMAIL}" style="color:#1a73e8;">${SENDER_EMAIL}</a></div>
+            <div style="${TEXT_STYLE}margin:0;"><a href="tel:${SENDER_PHONE}" style="color:#1a73e8;">${SENDER_PHONE}</a></div>
           </td>
         </tr>
       </table>
