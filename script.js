@@ -558,6 +558,11 @@ async function handleEmailClick() {
   }
   const name = getElement('empName').value.trim() || 'Candidate';
   const jobTitle = getElement('jobTitle').value.trim() || 'the offered role';
+  const dojFormatted = formatDateMonthFirst(getElement('doj').value); // e.g. "Aug 3rd, 2026" — matches the PDF
+  let workLocation = getElement('workLocation').value;
+  if (workLocation === '__custom') {
+    workLocation = getElement('customLocation').value.trim();
+  }
 
   const emailBtn = getElement('emailBtn');
   emailBtn.disabled = true;
@@ -571,6 +576,8 @@ async function handleEmailClick() {
     formData.append('recipient', recipient);
     formData.append('candidateName', name);
     formData.append('jobTitle', jobTitle);
+    formData.append('doj', dojFormatted);
+    formData.append('workLocation', workLocation);
     formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
 
     const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
@@ -744,4 +751,3 @@ safeSetup('input character restrictions', () => {
   // emailInput is left to the native type="email" + existing
   // checkValidity() check already used in handleEmailClick.
 });
-
