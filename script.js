@@ -169,12 +169,20 @@ function safeSetup(label, fn) {
   }
 }
 
-const todayISO = new Date().toISOString().slice(0, 10);
+function toLocalISO(d) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+const todayISO = toLocalISO(new Date());
 
 function addDaysISO(dateStr, days) {
-  const d = new Date(dateStr + 'T00:00:00');
-  d.setDate(d.getDate() + days);
-  return d.toISOString().slice(0, 10);
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(y, m - 1, d); // constructed in local time, no UTC round-trip
+  dt.setDate(dt.getDate() + days);
+  return toLocalISO(dt);
 }
 
 safeSetup('default letterDate', () => {
