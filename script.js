@@ -56,7 +56,12 @@ const TENS = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 
 function numberToWords(n) {
   if (n < 20) return ONES[n];
   if (n < 100) return TENS[Math.floor(n / 10)] + (n % 10 ? ` ${ONES[n % 10]}` : '');
-  return String(n);
+  if (n < 1000) {
+    const hundreds = Math.floor(n / 100);
+    const remainder = n % 100;
+    return `${ONES[hundreds]} Hundred` + (remainder ? ` ${numberToWords(remainder)}` : '');
+  }
+  return String(n); // fallback for 1000+, not expected for a notice period
 }
 
 /** "2 Lakh" for 200000; falls back to a plain rupee figure otherwise */
