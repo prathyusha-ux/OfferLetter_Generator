@@ -235,7 +235,10 @@ function readFormValues() {
     workLocation: workLocation,
     roleDesc: getElement('roleDesc').value.trim(),
     annualCtc: parseFloat(getElement('annualCtc').value) || 0,
-    noticePeriodDays: parseInt(getElement('noticePeriod').value) || 90,
+    noticePeriodDays: (() => {
+  const parsed = parseInt(getElement('noticePeriod').value, 10);
+  return Number.isNaN(parsed) ? 0 : parsed;
+})(),
     includeBond: getElement('bondToggle').checked,
     bondYears: parseInt(getElement('bondYears').value) || 1,
     bondAmount: parseFloat(getElement('bondAmount').value) || 0
