@@ -764,7 +764,8 @@ safeSetup('input character restrictions', () => {
       el.value = el.value.replace(/[^0-9]/g, '');
     });
   }
-  function restrictToAlphanumericStartingWithLetter(elementId) {
+  
+function restrictToAlphanumericWithSingleSpaces(elementId) {
   const el = getElement(elementId);
   if (!el) return;
   
@@ -772,22 +773,29 @@ safeSetup('input character restrictions', () => {
     let value = el.value;
 
     if (value.length === 1) {
-      // If it's the first character, remove it if it's not a letter
+      // Must start with a letter (no leading spaces allowed)
       el.value = value.replace(/[^A-Za-z]/g, '');
     } else if (value.length > 1) {
-      // Keep the first character, and strip non-alphanumeric characters from the rest
       const firstChar = value.charAt(0);
-      const remainingChars = value.slice(1).replace(/[^A-Za-z0-9]/g, '');
+      
+      // 1. Remove all special characters, but allow letters, numbers, and spaces
+      let remainingChars = value.slice(1).replace(/[^A-Za-z0-9 ]/g, '');
+      
+      // 2. Prevent consecutive spaces (replaces 2 or more spaces with just 1 space)
+      remainingChars = remainingChars.replace(/  +/g, ' ');
+      
       el.value = firstChar + remainingChars;
     }
   });
 }
 
 
+
+
   restrictToAlphabets('empName');
   restrictToAlphabets('department');
   restrictToAlphabets('customLocation');
-  restrictToAlphanumericStartingWithLetter('jobTitle');// allows "SOFTWARE ENGINEER L1"
+  restrictToAlphanumericWithSingleSpaces('jobTitle');// allows "SOFTWARE ENGINEER L1"
 
   restrictToNumbers('annualCtc');
   restrictToNumbers('noticePeriod');
