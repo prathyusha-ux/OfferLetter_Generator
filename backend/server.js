@@ -109,7 +109,7 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
   const P_STYLE = `${TEXT_STYLE}margin:0 0 16px 0;`;
 
   const bodyHtml = `
-    <div style="${TEXT_STYLE}width:100%;max-width:700px;word-wrap:break-word;">
+    <div style="${TEXT_STYLE}width:100%;word-wrap:break-word;">
       <p style="${P_STYLE}">Hi ${name},</p>
       <p style="${P_STYLE}"><strong style="color:#1a73e8;">Congratulations</strong>! We are pleased to offer you the position of
       ${role} at ${COMPANY_NAME}, with your date of joining scheduled for ${joiningDate}.</p>
