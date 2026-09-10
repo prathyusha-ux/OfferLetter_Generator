@@ -119,7 +119,7 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
       <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;">
         <tr>
           <td style="border:1px solid #ddd;">
-            <img src="${LOGO_DATA_URI}" alt="UX Interfacely logo" style="max-width:120px;display:block;">
+            <img src="logonew.png" alt="UX Interfacely logo" style="max-width:120px;display:block;">
           </td>
           <td style="border:1px solid #ddd;">
             <div>${SENDER_NAME}</div>
