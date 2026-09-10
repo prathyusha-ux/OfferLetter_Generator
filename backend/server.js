@@ -101,38 +101,45 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
   const SENDER_EMAIL = 'hr@uxinterfacely.com';
   const SENDER_PHONE = '+91 9381460883';
 
+  // Inline styles are repeated on every element (rather than relying on the
+  // parent <div>) because many email clients — especially Outlook — don't
+  // inherit font/spacing from a parent container. Without this, the same
+  // email can look fine in one client and cramped/wrong-font in another.
+  const TEXT_STYLE = "font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#111111;";
+  const P_STYLE = `${TEXT_STYLE}margin:0 0 16px 0;`;
+
   const bodyHtml = `
-    <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#111;max-width:700px;">
-      <p>Hi ${name},</p>
-      <p><strong style="color:#1a73e8;">Congratulations</strong>! We are pleased to offer you the position of
+    <div style="${TEXT_STYLE}max-width:700px;">
+      <p style="${P_STYLE}">Hi ${name},</p>
+      <p style="${P_STYLE}"><strong style="color:#1a73e8;">Congratulations</strong>! We are pleased to offer you the position of
       ${role} at ${COMPANY_NAME}, with your date of joining scheduled for ${joiningDate}.</p>
-      <p>We are confident that your skills and experience will be a valuable addition to our team and
+      <p style="${P_STYLE}">We are confident that your skills and experience will be a valuable addition to our team and
       contribute to the growth of our organization.</p>
-      <p>You will be part of the Company's Services Department, and your roles and responsibilities may
+      <p style="${P_STYLE}">You will be part of the Company's Services Department, and your roles and responsibilities may
       evolve based on business requirements. As ${COMPANY_NAME} is a start-up company, sometimes your role
       may completely change as per the requirements of the company, and you are expected to adapt
       accordingly.</p>
-      <p>Your work location will be our ${location}.<br/>
+      <p style="${P_STYLE}">Your work location will be our ${location}.<br/>
       Your office timings will be 10:00 AM to 7:00 PM, which must be followed strictly, along with a
       1-hour lunch break. You will be working 5 days a week.</p>
-      <p>You are required to adhere to all company policies, procedures, and maintain strict
+      <p style="${P_STYLE}">You are required to adhere to all company policies, procedures, and maintain strict
       confidentiality regarding company information, including your compensation details.</p>
-      <p><strong>Kindly sign and accept the attached below offer letter and share it along with your PAN
+      <p style="${P_STYLE}"><strong>Kindly sign and accept the attached below offer letter and share it along with your PAN
       card and Aadhaar card details by replying to this same email ID.</strong></p>
-      <p>We look forward to having you onboard and wish you a successful journey with us.</p>
-      <p>Best Regards,</p>
-      <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;">
+      <p style="${P_STYLE}">We look forward to having you onboard and wish you a successful journey with us.</p>
+      <p style="${P_STYLE}">Best Regards,</p>
+      <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;${TEXT_STYLE}">
         <tr>
           <td style="border:1px solid #ddd;">
             <img src="cid:logo-image" alt="UX Interfacely logo" style="max-width:120px;display:block;">
           </td>
-          <td style="border:1px solid #ddd;">
-            <div>${SENDER_NAME}</div>
-            <div>${SENDER_TITLE}</div>
-            <div><a href="https://${COMPANY_WEBSITE}">${COMPANY_WEBSITE}</a></div>
-            <div><strong>${COMPANY_NAME}</strong></div>
-            <div>UX Interfacely</div>
-            <div>${SENDER_PHONE}</div>
+          <td style="border:1px solid #ddd;${TEXT_STYLE}">
+            <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_NAME}</div>
+            <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_TITLE}</div>
+            <div style="${TEXT_STYLE}margin:0 0 4px 0;"><a href="https://${COMPANY_WEBSITE}" style="color:#1a73e8;">${COMPANY_WEBSITE}</a></div>
+            <div style="${TEXT_STYLE}margin:0 0 4px 0;"><strong>${COMPANY_NAME}</strong></div>
+            <div style="${TEXT_STYLE}margin:0 0 4px 0;">UX Interfacely</div>
+            <div style="${TEXT_STYLE}margin:0;">${SENDER_PHONE}</div>
           </td>
         </tr>
       </table>
