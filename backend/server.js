@@ -1,4 +1,3 @@
-
 // server.js — backend API for Render
 //
 // Render runs this as a persistent web service (not a serverless function
@@ -110,7 +109,7 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
   const P_STYLE = `${TEXT_STYLE}margin:0 0 16px 0;`;
 
   const bodyHtml = `
-    <div style="${TEXT_STYLE}max-width:700px;">
+    <div style="${TEXT_STYLE}width:100%;max-width:700px;word-wrap:break-word;">
       <p style="${P_STYLE}">Hi ${name},</p>
       <p style="${P_STYLE}"><strong style="color:#1a73e8;">Congratulations</strong>! We are pleased to offer you the position of
       ${role} at ${COMPANY_NAME}, with your date of joining scheduled for ${joiningDate}.</p>
@@ -129,12 +128,12 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
       card and Aadhaar card details by replying to this same email ID.</strong></p>
       <p style="${P_STYLE}">We look forward to having you onboard and wish you a successful journey with us.</p>
       <p style="${P_STYLE}">Best Regards,</p>
-      <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;${TEXT_STYLE}">
+      <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;width:100%;max-width:480px;${TEXT_STYLE}">
         <tr>
-          <td style="border:1px solid #ddd;">
-            <img src="cid:logo-image" alt="UX Interfacely logo" style="max-width:120px;display:block;">
+          <td style="border:1px solid #ddd;width:120px;">
+            <img src="cid:logo-image" alt="UX Interfacely logo" style="max-width:100%;width:120px;height:auto;display:block;">
           </td>
-          <td style="border:1px solid #ddd;${TEXT_STYLE}">
+          <td style="border:1px solid #ddd;word-wrap:break-word;${TEXT_STYLE}">
             <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_NAME}</div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_TITLE}</div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;"><a href="https://${COMPANY_WEBSITE}" style="color:#1a73e8;">${COMPANY_WEBSITE}</a></div>
