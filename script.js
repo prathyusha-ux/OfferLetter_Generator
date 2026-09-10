@@ -171,11 +171,34 @@ function safeSetup(label, fn) {
 
 const todayISO = new Date().toISOString().slice(0, 10);
 
+function addDaysISO(dateStr, days) {
+  const d = new Date(dateStr + 'T00:00:00');
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
 safeSetup('default letterDate', () => {
-  getElement('letterDate').value = todayISO;
+  const letterDateInput = getElement('letterDate');
+  letterDateInput.min = todayISO; // no past dates selectable
+  letterDateInput.value = todayISO;
 });
 safeSetup('default doj', () => {
-  getElement('doj').value = todayISO;
+  const dojInput = getElement('doj');
+  const minDoj = addDaysISO(todayISO, 1); // must be at least the day after letterDate
+  dojInput.min = minDoj;
+  dojInput.value = minDoj;
+});
+safeSetup('letterDate change updates doj min', () => {
+  getElement('letterDate').addEventListener('change', function () {
+    const letterDateVal = getElement('letterDate').value;
+    if (!letterDateVal) return;
+    const dojInput = getElement('doj');
+    const minDoj = addDaysISO(letterDateVal, 1);
+    dojInput.min = minDoj;
+    if (dojInput.value && dojInput.value < minDoj) {
+      dojInput.value = minDoj; // bump doj forward if it's now before the new minimum
+    }
+  });
 });
 safeSetup('workLocation change listener', () => {
   getElement('workLocation').addEventListener('change', function () {

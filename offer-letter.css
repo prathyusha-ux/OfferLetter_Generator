@@ -289,7 +289,7 @@ button.icon-btn{
   gap: 14px;
   margin-bottom: 55px;
 }
-.logo-img{ width: 95px; height: 95px; object-fit: contain; flex-shrink: 0; }
+.logo-img{ width: 100px; height: 100px; object-fit: contain; flex-shrink: 0; }
 
 #letterOutput.editing .page{
   outline:2px dashed #0b63e5;
