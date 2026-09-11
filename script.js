@@ -457,7 +457,7 @@ function handleGenerateClick() {
 function checkRequiredFieldsInSequence() {
   const requiredFieldIdsInOrder = [
     'empName', 'doj', 'letterDate', 'jobTitle',
-    'department', 'roleDesc', 'annualCtc', 'noticePeriod',
+    'department', 'annualCtc', 'noticePeriod',
   ];
   for (let i = 0; i < requiredFieldIdsInOrder.length; i++) {
     const el = getElement(requiredFieldIdsInOrder[i]);
@@ -730,7 +730,7 @@ safeSetup('live PF auto-calc', () => {
 safeSetup('fill-first validation on blur', () => {
   const requiredFieldIds = [
     'empName', 'doj', 'letterDate', 'jobTitle',
-    'department', 'roleDesc', 'annualCtc', 'noticePeriod',
+    'department', 'annualCtc', 'noticePeriod',
   ];
   requiredFieldIds.forEach((id) => {
     const el = getElement(id);
@@ -773,29 +773,6 @@ safeSetup('input character restrictions', () => {
     });
   }
   
-function restrictToAlphanumericWithSingleSpaces(elementId) {
-  const el = getElement(elementId);
-  if (!el) return;
-  
-  el.addEventListener('input', () => {
-    let value = el.value;
-
-    if (value.length === 1) {
-      // Must start with a letter (no leading spaces allowed)
-      el.value = value.replace(/[^A-Za-z]/g, '');
-    } else if (value.length > 1) {
-      const firstChar = value.charAt(0);
-      
-      // 1. Remove all special characters, but allow letters, numbers, and spaces
-      let remainingChars = value.slice(1).replace(/[^A-Za-z0-9 ]/g, '');
-      
-      // 2. Prevent consecutive spaces (replaces 2 or more spaces with just 1 space)
-      remainingChars = remainingChars.replace(/  +/g, ' ');
-      
-      el.value = firstChar + remainingChars;
-    }
-  });
-}
 
 
 
@@ -803,7 +780,7 @@ function restrictToAlphanumericWithSingleSpaces(elementId) {
   restrictToAlphabets('empName');
   restrictToAlphabets('department');
   restrictToAlphabets('customLocation');
-  restrictToAlphanumericWithSingleSpaces('jobTitle');// allows "SOFTWARE ENGINEER L1"
+  // allows "SOFTWARE ENGINEER L1"
 
   restrictToNumbers('annualCtc');
   restrictToNumbers('noticePeriod');
