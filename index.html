@@ -16,6 +16,11 @@
         <input id="empName" type="text" placeholder="Please enter full name here" required>
       </div>
 
+      <div class="field-group">
+        <label for="doj">Date of Joining</label>
+        <input id="doj" type="date" 
+        required>
+      </div>
 
       <div class="field-group">
         <label for="letterDate">Letter Date</label>
@@ -24,14 +29,8 @@
       </div>
 
       <div class="field-group">
-        <label for="doj">Date of Joining</label>
-        <input id="doj" type="date" 
-        required>
-      </div>
-
-      <div class="field-group">
         <label for="jobTitle">Job Title</label>
-        <input id="jobTitle" type="text" pattern="^[A-Za-z][A-Za-z0-9]*$"  placeholder="Please enter job title here" required>
+        <input id="jobTitle" type="text" placeholder="Please enter job title here" required>
       </div>
 
       <div class="field-group">
@@ -41,7 +40,7 @@
 
       <div class="field-group span-2">
         <label for="roleDesc">Role Description</label>
-        <textarea id="roleDesc" rows="1" placeholder="Please enter role description here" ></textarea>
+        <textarea id="roleDesc" rows="1" placeholder="Please enter role description here"></textarea>
       </div>
 
       <div class="field-group">
@@ -63,7 +62,7 @@
 
       <div class="field-group">
         <label for="noticePeriod">Notice Period (days)</label>
-        <input id="noticePeriod" type="number" min="0" placeholder="Please enter notice period here" value="0" required>
+        <input id="noticePeriod" type="number" min="0" placeholder="Please enter notice period here" value="90" required>
       </div>
 
       <div class="field-group">
@@ -86,6 +85,8 @@
           <label class="radio-option"><input type="radio" name="pfRadio" value="no" checked> No</label>
         </div>
       </div>
+
+    
 
       <div class="field-group">
         <label for="tdsRadioGroup">TDS</label>
@@ -128,6 +129,7 @@
         <button id="printBtn" type="button">Download as PDF</button>
         <button id="editBtn" type="button" class="icon-btn" disabled>&#9998; Edit Letter</button>
         <button id="emailBtn" type="button" class="icon-btn" disabled>&#9993; Email Offer Letter</button>
+        <button id="saveBtn" type="button" class="icon-btn" disabled>&#128190; Save Offer Letter</button>
       </div>
     </div>
   </form>
