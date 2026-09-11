@@ -6,7 +6,7 @@ function getElement(id) {
  * COMPANY CONSTANTS — identical on every letter
  * ----------------------------------------------------------------------- */
 const COMPANY = {
-  name: 'UX INTERFACELY IT SOLUTIONS LLP',
+  name: 'UXINTERFACELY IT SOLUTIONS LLP',
   tagline: 'THE DIGITAL ENGINEERING',
   hqCity: 'Hyderabad',
   pfMonthlyCap: 1800,   // this letter deducts a flat ₹1,800 employee + ₹1,800 employer PF
@@ -386,7 +386,7 @@ function buildPage4(values, salary) {
       <div class="sign-line"><span class="lbl"><strong>Date</strong></span><span class="fill"></span></div>
     </div>
 
-    <p style="margin-top:24px;font-weight:10px;">Regards<br><strong>${COMPANY.name}</strong></p>
+    <p style="margin-top:24px;font-weight:10px;color:#111;">Regards<br><strong>${COMPANY.name}</strong></p>
     <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">
   `, false);
 }
