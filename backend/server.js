@@ -51,6 +51,7 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
+const db = require('./db');
 
 const app = express();
 const upload = multer({ limits: { fileSize: 20 * 1024 * 1024 } }); // 20MB limit
@@ -185,23 +186,14 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
       return res.status(502).json({ error: 'Failed to send email', details: resendData });
     }
 
-    if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
+    if (db.isConfigured()) {
       try {
-        await fetch(`${process.env.SUPABASE_URL}/rest/v1/offer_sends`, {
-          method: 'POST',
-          headers: {
-            'apikey': process.env.SUPABASE_SERVICE_KEY,
-            'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal',
-          },
-          body: JSON.stringify({
-            candidate_name: name,
-            job_title: role,
-            recipient_email: recipient,
-            resend_id: resendData.id || null,
-            status: 'sent',
-          }),
+        await db.logOfferSend({
+          candidateName: name,
+          jobTitle: role,
+          recipientEmail: recipient,
+          resendId: resendData.id || null,
+          status: 'sent',
         });
       } catch (logErr) {
         console.error('Supabase logging failed:', logErr);
@@ -211,6 +203,56 @@ app.post('/api/send-offer', upload.single('pdf'), async (req, res) => {
     return res.status(200).json({ success: true, id: resendData.id });
   } catch (err) {
     console.error('send-offer error:', err);
+    return res.status(500).json({ error: 'Server error', details: err.message });
+  }
+});
+
+// ---------------------------------------------------------------------
+// POST /api/save-offer — used by the "Save Offer Letter" button.
+// Uploads the PDF to Supabase Storage (bucket: offer-letters) and logs
+// a row in the offer_sends table with status 'saved'. Requires
+// SUPABASE_URL and SUPABASE_SERVICE_KEY to be set — unlike the optional
+// logging on /api/send-offer, this route can't do anything without them.
+// ---------------------------------------------------------------------
+app.post('/api/save-offer', upload.single('pdf'), async (req, res) => {
+  if (!db.isConfigured()) {
+    return res.status(503).json({ error: 'Supabase is not configured on the server (missing SUPABASE_URL / SUPABASE_SERVICE_KEY).' });
+  }
+
+  const { candidateName, jobTitle, recipientEmail } = req.body || {};
+  const pdfBuffer = req.file ? req.file.buffer : null;
+
+  if (!pdfBuffer) {
+    return res.status(400).json({ error: 'pdf file is required' });
+  }
+
+  const name = candidateName || 'Candidate';
+  const role = jobTitle || 'the offered role';
+  const safeName = name.replace(/\s+/g, '_');
+  const fileName = `${safeName}_${Date.now()}.pdf`;
+
+  try {
+    // 1. Upload the PDF to the offer-letters bucket
+    await db.uploadPdfToStorage(pdfBuffer, fileName);
+
+    // 2. Log the save in the offer_sends table
+    try {
+      await db.logOfferSend({
+        candidateName: name,
+        jobTitle: role,
+        recipientEmail: recipientEmail || null,
+        pdfPath: fileName,
+        status: 'saved',
+      });
+    } catch (logErr) {
+      console.error('Supabase table insert error:', logErr, logErr.details || '');
+      // The file itself uploaded fine even if the log row failed — still tell the frontend it saved
+      return res.status(200).json({ success: true, path: fileName, warning: 'File saved but logging the record failed' });
+    }
+
+    return res.status(200).json({ success: true, path: fileName });
+  } catch (err) {
+    console.error('save-offer error:', err, err.details || '');
     return res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
