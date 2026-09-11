@@ -6,7 +6,7 @@ function getElement(id) {
  * COMPANY CONSTANTS — identical on every letter
  * ----------------------------------------------------------------------- */
 const COMPANY = {
-  name: 'UX INTERFACELY IT SOLUTIONS LLP',
+  name: 'UXINTERFACELY IT SOLUTIONS LLP',
   tagline: 'THE DIGITAL ENGINEERING',
   hqCity: 'Hyderabad',
   pfMonthlyCap: 1800,   // this letter deducts a flat ₹1,800 employee + ₹1,800 employer PF
@@ -376,7 +376,7 @@ function buildPage4(values, salary) {
     <div class="sign-block">
       <p style="margin-bottom:14px;">Name and Signature, confirming acceptance of the above terms and conditions</p>
       <div class="sign-line"><span class="lbl"><strong>Signature</strong></span><span class="fill"></span></div>
-      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill">${values.name}</span></div>
+      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill"></span></div>
       <div class="sign-line"><span class="lbl"><strong>Date</strong></span><span class="fill"></span></div>
     </div>
 
@@ -795,30 +795,13 @@ safeSetup('input character restrictions', () => {
       el.value = el.value.replace(/[^0-9]/g, '');
     });
   }
-  function restrictToAlphanumericStartingWithLetter(elementId) {
-  const el = getElement(elementId);
-  if (!el) return;
   
-  el.addEventListener('input', () => {
-    let value = el.value;
-
-    if (value.length === 1) {
-      // If it's the first character, remove it if it's not a letter
-      el.value = value.replace(/[^A-Za-z]/g, '');
-    } else if (value.length > 1) {
-      // Keep the first character, and strip non-alphanumeric characters from the rest
-      const firstChar = value.charAt(0);
-      const remainingChars = value.slice(1).replace(/[^A-Za-z0-9]/g, '');
-      el.value = firstChar + remainingChars;
-    }
-  });
-}
 
 
   restrictToAlphabets('empName');
-  restrictToAlphabets('department');
+  
   restrictToAlphabets('customLocation');
-  restrictToAlphanumericStartingWithLetter('jobTitle');// allows "SOFTWARE ENGINEER L1"
+ // allows "SOFTWARE ENGINEER L1"
 
   restrictToNumbers('annualCtc');
   restrictToNumbers('noticePeriod');
