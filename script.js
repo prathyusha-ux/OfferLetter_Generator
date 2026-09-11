@@ -382,11 +382,11 @@ function buildPage4(values, salary) {
     <div class="sign-block">
       <p style="margin-bottom:14px;">Name and Signature, confirming acceptance of the above terms and conditions</p>
       <div class="sign-line"><span class="lbl"><strong>Signature</strong></span><span class="fill"></span></div>
-      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill">${values.name}</span></div>
+      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill"></span></div>
       <div class="sign-line"><span class="lbl"><strong>Date</strong></span><span class="fill"></span></div>
     </div>
 
-    <p style="margin-top:24px;font-weight:10px;color:#111;">Regards<br><strong>${COMPANY.name}</strong></p>
+    <p style="margin-top:24px;font-weight:15px;color:#11111;">Regards<br><strong>${COMPANY.name}</strong></p>
     <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">
   `, false);
 }
