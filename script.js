@@ -190,28 +190,11 @@ function addDaysISO(dateStr, days) {
   return toLocalISO(dt);
 }
 
-safeSetup('default letterDate', () => {
-  const letterDateInput = getElement('letterDate');
-  letterDateInput.min = todayISO; // no past dates selectable
-  letterDateInput.value = todayISO;
+  safeSetup('default letterDate', () => {
+  getElement('letterDate').value = todayISO;
 });
 safeSetup('default doj', () => {
-  const dojInput = getElement('doj');
-  const minDoj = addDaysISO(todayISO, 1); // must be at least the day after letterDate
-  dojInput.min = minDoj;
-  dojInput.value = minDoj;
-});
-safeSetup('letterDate change updates doj min', () => {
-  getElement('letterDate').addEventListener('change', function () {
-    const letterDateVal = getElement('letterDate').value;
-    if (!letterDateVal) return;
-    const dojInput = getElement('doj');
-    const minDoj = addDaysISO(letterDateVal, 1);
-    dojInput.min = minDoj;
-    if (dojInput.value && dojInput.value < minDoj) {
-      dojInput.value = minDoj; // bump doj forward if it's now before the new minimum
-    }
-  });
+  getElement('doj').value = addDaysISO(todayISO, 1);
 });
 safeSetup('workLocation change listener', () => {
   getElement('workLocation').addEventListener('change', function () {
