@@ -279,9 +279,9 @@ button.icon-btn{
 .page .salary-table tr.total td{ font-weight:bold; }
 .page .letter-foot-note{ font-size: 11px; color:#111; }
 .page .sign-line{ display:flex; gap:10px; margin-bottom:10px; }
-.page .sign-line .lbl{ width:90px; font-size:12px; color:#111; }
+.page .sign-line .lbl{ width:90px; font-size:12px; color:#111; font-weight:bold;}
 .page .sign-line .fill{ flex: 0 0 150px; border-bottom:1px solid #111; min-height:18px; }
-.page .stamp-img{ width: 140px; height: auto; margin-top: 8px; display: block; }
+.page .stamp-img{ width: 140px; height: auto; margin-top: 5px; display: block; }
 .page-body{ flex: 1 0 auto; }
 .letterhead{
   display: flex;
