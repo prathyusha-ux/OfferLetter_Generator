@@ -277,10 +277,10 @@ button.icon-btn{
 .page .salary-table td{ padding:10px 14px; border: 1px solid #333; }
 .page .salary-table tr.subhead td{ font-weight:bold; }
 .page .salary-table tr.total td{ font-weight:bold; }
-.page .letter-foot-note{ font-size: 11px; color:#777; }
+.page .letter-foot-note{ font-size: 11px; color:#111; }
 .page .sign-line{ display:flex; gap:10px; margin-bottom:10px; }
-.page .sign-line .lbl{ width:90px; font-size:12px; color:#777; }
-.page .sign-line .fill{ flex: 0 0 150px; border-bottom:1px solid #333; min-height:18px; }
+.page .sign-line .lbl{ width:90px; font-size:12px; color:#111; }
+.page .sign-line .fill{ flex: 0 0 150px; border-bottom:1px solid #111; min-height:18px; }
 .page .stamp-img{ width: 140px; height: auto; margin-top: 8px; display: block; }
 .page-body{ flex: 1 0 auto; }
 .letterhead{

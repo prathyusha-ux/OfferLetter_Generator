@@ -778,7 +778,7 @@ safeSetup('input character restrictions', () => {
 
 
   restrictToAlphabets('empName');
-  restrictToAlphabets('department');
+
   restrictToAlphabets('customLocation');
   // allows "SOFTWARE ENGINEER L1"
 
