@@ -6,8 +6,8 @@ function getElement(id) {
  * COMPANY CONSTANTS — identical on every letter
  * ----------------------------------------------------------------------- */
 const COMPANY = {
-  name: 'UXINTERFACELY IT SOLUTIONS LLP',
-  tagline: 'THE DIGITAL ENGINEERING', 
+  name: 'UX INTERFACELY IT SOLUTIONS LLP',
+  tagline: 'THE DIGITAL ENGINEERING',
   hqCity: 'Hyderabad',
   pfMonthlyCap: 1800,   // this letter deducts a flat ₹1,800 employee + ₹1,800 employer PF
   professionalTaxMonthly: 200,
@@ -190,7 +190,7 @@ function addDaysISO(dateStr, days) {
   return toLocalISO(dt);
 }
 
-  safeSetup('default letterDate', () => {
+safeSetup('default letterDate', () => {
   getElement('letterDate').value = todayISO;
 });
 safeSetup('default doj', () => {
@@ -224,9 +224,9 @@ function readFormValues() {
     roleDesc: getElement('roleDesc').value.trim(),
     annualCtc: parseFloat(getElement('annualCtc').value) || 0,
     noticePeriodDays: (() => {
-  const parsed = parseInt(getElement('noticePeriod').value, 10);
-  return Number.isNaN(parsed) ? 0 : parsed;
-})(),
+      const parsed = parseInt(getElement('noticePeriod').value, 10);
+      return Number.isNaN(parsed) ? 90 : parsed;
+    })(),
     includeBond: getElement('bondToggle').checked,
     bondYears: parseInt(getElement('bondYears').value) || 1,
     bondAmount: parseFloat(getElement('bondAmount').value) || 0
@@ -382,12 +382,12 @@ function buildPage4(values, salary) {
     <div class="sign-block">
       <p style="margin-bottom:14px;">Name and Signature, confirming acceptance of the above terms and conditions</p>
       <div class="sign-line"><span class="lbl"><strong>Signature</strong></span><span class="fill"></span></div>
-      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill"></span></div>
+      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill">${values.name}</span></div>
       <div class="sign-line"><span class="lbl"><strong>Date</strong></span><span class="fill"></span></div>
     </div>
 
     <p style="margin-top:24px;">Regards<br><strong>${COMPANY.name}</strong></p>
-    <img class="stamp-img" src="signature.png" alt="Company stamp and signature">
+    <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">
   `, false);
 }
 
@@ -422,6 +422,7 @@ function displayLetter(letterHtml) {
   exitEditMode();
   getElement('editBtn').disabled = false;
   getElement('emailBtn').disabled = false;
+  getElement('saveBtn').disabled = false;
 }
 
 function handleGenerateClick() {
@@ -623,6 +624,48 @@ async function handleEmailClick() {
   }
 }
 
+async function handleSaveClick() {
+  const name = getElement('empName').value.trim() || 'Candidate';
+  const jobTitle = getElement('jobTitle').value.trim() || 'the offered role';
+  const recipientEmail = getElement('emailInput').value.trim();
+
+  const saveBtn = getElement('saveBtn');
+  saveBtn.disabled = true;
+  const originalLabel = saveBtn.innerHTML;
+  saveBtn.innerHTML = 'Saving...';
+
+  try {
+    const pdfBlob = await buildLetterPdfBlob();
+
+    const formData = new FormData();
+    formData.append('candidateName', name);
+    formData.append('jobTitle', jobTitle);
+    if (recipientEmail) {
+      formData.append('recipientEmail', recipientEmail);
+    }
+    formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
+
+    const response = await fetch('https://offerletter-generator-1.onrender.com/api/save-offer', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to save offer letter');
+    }
+
+    alert(`Offer letter saved for ${name}.`);
+  } catch (err) {
+    console.error('Save failed:', err);
+    alert('Could not save the offer letter.\n\nDetails: ' + (err && err.message ? err.message : err));
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = originalLabel;
+  }
+}
+
 async function buildLetterPdfBlob() {
   if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
     throw new Error('The PDF library failed to load — check your internet connection and reload the page.');
@@ -690,6 +733,9 @@ safeSetup('editBtn click listener', () => {
 safeSetup('emailBtn click listener', () => {
   getElement('emailBtn').addEventListener('click', handleEmailClick);
 });
+safeSetup('saveBtn click listener', () => {
+  getElement('saveBtn').addEventListener('click', handleSaveClick);
+});
 
 // Live PF auto-calculation: recalculates and fills the PF field(s) the
 // moment the user types an Annual CTC or changes the PF toggle, instead
@@ -755,15 +801,30 @@ safeSetup('input character restrictions', () => {
       el.value = el.value.replace(/[^0-9]/g, '');
     });
   }
+  function restrictToAlphanumericStartingWithLetter(elementId) {
+  const el = getElement(elementId);
+  if (!el) return;
   
+  el.addEventListener('input', () => {
+    let value = el.value;
 
-
+    if (value.length === 1) {
+      // If it's the first character, remove it if it's not a letter
+      el.value = value.replace(/[^A-Za-z]/g, '');
+    } else if (value.length > 1) {
+      // Keep the first character, and strip non-alphanumeric characters from the rest
+      const firstChar = value.charAt(0);
+      const remainingChars = value.slice(1).replace(/[^A-Za-z0-9]/g, '');
+      el.value = firstChar + remainingChars;
+    }
+  });
+}
 
 
   restrictToAlphabets('empName');
-
+  restrictToAlphabets('department');
   restrictToAlphabets('customLocation');
-  // allows "SOFTWARE ENGINEER L1"
+  restrictToAlphanumericStartingWithLetter('jobTitle');// allows "SOFTWARE ENGINEER L1"
 
   restrictToNumbers('annualCtc');
   restrictToNumbers('noticePeriod');
