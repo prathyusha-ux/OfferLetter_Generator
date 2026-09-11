@@ -7,7 +7,7 @@ function getElement(id) {
  * ----------------------------------------------------------------------- */
 const COMPANY = {
   name: 'UXINTERFACELY IT SOLUTIONS LLP',
-  tagline: 'THE DIGITAL ENGINEERING',
+  tagline: 'THE DIGITAL ENGINEERING', 
   hqCity: 'Hyderabad',
   pfMonthlyCap: 1800,   // this letter deducts a flat ₹1,800 employee + ₹1,800 employer PF
   professionalTaxMonthly: 200,
@@ -399,7 +399,7 @@ function buildPage4(values, salary) {
     <div class="sign-block">
       <p style="margin-bottom:14px;">Name and Signature, confirming acceptance of the above terms and conditions</p>
       <div class="sign-line"><span class="lbl"><strong>Signature</strong></span><span class="fill"></span></div>
-      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill">${values.name}</span></div>
+      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill"></span></div>
       <div class="sign-line"><span class="lbl"><strong>Date</strong></span><span class="fill"></span></div>
     </div>
 
