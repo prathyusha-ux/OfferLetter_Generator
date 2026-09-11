@@ -6,7 +6,7 @@ function getElement(id) {
  * COMPANY CONSTANTS — identical on every letter
  * ----------------------------------------------------------------------- */
 const COMPANY = {
-  name: 'UXINTERFACELY IT SOLUTIONS LLP',
+  name: 'UX INTERFACELY IT SOLUTIONS LLP',
   tagline: 'THE DIGITAL ENGINEERING',
   hqCity: 'Hyderabad',
   pfMonthlyCap: 1800,   // this letter deducts a flat ₹1,800 employee + ₹1,800 employer PF
@@ -196,12 +196,6 @@ safeSetup('default letterDate', () => {
 safeSetup('default doj', () => {
   getElement('doj').value = addDaysISO(todayISO, 1);
 });
-safeSetup('workLocation change listener', () => {
-  getElement('workLocation').addEventListener('change', function () {
-    const isCustom = getElement('workLocation').value === '__custom';
-    getElement('customLocationField').classList.toggle('show', isCustom);
-  });
-});
 safeSetup('bondToggle change listener', () => {
   getElement('bondToggle').addEventListener('change', function () {
     const includeBond = getElement('bondToggle').checked;
@@ -287,7 +281,7 @@ function buildPage1(values) {
 function buildPage2(values, salary) {
   const noticeWords = numberToWords(values.noticePeriodDays);
   const remunerationLine = salary && salary.variableIncluded
-    ? `Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum and ${formatRupees(salary.variableAmount)}/- variable pay and its completely depends .`
+    ? `Your annual remuneration will be INR ${formatRupees(values.annualCtc + salary.variableAmount)}/- per annum, which includes a variable pay component of INR ${formatRupees(salary.variableAmount)}/- that is completely dependent on your performance.`
     : `Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum.`;
   return pageWrapper(`
     <h3>Salary:</h3>
@@ -382,13 +376,13 @@ function buildPage4(values, salary) {
     <div class="sign-block">
       <p style="margin-bottom:14px;">Name and Signature, confirming acceptance of the above terms and conditions</p>
       <div class="sign-line"><span class="lbl"><strong>Signature</strong></span><span class="fill"></span></div>
-      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill"></span></div>
+      <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill">${values.name}</span></div>
       <div class="sign-line"><span class="lbl"><strong>Date</strong></span><span class="fill"></span></div>
     </div>
 
     <p style="margin-top:24px;"><span style="color:#111;font-size:15px;">Regards</span><br><strong>${COMPANY.name}</strong></p>
     <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">
-  `, false);-+++
+  `, false);
 }
 
 function buildLetterPages(values, salary) {
