@@ -599,6 +599,9 @@ async function handleEmailClick() {
 
     const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
       method: 'POST',
+      headers: {
+    'x-api-key': 'uxinterfacely 01',
+  },
       body: formData,
     });
 
@@ -641,6 +644,9 @@ async function handleSaveClick() {
 
     const response = await fetch('https://offerletter-generator-1.onrender.com/api/save-offer', {
       method: 'POST',
+      headers: {
+    'x-api-key': 'uxinterfacely 01',
+  },
       body: formData,
     });
 
