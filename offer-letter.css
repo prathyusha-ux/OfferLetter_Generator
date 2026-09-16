@@ -25,6 +25,25 @@ p {
   text-align: justify;
   hyphens: auto;
 }
+.page p{
+  text-justify: inter-word;
+  hyphens: auto;
+  orphans: 3;
+  widows: 3;
+}
+
+.page-body{
+  text-align: justify;
+}
+
+.page .salary-table td,
+.page .salary-table th{
+  vertical-align: middle;
+}
+
+.page .sign-line .fill{
+  align-self: flex-end;
+}
 /* ---------- Grid layout (4 columns, matches reference) ---------- */
 
 .form-grid{
