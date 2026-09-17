@@ -258,7 +258,7 @@ button.icon-btn{
 .page p{
   text-align: justify;
   text-justify: inter-word;
-  hyphens: auto;
+  hyphens: none;
   orphans: 3;
   widows: 3;
   line-height: 1.5;
