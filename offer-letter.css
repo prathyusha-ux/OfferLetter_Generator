@@ -15,21 +15,11 @@ h1 {
   color: #111111;
   margin-bottom: 30px;
 }
-p {
-  text-align: justify;
-  text-justify: inter-word; /* smoother word spacing than default */
-}
 
-/* Optional: hyphenate to reduce gaps on narrow containers */
 p {
   text-align: justify;
-  hyphens: auto;
-}
-.page p{
   text-justify: inter-word;
   hyphens: auto;
-  orphans: 3;
-  widows: 3;
 }
 
 .page-body{
@@ -41,9 +31,6 @@ p {
   vertical-align: middle;
 }
 
-.page .sign-line .fill{
-  align-self: flex-end;
-}
 /* ---------- Grid layout (4 columns, matches reference) ---------- */
 
 .form-grid{
@@ -230,7 +217,7 @@ button.icon-btn{
   font-style:italic;
 }
 
-/* ---------- Letter output / pages (unchanged from before) ---------- */
+/* ---------- Letter output / pages ---------- */
 
 #letterOutput{
   display:none;
@@ -259,61 +246,40 @@ button.icon-btn{
   flex-direction: column;
   page-break-after: always;
   break-after: page;
-  /* Calibri is the reference doc's font; falls back to metric-compatible
-     Carlito, then to system sans-serif if neither is available. */
   font-family: Calibri, Carlito, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.4;
 }
+.page:last-child{
+  page-break-after: auto;
+  break-after: auto;
+}
+
 .page p{
   text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  orphans: 3;
+  widows: 3;
   line-height: 1.4;
   margin: 0 0 14px;
 }
+
 .page h3{
   text-align: left;
   font-size: 14px;
   font-weight: 700;
   margin: 24px 0 10px;
   letter-spacing: 0.3px;
-}
-.page h3{
   break-after: avoid;
   page-break-after: avoid;
 }
+
 .page ul{
   text-align: left;
   margin: 0 0 14px 20px;
 }
-.page .sign-block{
-  margin-top: 8px;
-}
-.page .sign-line{
-  display:flex;
-  gap:10px;
-  margin-bottom:12px;
-  align-items: baseline;
-}
-.page .sign-line .lbl{
-  width:90px;
-  font-size:14px;
-  color:#111;
-  font-weight:bold;
-}
-.page .sign-line .fill{
-  flex: 0 0 200px;
-  border-bottom:1px solid #111;
-  min-height:20px;
-}
 
-.page .sign-block,
-.page .sign-line,
-.page .sign-caption {
-  text-align: left;
-}
-.page .sign-caption{
-  margin-bottom: 14px;
-}
 .page .letter-title{
   font-size: 16px;
   font-weight: 700;
@@ -323,42 +289,11 @@ button.icon-btn{
   letter-spacing: 0.4px;
   margin: 0 0 32px;
 }
-.page .salary-table{
-  font-size: 14px;
-  width:100%;
-  border-collapse:collapse;
-  margin:14px 0;
-  border: 1px solid #333;
-}
-.page .salary-table th{
-  background:#1a1a1a;
-  color:#fff;
-  text-align:left;
-  padding:10px 14px;
-  font-weight:700;
-  border: 1px solid #333;
-}
-.page .salary-table th.num, .page .salary-table td.num{ text-align:right; }
-.page .salary-table td{ padding:9px 14px; border: 1px solid #ccc; }
-.page .salary-table tbody tr:nth-child(even){ background:#fafafa; }
-.page .salary-table tr.subhead td{
-  font-weight:bold;
-  background:#eef2f7;
-  border-top: 1px solid #999;
-}
-.page .salary-table tr.total td{
-  font-weight:bold;
-  background:#dbe7f5;
-  border-top: 2px solid #1155cc;
-  border-bottom: 2px solid #1155cc;
-  font-size: 14.5px;
-}
-.page:last-child{
-  page-break-after: auto;
-  break-after: auto;
-}
+
 .page .company-name{ font-weight: 700; font-size: 13px; color: #111; }
 .page .company-tagline{ font-size: 10px; color: #555; }
+
+/* Salary table */
 .page .salary-table{
   font-size: 14px;
   width:100%;
@@ -392,10 +327,38 @@ button.icon-btn{
 
 .page .letter-foot-note{ font-size: 11px; color:#111; }
 
+/* Sign block */
 .page .sign-block{ margin-top: 8px; }
-.page .sign-line{ display:flex; gap:10px; margin-bottom:12px; align-items: baseline; }
-.page .sign-line .lbl{ width:90px; font-size:15px; color:#111; font-weight:bold; }
-.page .sign-line .fill{ flex: 0 0 200px; border-bottom:1px solid #111; min-height:20px; }
+.page .sign-line{
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  align-items: baseline;
+}
+.page .sign-line .lbl{
+  width:90px;
+  font-size:15px;
+  color:#111;
+  font-weight:bold;
+}
+.page .sign-line .fill{
+  flex: 0 0 200px;
+  border-bottom:1px solid #111;
+  min-height:20px;
+  align-self: flex-end;
+}
+.page .sign-block,
+.page .sign-line,
+.page .sign-caption{
+  text-align: left;
+}
+.page .sign-caption{
+  margin-bottom: 14px;
+}
+
+/* Regards line (Page 4) */
+.page .regards-line{ margin-top: 24px; }
+.page .regards-label{ color:#111; font-size:15px; font-weight:bold; }
 
 .page .stamp-img{ width: 140px; height: auto; margin-top: 5px; display: block; }
 
@@ -407,7 +370,7 @@ button.icon-btn{
   gap: 14px;
   margin-bottom: 40px;
   padding-bottom: 16px;
-  /* echoes the title's blue */
+  border-bottom: 2px solid #1155cc;
 }
 .logo-img{ width: 150px; height: 150px; object-fit: contain; flex-shrink: 0; }
 
@@ -423,6 +386,7 @@ button.icon-btn{
   page-break-inside: avoid;
   break-inside: avoid;
 }
+
 .letter-footer{
   padding-top: 8px;
   margin-top: auto;
@@ -435,7 +399,7 @@ button.icon-btn{
   letter-spacing: 0.5px;
 }
 
-/* ---------- Responsive: collapse to fewer columns on smaller screens ---------- */
+/* ---------- Responsive ---------- */
 
 @media (max-width: 900px){
   .form-grid{ grid-template-columns: repeat(2, 1fr); }
