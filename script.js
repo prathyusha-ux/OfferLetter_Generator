@@ -271,7 +271,7 @@ function buildPage1(values) {
     <p>Please note that during the course of employment with us, you are able to work at any place in the world.</p>
 
     <h3>HOURS AND PLACE OF WORK:</h3>
-    <p>The You shall be based in our <strong>${values.workLocation}</strong> office but may be required to serve the Company in any place within or outside India, as required.</p>
+    <p>You shall be based in our <strong>${values.workLocation}</strong> office but may be required to serve the Company in any place within or outside India, as required.</p>
     <p>You may be required to travel nationally and internationally on the business of the Company.</p>
     <p>You will be required to work such hours as may reasonably be expected of you and as is consistent with an appointment of this nature.</p>
     <p>You may, at the discretion of the Company be transferred to any of the divisions, departments, in the Company, its subsidiaries, branches or associate companies and you shall abide by the standing orders and services rules prevailing in such place/ entity without entitlement to any extra remuneration.</p>
@@ -297,12 +297,13 @@ function buildPage2(values, salary) {
     <p>The Company reserves the right to accept/ reject the notice pay in lieu of notice period mentioned here in above.</p>
     <p>The Company reserves the absolute right to terminate your services at any time, without assigning any reason whatsoever, by giving you notice in writing or pay in lieu of notice period.</p>
     <p>The Company reserves the right, at its discretion and at any time during the notice period to announce to employees, clients, suppliers and customers of the Company, its subsidiaries or associate companies of your termination/ resignation. However, you expressly agree hereby, not to make any announcement of your termination/ resignation, unless the same has been formally intimated to you or accepted by the Company in writing, as the case may be.</p>
+   
     <h3>Leave Entitlement and Policy</h3>
     <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from 1 January and ending on 31 December of each year.</p>
     <p>The Employee shall be entitled to a total of fifteen (15) days of leave per leave year, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
     <ul>
-      <li>Casual Leave (CL): 10 days per leave year</li>
-      <li>Sick Leave (SL): 5 days per leave year</li>
+    <li>Casual Leave (CL): 10 days per leave year</li>
+    <li>Sick Leave (SL): 5 days per leave year</li>
     </ul>
     <p>Leave shall be availed with the prior approval of the reporting manager or the authorized person, except in cases of emergency or sudden illness, where the Employee shall inform the Company at the earliest possible opportunity.</p>
     <p>Employees joining during the course of a leave year shall be eligible for leave on a pro-rata basis, as applicable under the Company's Leave Policy.</p>
