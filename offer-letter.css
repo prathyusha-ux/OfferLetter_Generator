@@ -407,7 +407,7 @@ button.icon-btn{
   gap: 14px;
   margin-bottom: 40px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #1155cc; /* echoes the title's blue */
+  /* echoes the title's blue */
 }
 .logo-img{ width: 150px; height: 150px; object-fit: contain; flex-shrink: 0; }
 
