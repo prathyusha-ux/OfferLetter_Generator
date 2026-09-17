@@ -276,6 +276,7 @@ function buildPage1(values) {
     <p>You will be required to work such hours as may reasonably be expected of you and as is consistent with an appointment of this nature.</p>
     <p>You may, at the discretion of the Company be transferred to any of the divisions, departments, in the Company, its subsidiaries, branches or associate companies and you shall abide by the standing orders and services rules prevailing in such place/ entity without entitlement to any extra remuneration.</p>
   `, true);
+   return pageWrapper(`...`, true, 1, 4);
 }
 
 function buildPage2(values, salary) {
@@ -313,6 +314,7 @@ function buildPage2(values, salary) {
     
     
 `, false);
+   return pageWrapper(`...`, false, 2,4);
 }
 
 function buildPage3(values) {
@@ -339,6 +341,7 @@ function buildPage3(values) {
 
     
   `, false);
+   return pageWrapper(`...`, false, 3, 4);
 }
 
 function buildSalaryTableHtml(salary, values) {
@@ -398,6 +401,7 @@ function buildPage4(values, salary) {
     <p style="margin-top:24px;"><span style="color:#111;font-size:15px;font-weight:bold;">Regards</span><br><strong>${COMPANY.name}</strong></p>
     <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">
   `, false);
+   return pageWrapper(`...`, false, 4, 4);
 }
 
 function buildLetterPages(values, salary) {
@@ -816,7 +820,22 @@ safeSetup('input character restrictions', () => {
       el.value = el.value.replace(/[^0-9]/g, '');
     });
   }
-  
+  function pageFooterHtml(pageNumber, totalPages) {
+  return `
+    <div class="letter-footer">
+      <span class="page-number">Page ${pageNumber} of ${totalPages}</span>
+    </div>
+  `;
+}
+
+function pageWrapper(innerHtml, isFirstPage, pageNumber, totalPages) {
+  const letterhead = isFirstPage ? `
+    <div class="letterhead">
+    <img class="logo-img" src="logonew.png" alt="Logo" />
+    </div>
+  ` : '';
+  return `<div class="page">${letterhead}<div class="page-body">${innerHtml}</div>${pageFooterHtml(pageNumber, totalPages)}</div>`;
+}
 
 
   restrictToAlphabets('empName');
