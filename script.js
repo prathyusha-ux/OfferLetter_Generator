@@ -392,7 +392,7 @@ function buildPage4(values, salary) {
     ${buildSalaryTableHtml(salary, values)}
 
     <div class="sign-block">
-      <p style="margin-bottom:14px;">Name and Signature, confirming acceptance of the above terms and conditions</p>
+      <p style="sign-caption">Name and Signature, confirming acceptance of the above terms and conditions</p>
       <div class="sign-line"><span class="lbl"><strong>Signature</strong></span><span class="fill"></span></div>
       <div class="sign-line"><span class="lbl"><strong>Name</strong></span><span class="fill"></span></div>
       <div class="sign-line"><span class="lbl"><strong>Date</strong></span><span class="fill"></span></div>
