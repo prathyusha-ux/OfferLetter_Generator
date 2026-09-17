@@ -279,10 +279,33 @@ button.icon-btn{
   padding-bottom: 4px;
   border-bottom: 1px solid #ccc; /* subtle section divider — reads more "formal document" */
 }
-
+.page h3{
+  break-after: avoid;
+  page-break-after: avoid;
+}
 .page ul{
   text-align: left;
   margin: 0 0 14px 20px;
+}
+.page .sign-block{
+  margin-top: 8px;
+}
+.page .sign-line{
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  align-items: baseline;
+}
+.page .sign-line .lbl{
+  width:90px;
+  font-size:14px;
+  color:#111;
+  font-weight:bold;
+}
+.page .sign-line .fill{
+  flex: 0 0 200px;
+  border-bottom:1px solid #111;
+  min-height:20px;
 }
 
 .page .sign-block,
@@ -301,6 +324,36 @@ button.icon-btn{
   color: #1155cc;
   letter-spacing: 0.4px;
   margin: 0 0 32px;
+}
+.page .salary-table{
+  font-size: 14px;
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  border: 1px solid #333;
+}
+.page .salary-table th{
+  background:#1a1a1a;
+  color:#fff;
+  text-align:left;
+  padding:10px 14px;
+  font-weight:700;
+  border: 1px solid #333;
+}
+.page .salary-table th.num, .page .salary-table td.num{ text-align:right; }
+.page .salary-table td{ padding:9px 14px; border: 1px solid #ccc; }
+.page .salary-table tbody tr:nth-child(even){ background:#fafafa; }
+.page .salary-table tr.subhead td{
+  font-weight:bold;
+  background:#eef2f7;
+  border-top: 1px solid #999;
+}
+.page .salary-table tr.total td{
+  font-weight:bold;
+  background:#dbe7f5;
+  border-top: 2px solid #1155cc;
+  border-bottom: 2px solid #1155cc;
+  font-size: 14.5px;
 }
 .page:last-child{
   page-break-after: auto;
@@ -356,7 +409,7 @@ button.icon-btn{
   gap: 14px;
   margin-bottom: 40px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #1155cc;
+  border-bottom: 2px solid #1155cc; /* echoes the title's blue */
 }
 .logo-img{ width: 150px; height: 150px; object-fit: contain; flex-shrink: 0; }
 
@@ -371,6 +424,18 @@ button.icon-btn{
 .salary-table tr, .letter-sheet h3, .sign-block, .sign-line{
   page-break-inside: avoid;
   break-inside: avoid;
+}
+.letter-footer{
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+.page-number{
+  font-size: 10px;
+  color: #666;
+  letter-spacing: 0.5px;
 }
 
 /* ---------- Responsive: collapse to fewer columns on smaller screens ---------- */
