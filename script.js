@@ -266,7 +266,7 @@ function buildPage1(values) {
     <p><strong>${COMPANY.name}</strong> is pleased to offer you appointment as <strong>${values.jobTitle}</strong>. We trust that your knowledge, skills and experience will be among our most valuable assets.</p>
 
     <h3>Job Title:</h3>
-    <p>The title of the job that you are employed to do is: <strong>${values.jobTitle}</strong>, This position will be in the Company's ${values.department} department.${roleLine}</p>
+    <p>The title of the job that you are employed to do is: <strong>${values.jobTitle}</strong>, This position will be in the Company's <strong>${values.department}</strong> department.${roleLine}</p>
     <p><strong>${COMPANY.name}</strong> may amend your duties from time to time, and in addition to your normal duties you may from time to time be required to undertake additional or other duties as necessary to meet the needs of the business. This may involve change in department also.</p>
     <p>Please note that during the course of employment with us, you are able to work at any place in the world.</p>
 
@@ -281,7 +281,7 @@ function buildPage1(values) {
 function buildPage2(values, salary) {
   const noticeWords = numberToWords(values.noticePeriodDays);
   const remunerationLine = salary && salary.variableIncluded
-    ? `Your annual remuneration will be INR ${formatRupees(values.annualCtc + salary.variableAmount)}/- per annum, which includes a variable pay component of INR ${formatRupees(salary.variableAmount)}/- that is completely dependent on your performance.`
+    ? `Your annual remuneration will be <strong>INR ${formatRupees(values.annualCtc + salary.variableAmount)}/- </strong> per annum, which includes a variable pay component of <strong>INR ${formatRupees(salary.variableAmount)}/-</strong> that is completely dependent on your performance.`
     : `Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum.`;
   return pageWrapper(`
     <h3>SALARY:</h3>
@@ -302,8 +302,8 @@ function buildPage2(values, salary) {
     <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from 1 January and ending on 31 December of each year.</p>
     <p>The Employee shall be entitled to a total of fifteen (15) days of leave per leave year, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
     <ul>
-    <li>Casual Leave (CL): 10 days per leave year</li>
-    <li>Sick Leave (SL): 5 days per leave year</li>
+    <strong><li>Casual Leave (CL): 10 days per leave year</li></strong>
+    <strong><li>Sick Leave (SL): 5 days per leave year</li></strong>
     </ul>
     <p>Leave shall be availed with the prior approval of the reporting manager or the authorized person, except in cases of emergency or sudden illness, where the Employee shall inform the Company at the earliest possible opportunity.</p>
     <p>Employees joining during the course of a leave year shall be eligible for leave on a pro-rata basis, as applicable under the Company's Leave Policy.</p>
