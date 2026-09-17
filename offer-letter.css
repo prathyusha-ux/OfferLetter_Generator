@@ -271,9 +271,27 @@ button.icon-btn{
   margin: 0 0 14px;
 }
 .page h3{
+  text-align: left;
   font-size: 14px;
   font-weight: 700;
-  margin: 22px 0 10px;
+  margin: 24px 0 10px;
+  letter-spacing: 0.3px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ccc; /* subtle section divider — reads more "formal document" */
+}
+
+.page ul{
+  text-align: left;
+  margin: 0 0 14px 20px;
+}
+
+.page .sign-block,
+.page .sign-line,
+.page .sign-caption {
+  text-align: left;
+}
+.page .sign-caption{
+  margin-bottom: 14px;
 }
 .page .letter-title{
   font-size: 16px;
@@ -290,27 +308,57 @@ button.icon-btn{
 }
 .page .company-name{ font-weight: 700; font-size: 13px; color: #111; }
 .page .company-tagline{ font-size: 10px; color: #555; }
-
-.page .salary-table{ font-size: 14px; width:100%; border-collapse:collapse; margin:14px 0; border: 1px solid #333; }
-.page .salary-table th{ background:#d9d9d9; color:#111; text-align:left; padding:10px 14px; font-weight:700; border: 1px solid #333; }
+.page .salary-table{
+  font-size: 14px;
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  border: 1px solid #333;
+}
+.page .salary-table th{
+  background:#1a1a1a;
+  color:#fff;
+  text-align:left;
+  padding:10px 14px;
+  font-weight:700;
+  border: 1px solid #333;
+}
 .page .salary-table th.num, .page .salary-table td.num{ text-align:right; }
-.page .salary-table td{ padding:10px 14px; border: 1px solid #333; }
-.page .salary-table tr.subhead td{ font-weight:bold; }
-.page .salary-table tr.total td{ font-weight:bold; }
+.page .salary-table td{ padding:9px 14px; border: 1px solid #ccc; }
+.page .salary-table tbody tr:nth-child(even){ background:#fafafa; }
+.page .salary-table tr.subhead td{
+  font-weight:bold;
+  background:#eef2f7;
+  border-top: 1px solid #999;
+}
+.page .salary-table tr.total td{
+  font-weight:bold;
+  background:#dbe7f5;
+  border-top: 2px solid #1155cc;
+  border-bottom: 2px solid #1155cc;
+  font-size: 14.5px;
+}
+
 .page .letter-foot-note{ font-size: 11px; color:#111; }
-.page .sign-block{ margin-top: -15px; }
-.page .sign-line{ display:flex; gap:10px; margin-bottom:10px; }
-.page .sign-line .lbl{ width:90px; font-size:15px; color:#111; font-weight:bold;}
-.page .sign-line .fill{ flex: 0 0 150px; border-bottom:1px solid #111; min-height:18px; }
+
+.page .sign-block{ margin-top: 8px; }
+.page .sign-line{ display:flex; gap:10px; margin-bottom:12px; align-items: baseline; }
+.page .sign-line .lbl{ width:90px; font-size:15px; color:#111; font-weight:bold; }
+.page .sign-line .fill{ flex: 0 0 200px; border-bottom:1px solid #111; min-height:20px; }
+
 .page .stamp-img{ width: 140px; height: auto; margin-top: 5px; display: block; }
+
 .page-body{ flex: 1 0 auto; }
+
 .letterhead{
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 55px;
+  margin-bottom: 40px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #1155cc;
 }
-.logo-img{ width: 150x; height: 150px; object-fit: contain; flex-shrink: 0; }
+.logo-img{ width: 150px; height: 150px; object-fit: contain; flex-shrink: 0; }
 
 #letterOutput.editing .page{
   outline:2px dashed #0b63e5;
