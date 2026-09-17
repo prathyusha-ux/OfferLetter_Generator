@@ -236,8 +236,12 @@ function pageWrapper(innerHtml, isFirstPage, pageNumber, totalPages) {
   return `<div class="page">${letterhead}<div class="page-body">${innerHtml}</div>${pageFooterHtml(pageNumber, totalPages)}</div>`;
 }
 
-function buildPage1(values) {
+function buildPage1(values, salary) {
   const roleLine = values.roleDesc ? ` ${values.roleDesc}` : '';
+  const remunerationLine = salary && salary.variableIncluded
+    ? `Your annual remuneration will be <strong>INR ${formatRupees(values.annualCtc + salary.variableAmount)}/-</strong> per annum, which includes a variable pay component of <strong>INR ${formatRupees(salary.variableAmount)}/-</strong> that is completely dependent on your performance.`
+    : `Your annual remuneration will be <strong>INR ${formatRupees(values.annualCtc)}/-</strong> per annum.`;
+
   return pageWrapper(`
     <div class="letter-title">OFFER LETTER</div>
     <p><strong>Dear ${values.name}</strong>,</p>
@@ -255,20 +259,17 @@ function buildPage1(values) {
     <p>You may be required to travel nationally and internationally on the business of the Company.</p>
     <p>You will be required to work such hours as may reasonably be expected of you and as is consistent with an appointment of this nature.</p>
     <p>You may, at the discretion of the Company, be transferred to any of the divisions, departments, in the Company, its subsidiaries, branches or associate companies and you shall abide by the standing orders and services rules prevailing in such place/entity without entitlement to any extra remuneration.</p>
+
     <h3>SALARY:</h3>
     <p>${remunerationLine}</p>
     <p>Please note the salary structure of the Company may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the Company, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever.</p>
-`, true, 1, 4);
+  `, true, 1, 4);
 }
 
 function buildPage2(values, salary) {
   const noticeWords = numberToWords(values.noticePeriodDays);
-  const remunerationLine = salary && salary.variableIncluded
-    ? `Your annual remuneration will be <strong>INR ${formatRupees(values.annualCtc + salary.variableAmount)}/-</strong> per annum, which includes a variable pay component of <strong>INR ${formatRupees(salary.variableAmount)}/-</strong> that is completely dependent on your performance.`
-    : `Your annual remuneration will be <strong>INR ${formatRupees(values.annualCtc)}/-</strong> per annum.`;
 
   return pageWrapper(`
-  
     <h3>ANNUAL SALARY REVISION:</h3>
     <p>We follow an April to March performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
     <p>Employees who have joined the organization on or before October 1 in the current calendar year, may be eligible for a proportionate salary review during April of next calendar year. The increment, if any, is dependent on various factors including performance of the employee and would be proportionate to the number of months of service rendered by the employee. Those joining after 1st October will not be eligible for the same.</p>
@@ -292,7 +293,6 @@ function buildPage2(values, salary) {
     <p>The Company reserves the right to amend or modify the Leave Policy from time to time in accordance with business requirements and applicable laws.</p>
   `, false, 2, 4);
 }
-
 function buildPage3(values) {
   const bondYearWord = values.bondYears === 1 ? 'year' : 'years';
   const bondHtml = values.includeBond ? `
@@ -375,13 +375,12 @@ function buildPage4(values, salary) {
 
 function buildLetterPages(values, salary) {
   return [
-    buildPage1(values),
+    buildPage1(values, salary),
     buildPage2(values, salary),
     buildPage3(values),
     buildPage4(values, salary),
   ].join('');
 }
-
 /* ----------------------------------------------------------------------- *
  * GENERATE / DISPLAY
  * ----------------------------------------------------------------------- */
