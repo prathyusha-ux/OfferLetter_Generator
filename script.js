@@ -284,7 +284,7 @@ function buildPage2(values, salary) {
     <p>The Company reserves the absolute right to terminate your services at any time, without assigning any reason whatsoever, by giving you notice in writing or pay in lieu of notice period.</p>
     <p>The Company reserves the right, at its discretion and at any time during the notice period, to announce to employees, clients, suppliers and customers of the Company, its subsidiaries or associate companies, your termination/resignation. However, you expressly agree hereby not to make any announcement of your termination/resignation, unless the same has been formally intimated to you or accepted by the Company in writing, as the case may be.</p>
 
-    <h3>LEAVE ENTITLEMENT AND POLICY</h3>
+    <h3>LEAVE ENTITLEMENT AND POLICY:</h3>
     <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from 1 January and ending on 31 December of each year.</p>
     <p>The Employee shall be entitled to a total of fifteen (15) days of leave per leave year, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
     <ul>
@@ -316,7 +316,7 @@ function buildPage3(values) {
     <h3>COMPANY POLICIES AND PROCEDURE:</h3>
     <p>You shall be required at all times to comply with the Company's rules, policies and procedures as may be amended by the Company from time to time, and the same are to be considered as part of the terms and conditions of this Employment Letter. You are also required to comply generally with the standards reasonably expected of an appointment of your nature.</p>
 
-    <h3>ADDITIONAL DUTIES</h3>
+    <h3>ADDITIONAL DUTIES:</h3>
     <p>You agree and consent that the Company may require you (without additional remuneration) to carry out different or additional duties (including holding any office in the Company, its subsidiaries and associate companies) consistent with your status and position in the Company.</p>
 
     ${bondHtml}
