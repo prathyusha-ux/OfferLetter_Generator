@@ -387,7 +387,6 @@ button.icon-btn{
   gap: 14px;
   margin-bottom: 24px;
   padding-bottom: 14px;
-  border-bottom: 2px solid #1155cc;
 }
 .logo-img{ width: 150px; height: 150px; object-fit: contain; flex-shrink: 0; }
 
