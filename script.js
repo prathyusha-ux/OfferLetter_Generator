@@ -260,8 +260,8 @@ function buildPage1(values) {
   const roleLine = values.roleDesc ? ` ${values.roleDesc}` : '';
   return pageWrapper(`
     <div class="letter-title">OFFER LETTER</div>
-    <p>Dear <strong>${values.name}</strong>,</p>
-    <p><strong>Date of Joining:</strong> ${formatDateMonthFirst(values.doj)}</p>
+    <p><strong>Dear ${values.name}</strong>,</p>
+    <p><strong>Date of Joining:</strong> <strong>${formatDateMonthFirst(values.doj)}</strong></p>
     <p>This statement dated <strong>${formatDateDayFirst(values.letterDate)}</strong> sets out details of the main terms of your employment with <strong>${COMPANY.name} ${COMPANY.hqCity}.</strong></p>
     <p><strong>${COMPANY.name}</strong> is pleased to offer you appointment as <strong>${values.jobTitle}</strong>. We trust that your knowledge, skills and experience will be among our most valuable assets.</p>
 
@@ -284,9 +284,9 @@ function buildPage2(values, salary) {
     ? `Your annual remuneration will be INR ${formatRupees(values.annualCtc + salary.variableAmount)}/- per annum, which includes a variable pay component of INR ${formatRupees(salary.variableAmount)}/- that is completely dependent on your performance.`
     : `Your annual remuneration will be INR ${formatRupees(values.annualCtc)}/- per annum.`;
   return pageWrapper(`
-    <h3>Salary:</h3>
+    <h3>SALARY:</h3>
     <p>${remunerationLine}</p>
-    <p>Please note salary structure of the ${COMPANY.name}, may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the ${COMPANY.name}, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever</p>
+    <p>Please note salary structure of the <strong>${COMPANY.name}</strong>, may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the <strong>${COMPANY.name}</strong>, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever</p>
 
     <h3>ANNUAL SALARY REVISION:</h3>
     <p>We follow an April to March performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
