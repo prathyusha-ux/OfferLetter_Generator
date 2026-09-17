@@ -311,30 +311,27 @@ button.icon-btn{
   width:100%;
   border-collapse:collapse;
   margin:16px 0;
-  border: 1px solid #333;
+  border: 1px solid #000;
 }
 .page .salary-table th{
-  background:#1a1a1a;
-  color:#fff;
+  background:#e6e6e6;
+  color:#000;
   text-align:left;
   padding:10px 14px;
   font-weight:700;
-  border: 1px solid #333;
+  border: 1px solid #000;
 }
 .page .salary-table th.num, .page .salary-table td.num{ text-align:right; }
-.page .salary-table td{ padding:9px 14px; border: 1px solid #ccc; }
-.page .salary-table tbody tr:nth-child(even){ background:#fafafa; }
+.page .salary-table td{ padding:9px 14px; border: 1px solid #000; }
 .page .salary-table tr.subhead td{
   font-weight:bold;
-  background:#eef2f7;
-  border-top: 1px solid #999;
+  background:#fff;
+  border: 1px solid #000;
 }
 .page .salary-table tr.total td{
   font-weight:bold;
-  background:#dbe7f5;
-  border-top: 2px solid #1155cc;
-  border-bottom: 2px solid #1155cc;
-  font-size: 14.5px;
+  background:#fff;
+  border: 1px solid #000;
 }
 
 .page .letter-foot-note{
