@@ -298,7 +298,7 @@ function buildPage2(values, salary) {
     <p>The Company reserves the absolute right to terminate your services at any time, without assigning any reason whatsoever, by giving you notice in writing or pay in lieu of notice period.</p>
     <p>The Company reserves the right, at its discretion and at any time during the notice period to announce to employees, clients, suppliers and customers of the Company, its subsidiaries or associate companies of your termination/ resignation. However, you expressly agree hereby, not to make any announcement of your termination/ resignation, unless the same has been formally intimated to you or accepted by the Company in writing, as the case may be.</p>
    
-    <h3>Leave Entitlement and Policy</h3>
+    <h3>LEAVE ENTITLEMENT AND POLICY</h3>
     <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from 1 January and ending on 31 December of each year.</p>
     <p>The Employee shall be entitled to a total of fifteen (15) days of leave per leave year, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
     <ul>
@@ -312,7 +312,7 @@ function buildPage2(values, salary) {
 
     
     
-`,false);
+`, false);
 }
 
 function buildPage3(values) {
