@@ -255,7 +255,10 @@ function buildPage1(values) {
     <p>You may be required to travel nationally and internationally on the business of the Company.</p>
     <p>You will be required to work such hours as may reasonably be expected of you and as is consistent with an appointment of this nature.</p>
     <p>You may, at the discretion of the Company, be transferred to any of the divisions, departments, in the Company, its subsidiaries, branches or associate companies and you shall abide by the standing orders and services rules prevailing in such place/entity without entitlement to any extra remuneration.</p>
-  `, true, 1, 4);
+    <h3>SALARY:</h3>
+    <p>${remunerationLine}</p>
+    <p>Please note the salary structure of the Company may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the Company, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever.</p>
+`, true, 1, 4);
 }
 
 function buildPage2(values, salary) {
@@ -265,10 +268,7 @@ function buildPage2(values, salary) {
     : `Your annual remuneration will be <strong>INR ${formatRupees(values.annualCtc)}/-</strong> per annum.`;
 
   return pageWrapper(`
-    <h3>SALARY:</h3>
-    <p>${remunerationLine}</p>
-    <p>Please note the salary structure of the Company may be altered or modified at any time without prior notice. Your remuneration package is strictly confidential between you and the Company, and should not be discussed with anyone nor divulged to anyone in any manner whatsoever.</p>
-
+  
     <h3>ANNUAL SALARY REVISION:</h3>
     <p>We follow an April to March performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
     <p>Employees who have joined the organization on or before October 1 in the current calendar year, may be eligible for a proportionate salary review during April of next calendar year. The increment, if any, is dependent on various factors including performance of the employee and would be proportionate to the number of months of service rendered by the employee. Those joining after 1st October will not be eligible for the same.</p>
