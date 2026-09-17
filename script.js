@@ -438,8 +438,19 @@ function checkRequiredFieldsInSequence() {
 
 /* ----------------------------------------------------------------------- *
  * PDF EXPORT
+ * ----------------------------------------------------------------------- *
+ * FIX: previously RENDER_SCALE = 1 and canvas.toDataURL('image/jpeg', 0.7)
+ * produced a low-resolution, lossy-compressed raster image of each page,
+ * which looked blurry both in the downloaded PDF and — even more noticeably
+ * after Gmail/Resend re-processes the attachment — in the emailed PDF.
+ *
+ * RENDER_SCALE = 3 renders each page at ~3x pixel density (roughly matching
+ * print resolution) and we now export as PNG (lossless) instead of a
+ * compressed JPEG. File size goes up a bit, but text and the logo/stamp
+ * images come out sharp instead of fuzzy.
  * ----------------------------------------------------------------------- */
 const PX_TO_MM = 25.4 / 96;
+const RENDER_SCALE = 3;
 
 async function handlePrintClick() {
   const letterHasBeenGenerated = getElement('letterOutput').classList.contains('show');
@@ -464,7 +475,6 @@ async function handlePrintClick() {
   printButton.disabled = true;
   printButton.textContent = 'Preparing PDF...';
 
-  const RENDER_SCALE = 1;
   const { jsPDF } = window.jspdf;
   let pdf = null;
 
@@ -483,7 +493,7 @@ async function handlePrintClick() {
 
       const widthMm = (canvas.width / RENDER_SCALE) * PX_TO_MM;
       const heightMm = (canvas.height / RENDER_SCALE) * PX_TO_MM;
-      const imgData = canvas.toDataURL('image/png', 0.7);
+      const imgData = canvas.toDataURL('image/png');
 
       if (!pdf) {
         pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [widthMm, heightMm] });
@@ -644,7 +654,6 @@ async function buildLetterPdfBlob() {
   if (pageEls.length === 0) {
     throw new Error('Nothing to export — generate the letter first.');
   }
-  const RENDER_SCALE = 1;
   const { jsPDF } = window.jspdf;
   let pdf = null;
   for (let i = 0; i < pageEls.length; i++) {
@@ -660,13 +669,13 @@ async function buildLetterPdfBlob() {
     });
     const widthMm = (canvas.width / RENDER_SCALE) * PX_TO_MM;
     const heightMm = (canvas.height / RENDER_SCALE) * PX_TO_MM;
-    const imgData = canvas.toDataURL('image/jpeg', 0.7);
+    const imgData = canvas.toDataURL('image/png');
     if (!pdf) {
       pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [widthMm, heightMm] });
-      pdf.addImage(imgData, 'JPEG', 0, 0, widthMm, heightMm);
+      pdf.addImage(imgData, 'PNG', 0, 0, widthMm, heightMm);
     } else {
       pdf.addPage([widthMm, heightMm], 'portrait');
-      pdf.addImage(imgData, 'JPEG', 0, 0, widthMm, heightMm);
+      pdf.addImage(imgData, 'PNG', 0, 0, widthMm, heightMm);
     }
   }
   return pdf.output('blob');
