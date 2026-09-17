@@ -310,14 +310,7 @@ function buildPage2(values, salary) {
     <p>The carry-forward, lapse, or encashment of unused leave shall be governed by the Company's prevailing policies and applicable statutory requirements.</p>
     <p>The Company reserves the right to amend or modify the Leave Policy from time to time in accordance with business requirements and applicable laws.</p>
 
-    <h3>PERFORMANCE BASED VARIABLE BONUS/ INCENTIVE:</h3>
-    <p>You will be eligible to participate in the Company's variable pay programs/ incentive schemes. The payment under this program depends on your performance, the Company's performance and other parameters as the Company may decide from time to time. Please note that there is no minimum payment under this program.</p>
-    <p>Payment of this amount is subject to your being in the Company's employment and also subject to your not having resigned or serving your notice period.</p>
-    <p>You will declare your relationship, if any, with any of the directors of the Company as required by the Companies Act, 2013.</p>
-    <p>In case you are or become related to any employee of the Company, then, in the former case you will inform the Company immediately and in the latter case within 7 days of your becoming so.</p>
-    <p>You will abide by all the policies and disclosure norms of the Company that are in effect and by any amendments thereto carried out by the Company from time to time.</p>
-  `, false);
-}
+    
     <h3>PERFORMANCE BASED VARIABLE BONUS/ INCENTIVE:</h3>
     <p>You will be eligible to participate in the Company's variable pay programs/ incentive schemes. The payment under this program depends on your performance, the Company's performance and other parameters as the Company may decide from time to time. Please note that there is no minimum payment under this program.</p>
     <p>Payment of this amount is subject to your being in the Company's employment and also subject to your not having resigned or serving your notice period.</p>
