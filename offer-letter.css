@@ -261,10 +261,9 @@ button.icon-btn{
   hyphens: auto;
   orphans: 3;
   widows: 3;
-  line-height: 1.45;
-  margin: 0 0 12px;
+  line-height: 1.5;
+  margin: 0 0 16px;
 }
-
 .page h3{
   text-align: left;
   font-size: 14px;
