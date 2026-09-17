@@ -317,8 +317,8 @@ function buildPage2(values, salary) {
 
 function buildPage3(values) {
   const bondHtml = values.includeBond ? `
-    <h3>Service Bond Clause</h3>
-    <p>The Employee agrees to remain in the employment of the Company for a minimum period of ${numberToWords(values.bondYears).toLowerCase()} (${values.bondYears}) year from the date of joining. This commitment is made considering the Company's investment in recruitment, training, onboarding, and skill development. In the event that the Employee voluntarily resigns or discontinues employment before completing the agreed service period, the Employee shall reimburse the Company an amount of <strong>${toLakhsPhrase(values.bondAmount)}</strong> towards the costs incurred by the Company for recruitment, training, and related administrative expenses. This provision shall be interpreted and enforced in accordance with applicable laws and regulations governing employment contracts.</p>
+    <h3>SERVICE BOND CLAUSE</h3>
+    <p>The Employee agrees to remain in the employment of the Company for a minimum period of <strong>${numberToWords(values.bondYears).toLowerCase()} (${values.bondYears})</strong> year from the date of joining. This commitment is made considering the Company's investment in recruitment, training, onboarding, and skill development. In the event that the Employee voluntarily resigns or discontinues employment before completing the agreed service period, the Employee shall reimburse the Company an amount of <strong>${toLakhsPhrase(values.bondAmount)}</strong> towards the costs incurred by the Company for recruitment, training, and related administrative expenses. This provision shall be interpreted and enforced in accordance with applicable laws and regulations governing employment contracts.</p>
   ` : '';
 
   return pageWrapper(`
