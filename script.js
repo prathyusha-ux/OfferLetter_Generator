@@ -312,7 +312,8 @@ function buildPage2(values, salary) {
 
     
     
-}`,false);
+`,false);
+}
 
 function buildPage3(values) {
   const bondHtml = values.includeBond ? `
@@ -829,7 +830,7 @@ safeSetup('input character restrictions', () => {
   restrictToNumbers('tdsAmount');
   restrictToNumbers('bondYears');
   restrictToNumbers('bondAmount');
-
+});
   // roleDesc (textarea) is left free-form on purpose — descriptions need
   // punctuation and mixed content.
   // emailInput is left to the native type="email" + existing
