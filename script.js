@@ -293,6 +293,7 @@ function buildPage2(values, salary) {
     <p>The Company reserves the right to amend or modify the Leave Policy from time to time in accordance with business requirements and applicable laws.</p>
   `, false, 2, 4);
 }
+
 function buildPage3(values) {
   const bondYearWord = values.bondYears === 1 ? 'year' : 'years';
   const bondHtml = values.includeBond ? `
@@ -381,6 +382,7 @@ function buildLetterPages(values, salary) {
     buildPage4(values, salary),
   ].join('');
 }
+
 /* ----------------------------------------------------------------------- *
  * GENERATE / DISPLAY
  * ----------------------------------------------------------------------- */
