@@ -238,7 +238,7 @@ button.icon-btn{
   min-height: 297mm;
   background: #fff;
   color: #222;
-  padding: 18mm 16mm 14mm;
+  padding: 16mm 16mm 12mm;
   box-sizing: border-box;
   border: 1px solid #ccc;
   position: relative;
@@ -248,7 +248,7 @@ button.icon-btn{
   break-after: page;
   font-family: Calibri, Carlito, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 .page:last-child{
   page-break-after: auto;
@@ -261,23 +261,31 @@ button.icon-btn{
   hyphens: auto;
   orphans: 3;
   widows: 3;
-  line-height: 1.4;
-  margin: 0 0 14px;
+  line-height: 1.35;
+  margin: 0 0 9px;
 }
 
 .page h3{
   text-align: left;
   font-size: 14px;
   font-weight: 700;
-  margin: 24px 0 10px;
+  margin: 14px 0 6px;
   letter-spacing: 0.3px;
   break-after: avoid;
   page-break-after: avoid;
 }
 
+.page h3:first-child{
+  margin-top: 0;
+}
+
 .page ul{
   text-align: left;
-  margin: 0 0 14px 20px;
+  margin: 0 0 9px 20px;
+}
+
+.page ul li{
+  margin-bottom: 3px;
 }
 
 .page .letter-title{
@@ -287,7 +295,7 @@ button.icon-btn{
   text-transform: uppercase;
   color: #1155cc;
   letter-spacing: 0.4px;
-  margin: 0 0 32px;
+  margin: 0 0 16px;
 }
 
 .page .company-name{ font-weight: 700; font-size: 13px; color: #111; }
@@ -298,19 +306,19 @@ button.icon-btn{
   font-size: 14px;
   width:100%;
   border-collapse:collapse;
-  margin:14px 0;
+  margin:8px 0;
   border: 1px solid #333;
 }
 .page .salary-table th{
   background:#1a1a1a;
   color:#fff;
   text-align:left;
-  padding:10px 14px;
+  padding:8px 14px;
   font-weight:700;
   border: 1px solid #333;
 }
 .page .salary-table th.num, .page .salary-table td.num{ text-align:right; }
-.page .salary-table td{ padding:9px 14px; border: 1px solid #ccc; }
+.page .salary-table td{ padding:7px 14px; border: 1px solid #ccc; }
 .page .salary-table tbody tr:nth-child(even){ background:#fafafa; }
 .page .salary-table tr.subhead td{
   font-weight:bold;
@@ -325,26 +333,30 @@ button.icon-btn{
   font-size: 14.5px;
 }
 
-.page .letter-foot-note{ font-size: 11px; color:#111; }
+.page .letter-foot-note{
+  font-size: 11px;
+  color:#111;
+  margin: 0 0 6px;
+}
 
 /* Sign block */
-.page .sign-block{ margin-top: 8px; }
+.page .sign-block{ margin-top: 4px; }
 .page .sign-line{
   display:flex;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:8px;
   align-items: baseline;
 }
 .page .sign-line .lbl{
   width:90px;
-  font-size:15px;
+  font-size:14px;
   color:#111;
   font-weight:bold;
 }
 .page .sign-line .fill{
   flex: 0 0 200px;
   border-bottom:1px solid #111;
-  min-height:20px;
+  min-height:18px;
   align-self: flex-end;
 }
 .page .sign-block,
@@ -353,14 +365,14 @@ button.icon-btn{
   text-align: left;
 }
 .page .sign-caption{
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 /* Regards line (Page 4) */
-.page .regards-line{ margin-top: 24px; }
+.page .regards-line{ margin-top: 12px; margin-bottom: 4px; }
 .page .regards-label{ color:#111; font-size:15px; font-weight:bold; }
 
-.page .stamp-img{ width: 140px; height: auto; margin-top: 5px; display: block; }
+.page .stamp-img{ width: 140px; height: auto; margin-top: 4px; display: block; }
 
 .page-body{ flex: 1 0 auto; }
 
@@ -368,8 +380,8 @@ button.icon-btn{
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 40px;
-  padding-bottom: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
   border-bottom: 2px solid #1155cc;
 }
 .logo-img{ width: 150px; height: 150px; object-fit: contain; flex-shrink: 0; }
@@ -388,7 +400,7 @@ button.icon-btn{
 }
 
 .letter-footer{
-  padding-top: 8px;
+  padding-top: 6px;
   margin-top: auto;
   display: flex;
   justify-content: center;
