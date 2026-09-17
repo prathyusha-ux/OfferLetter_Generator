@@ -290,15 +290,7 @@ button.icon-btn{
 }
 .page .company-name{ font-weight: 700; font-size: 13px; color: #111; }
 .page .company-tagline{ font-size: 10px; color: #555; }
-.page .letter-footer{
-  margin-top: 16px;
-  border-top: 1px solid #ccc;
-  padding-top: 8px;
-  font-size: 10px;
-  text-align: left;
-  color: #444;
-}
-.page .letter-footer .gst{ font-weight: 700; color: #1a3f7a; }
+
 .page .salary-table{ font-size: 14px; width:100%; border-collapse:collapse; margin:14px 0; border: 1px solid #333; }
 .page .salary-table th{ background:#d9d9d9; color:#111; text-align:left; padding:10px 14px; font-weight:700; border: 1px solid #333; }
 .page .salary-table th.num, .page .salary-table td.num{ text-align:right; }
