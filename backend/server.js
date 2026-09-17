@@ -19,9 +19,6 @@
 //   SUPABASE_URL            - required for save-offer, optional for send-offer logging
 //   SUPABASE_SERVICE_KEY    - required for save-offer, optional for send-offer logging
 //   SERVER_API_KEY           - shared secret; requests must send it in the x-api-key header
-//   LOGO_URL                 - direct raw URL to the logo image, e.g.
-//                              https://raw.githubusercontent.com/prathyusha-ux/REPO_NAME/main/logonew.png
-//                              (change this in Render any time — no redeploy needed)
 
 const express = require('express');
 const cors = require('cors');
@@ -56,16 +53,12 @@ function requireApiKey(req, res, next) {
   next();
 }
 
-// Company logo shown in the email signature block.
-//
-// Previously this was embedded as a base64 data: URI and sent as an inline
-// email attachment (cid:logo-image), because Gmail strips data: URIs from
-// <img src="">. A plain https:// URL does NOT have that problem, so we now
-// just point straight at the raw GitHub-hosted PNG. This also means you can
-// swap the logo any time by updating LOGO_URL in Render, with no code change
-// or redeploy required.
-const LOGO_URL = process.env.LOGO_URL
-  || 'https://raw.githubusercontent.com/prathyusha-ux/REPO_NAME/main/logonew.png';
+// Company logo shown in the email signature block. Gmail (and several other
+// clients) strip data: URIs from <img src="">, so we can't just drop the
+// base64 straight into the HTML — instead we send the logo as an inline
+// attachment and reference it in the HTML via cid:logo-image.
+const LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADwCAYAAAA+VemSAABoyUlEQVR42u29d4AkV3Uu/p17qzpM2ryKSAgEKCMkIRAgdpcogzEGPGMsYzCGR7Ix8HDGz7PDww8ezzYGww8LgwkmeQaDCAZE0O6KIIEkFNCuslZhc5g824HuPef3R92qulXTq13F7dmtI4qe6a6q7amq755zvpOAUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppTzK8v8DnQ3rl3BZenkAAAAASUVORK5CYII=';
+const LOGO_BASE64 = LOGO_DATA_URI.split(',')[1]; // raw base64 for the Resend attachment
 
 app.get('/', (req, res) => {
   res.send('Offer letter backend is running.');
@@ -124,7 +117,7 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
       <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;width:100%;max-width:480px;${TEXT_STYLE}">
         <tr>
           <td style="border:1px solid #ddd;width:120px;">
-            <img src="${LOGO_URL}" alt="UX Interfacely logo" style="max-width:100%;width:120px;height:auto;display:block;">
+            <img src="cid:logo-image" alt="UX Interfacely logo" style="max-width:100%;width:120px;height:auto;display:block;">
           </td>
           <td style="border:1px solid #ddd;word-wrap:break-word;${TEXT_STYLE}">
             <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_NAME}</div>
@@ -171,6 +164,11 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
           {
             filename: `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`,
             content: pdfBase64,
+          },
+          {
+            filename: 'logonew.png',
+            content: LOGO_BASE64,
+            content_id: 'logo-image',
           },
         ],
       }),
@@ -285,8 +283,5 @@ app.listen(PORT, () => {
   }
   if (!process.env.SERVER_API_KEY) {
     console.warn('WARNING: SERVER_API_KEY is not set — /api routes will accept requests from anyone.');
-  }
-  if (!process.env.LOGO_URL) {
-    console.warn('WARNING: LOGO_URL is not set — using the default placeholder logo URL, which will 404.');
   }
 });
