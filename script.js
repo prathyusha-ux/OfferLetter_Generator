@@ -12,7 +12,7 @@ const COMPANY = {
   pfMonthlyCap: 1800,   // this letter deducts a flat ₹1,800 employee + ₹1,800 employer PF
   professionalTaxMonthly: 200,
   // Signature/stamp image shown under "Regards" on the final page.
-  stampImage: 'data:image/png;base64,signature.png',
+  stampImage: 'signature.png',
 };
 
 /* ----------------------------------------------------------------------- *
