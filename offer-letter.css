@@ -276,8 +276,6 @@ button.icon-btn{
   font-weight: 700;
   margin: 24px 0 10px;
   letter-spacing: 0.3px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid #ccc; /* subtle section divider — reads more "formal document" */
 }
 .page h3{
   break-after: avoid;
@@ -426,7 +424,6 @@ button.icon-btn{
   break-inside: avoid;
 }
 .letter-footer{
-  border-top: 1px solid #ddd;
   padding-top: 8px;
   margin-top: auto;
   display: flex;
