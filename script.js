@@ -369,7 +369,7 @@ function buildPage4(values, salary) {
     </div>
 
     <p class="regards-line"><span class="regards-label">Regards</span><br><strong>${COMPANY.name}</strong></p>
-    <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">
+     <img class="stamp-img" src="${COMPANY.stampImage}" alt="Company stamp and signature">  `, false);
   `, false, 4, 4);
 }
 
