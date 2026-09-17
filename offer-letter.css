@@ -269,6 +269,16 @@ button.icon-btn{
   line-height: 1.45;
   margin: 0 0 12px;
 }
+
+/* Tighter spacing between paragraphs that are sub-points of the same
+   clause (e.g. Job Title, Hours and Place of Work) — normal 12px spacing
+   still applies before/after headings and between unrelated paragraphs. */
+.page .tight-group p{
+  margin: 0 0 4px;
+}
+.page .tight-group p:last-child{
+  margin-bottom: 12px;
+}
 .page h3{
   text-align: left;
   font-size: 14px;
