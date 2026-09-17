@@ -117,13 +117,14 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
       <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;width:100%;max-width:480px;${TEXT_STYLE}">
         <tr>
           <td style="border:1px solid #ddd;width:120px;">
-            <img  src="logonew.png" alt="Logo"  style="max-width:100%;width:120px;height:auto;display:block;">
+            <img src="cid:logo-image" alt="UX Interfacely logo" style="max-width:100%;width:120px;height:auto;display:block;">
           </td>
           <td style="border:1px solid #ddd;word-wrap:break-word;${TEXT_STYLE}">
             <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_NAME}</div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_TITLE}</div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;"><a href="https://${COMPANY_WEBSITE}" style="color:#1a73e8;">${COMPANY_WEBSITE}</a></div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;"><strong>${COMPANY_NAME}</strong></div>
+            <div style="${TEXT_STYLE}margin:0 0 4px 0;">UX Interfacely</div>
             <div style="${TEXT_STYLE}margin:0 0 4px 0;"><a href="mailto:${SENDER_EMAIL}" style="color:#1a73e8;">${SENDER_EMAIL}</a></div>
             <div style="${TEXT_STYLE}margin:0;"><a href="tel:${SENDER_PHONE}" style="color:#1a73e8;">${SENDER_PHONE}</a></div>
           </td>
