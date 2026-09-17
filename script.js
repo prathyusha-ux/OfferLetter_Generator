@@ -835,4 +835,3 @@ safeSetup('input character restrictions', () => {
   // punctuation and mixed content.
   // emailInput is left to the native type="email" + existing
   // checkValidity() check already used in handleEmailClick.
-});
