@@ -312,7 +312,7 @@ function buildPage2(values, salary) {
 
     
     
-}
+}`,false);
 
 function buildPage3(values) {
   const bondHtml = values.includeBond ? `
