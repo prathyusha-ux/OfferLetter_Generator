@@ -261,13 +261,13 @@ function buildPage1(values) {
   return pageWrapper(`
     <div class="letter-title">OFFER LETTER</div>
     <p>Dear <strong>${values.name}</strong>,</p>
-    <p><strong>Date of Joining:</strong> <strong>${formatDateMonthFirst(values.doj)}</strong></p>
-    <p>This statement dated ${formatDateDayFirst(values.letterDate)} sets out details of the main terms of your employment with ${COMPANY.name} ${COMPANY.hqCity}.</p>
-    <p>${COMPANY.name} is pleased to offer you appointment as <strong>${values.jobTitle}</strong>. We trust that your knowledge, skills and experience will be among our most valuable assets.</p>
+    <p><strong>Date of Joining:</strong> ${formatDateMonthFirst(values.doj)}</p>
+    <p>This statement dated <strong>${formatDateDayFirst(values.letterDate)}</strong> sets out details of the main terms of your employment with <strong>${COMPANY.name} ${COMPANY.hqCity}.</strong></p>
+    <p><strong>${COMPANY.name}</strong> is pleased to offer you appointment as <strong>${values.jobTitle}</strong>. We trust that your knowledge, skills and experience will be among our most valuable assets.</p>
 
     <h3>Job Title:</h3>
     <p>The title of the job that you are employed to do is: <strong>${values.jobTitle}</strong>, This position will be in the Company's ${values.department} department.${roleLine}</p>
-    <p>${COMPANY.name} may amend your duties from time to time, and in addition to your normal duties you may from time to time be required to undertake additional or other duties as necessary to meet the needs of the business. This may involve change in department also.</p>
+    <p><strong>${COMPANY.name}</strong> may amend your duties from time to time, and in addition to your normal duties you may from time to time be required to undertake additional or other duties as necessary to meet the needs of the business. This may involve change in department also.</p>
     <p>Please note that during the course of employment with us, you are able to work at any place in the world.</p>
 
     <h3>HOURS AND PLACE OF WORK:</h3>
