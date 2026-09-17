@@ -66,8 +66,7 @@ function requireApiKey(req, res, next) {
 // just point straight at the raw GitHub-hosted PNG. This also means you can
 // swap the logo any time by updating LOGO_URL in Render, with no code change
 // or redeploy required.
-const LOGO_URL = process.env.LOGO_URL
-  || 'https://raw.githubusercontent.com/prathyusha-ux/REPO_NAME/main/logonew.png';
+
  
 app.get('/', (req, res) => {
   res.send('Offer letter backend is running.');
@@ -126,7 +125,7 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
       <table cellpadding="10" style="border:1px solid #ddd;border-collapse:collapse;width:100%;max-width:480px;${TEXT_STYLE}">
         <tr>
           <td style="border:1px solid #ddd;width:120px;">
-            <img src="${LOGO_URL}" alt="UX Interfacely logo" style="max-width:100%;width:120px;height:auto;display:block;">
+           <img src="${process.env.COMPANY_LOGO_URL}" alt="UXInterfacely Logo" style="max-width: 150px; height: auto; display: block; margin: 0 auto;">
           </td>
           <td style="border:1px solid #ddd;word-wrap:break-word;${TEXT_STYLE}">
             <div style="${TEXT_STYLE}margin:0 0 4px 0;">${SENDER_NAME}</div>
