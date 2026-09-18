@@ -285,14 +285,14 @@ function buildPage2(values, salary) {
     <p>The Company reserves the right, at its discretion and at any time during the notice period, to announce to employees, clients, suppliers and customers of the Company, its subsidiaries or associate companies, your termination/resignation. However, you expressly agree hereby not to make any announcement of your termination/resignation, unless the same has been formally intimated to you or accepted by the Company in writing, as the case may be.</p>
 
     <h3>LEAVE ENTITLEMENT AND POLICY:</h3>
-    <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from 1 January and ending on 31 December of each year.</p>
-    <p>The Employee shall be entitled to a total of fifteen (15) days of leave per leave year, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
+    <p>For the purpose of leave entitlement, the leave year shall be considered as the <strong>calendar year commencing from 1 January and ending on 31 December </strong>of each year.</p>
+    <p>The Employee shall be entitled to a total of <strong>fifteen (15) days of leave per leave year</strong>, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
     <ul>
       <li><strong>Casual Leave (CL): 10 days per leave year</strong></li>
       <li><strong>Sick Leave (SL): 5 days per leave year</strong></li>
     </ul>
     <p>Leave shall be availed with the prior approval of the reporting manager or the authorized person, except in cases of emergency or sudden illness, where the Employee shall inform the Company at the earliest possible opportunity.</p>
-    <p>Employees joining during the course of a leave year shall be eligible for leave on a pro-rata basis, as applicable under the Company's Leave Policy.</p>
+    <p>Employees joining during the course of a leave year shall be eligible for leave on a <strong>pro-rata basis</strong>, as applicable under the Company's Leave Policy.</p>
     <p>The carry-forward, lapse, or encashment of unused leave shall be governed by the Company's prevailing policies and applicable statutory requirements.</p>
     <p>The Company reserves the right to amend or modify the Leave Policy from time to time in accordance with business requirements and applicable laws.</p>
   `, false, 2, 4);
