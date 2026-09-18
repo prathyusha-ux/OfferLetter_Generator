@@ -113,7 +113,7 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
     <div style="${TEXT_STYLE}width:100%;word-wrap:break-word;">
       <p style="${P_STYLE}">Hi ${name},</p>
       <p style="${P_STYLE}"><strong style="color:#1a73e8;">Congratulations</strong>! We are pleased to offer you the position of
-      ${role} at ${COMPANY_NAME}, with your date of joining scheduled for ${joiningDate}.</p>
+      ${role} at ${COMPANY_NAME}, with your date of joining scheduled for <strong>${joiningDate}</strong>.</p>
       <p style="${P_STYLE}">We are confident that your skills and experience will be a valuable addition to our team and
       contribute to the growth of our organization.</p>
       <p style="${P_STYLE}">You will be part of the Company's Services Department, and your roles and responsibilities may
