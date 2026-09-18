@@ -275,7 +275,7 @@ function buildPage2(values, salary) {
 
   return pageWrapper(`
     <h3>ANNUAL SALARY REVISION:</h3>
-    <p>We follow an April to March performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
+    <p>We follow an <strong>April to March</strong> performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
     <p>Employees who have joined the organization on or before October 1 in the current calendar year, may be eligible for a proportionate salary review during April of next calendar year. The increment, if any, is dependent on various factors including performance of the employee and would be proportionate to the number of months of service rendered by the employee. Those joining after 1st October will not be eligible for the same.</p>
 
     <h3>TERMINATION OR RESIGNATION FROM SERVICE:</h3>
