@@ -249,7 +249,7 @@ function buildPage1(values, salary) {
     <p>This statement dated <strong>${formatDateDayFirst(values.letterDate)}</strong> sets out details of the main terms of your employment with <strong>${COMPANY.name}, ${COMPANY.hqCity}.</strong></p>
     <p><strong>${COMPANY.name}</strong> is pleased to offer you appointment as <strong>${values.jobTitle}</strong>. We trust that your knowledge, skills and experience will be among our most valuable assets.</p>
 
-    <h3>Job Title:</h3>
+    <h3>JOB TITLE:</h3>
     <div class="tight-group">
       <p>The title of the job that you are employed to do is <strong>${values.jobTitle}</strong>. This position will be in the Company's <strong>${values.department}</strong> department.${roleLine}</p>
       <p>The Company may amend your duties from time to time, and in addition to your normal duties you may from time to time be required to undertake additional or other duties as necessary to meet the needs of the business. This may involve a change in department also.</p>
@@ -301,7 +301,7 @@ function buildPage2(values, salary) {
 function buildPage3(values) {
   const bondYearWord = values.bondYears === 1 ? 'year' : 'years';
   const bondHtml = values.includeBond ? `
-    <h3>SERVICE BOND CLAUSE</h3>
+    <h3>SERVICE BOND CLAUSE:</h3>
     <p>The Employee agrees to remain in the employment of the Company for a minimum period of <strong>${numberToWords(values.bondYears).toLowerCase()} (${values.bondYears}) ${bondYearWord}</strong> from the date of joining. This commitment is made considering the Company's investment in recruitment, training, onboarding, and skill development. In the event that the Employee voluntarily resigns or discontinues employment before completing the agreed service period, the Employee shall reimburse the Company an amount of <strong>${toLakhsPhrase(values.bondAmount)}</strong> towards the costs incurred by the Company for recruitment, training, and related administrative expenses. This provision shall be interpreted and enforced in accordance with applicable laws and regulations governing employment contracts.</p>
   ` : '';
 
