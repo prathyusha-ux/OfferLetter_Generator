@@ -118,8 +118,10 @@ function calculateSalaryBreakdown(annualCtc) {
   // Gross monthly earnings used for Take Home = Basic + HRA + Special Allowance only.
   const grossPerMonth = basic + hra + specialAllowance;
 
-  // Total deductions used for Take Home = Professional Tax + PF-Employee + PF-Employer (if on) + TDS (if on).
-  const totalDeductions = professionalTax + pfDeduction + (pfIncluded ? employerPf : 0) + tdsAmount;
+  // Total deductions used for Take Home = Professional Tax + Provident Fund (employee side, if on) + TDS (if on).
+  // Employer PF is intentionally excluded here — it's used only to compute
+  // Special Allowance above, and is never shown or deducted from Take Home.
+  const totalDeductions = professionalTax + pfDeduction + tdsAmount;
 
   const takeHomePerMonth = grossPerMonth - totalDeductions;
 
@@ -275,7 +277,7 @@ function buildPage2(values, salary) {
 
   return pageWrapper(`
     <h3>ANNUAL SALARY REVISION:</h3>
-    <p>We follow an <strong>April to March</strong> performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
+    <p>We follow an April to March performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
     <p>Employees who have joined the organization on or before October 1 in the current calendar year, may be eligible for a proportionate salary review during April of next calendar year. The increment, if any, is dependent on various factors including performance of the employee and would be proportionate to the number of months of service rendered by the employee. Those joining after 1st October will not be eligible for the same.</p>
 
     <h3>TERMINATION OR RESIGNATION FROM SERVICE:</h3>
@@ -284,15 +286,15 @@ function buildPage2(values, salary) {
     <p>The Company reserves the absolute right to terminate your services at any time, without assigning any reason whatsoever, by giving you notice in writing or pay in lieu of notice period.</p>
     <p>The Company reserves the right, at its discretion and at any time during the notice period, to announce to employees, clients, suppliers and customers of the Company, its subsidiaries or associate companies, your termination/resignation. However, you expressly agree hereby not to make any announcement of your termination/resignation, unless the same has been formally intimated to you or accepted by the Company in writing, as the case may be.</p>
 
-    <h3>LEAVE ENTITLEMENT AND POLICY:</h3>
-    <p>For the purpose of leave entitlement, the leave year shall be considered as the <strong>calendar year commencing from 1 January and ending on 31 December </strong>of each year.</p>
-    <p>The Employee shall be entitled to a total of <strong>fifteen (15) days of leave per leave year</strong>, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
+    <h3>LEAVE ENTITLEMENT AND POLICY</h3>
+    <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from 1 January and ending on 31 December of each year.</p>
+    <p>The Employee shall be entitled to a total of fifteen (15) days of leave per leave year, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
     <ul>
       <li><strong>Casual Leave (CL): 10 days per leave year</strong></li>
       <li><strong>Sick Leave (SL): 5 days per leave year</strong></li>
     </ul>
     <p>Leave shall be availed with the prior approval of the reporting manager or the authorized person, except in cases of emergency or sudden illness, where the Employee shall inform the Company at the earliest possible opportunity.</p>
-    <p>Employees joining during the course of a leave year shall be eligible for leave on a <strong>pro-rata basis</strong>, as applicable under the Company's Leave Policy.</p>
+    <p>Employees joining during the course of a leave year shall be eligible for leave on a pro-rata basis, as applicable under the Company's Leave Policy.</p>
     <p>The carry-forward, lapse, or encashment of unused leave shall be governed by the Company's prevailing policies and applicable statutory requirements.</p>
     <p>The Company reserves the right to amend or modify the Leave Policy from time to time in accordance with business requirements and applicable laws.</p>
   `, false, 2, 4);
@@ -316,7 +318,7 @@ function buildPage3(values) {
     <h3>COMPANY POLICIES AND PROCEDURE:</h3>
     <p>You shall be required at all times to comply with the Company's rules, policies and procedures as may be amended by the Company from time to time, and the same are to be considered as part of the terms and conditions of this Employment Letter. You are also required to comply generally with the standards reasonably expected of an appointment of your nature.</p>
 
-    <h3>ADDITIONAL DUTIES:</h3>
+    <h3>ADDITIONAL DUTIES</h3>
     <p>You agree and consent that the Company may require you (without additional remuneration) to carry out different or additional duties (including holding any office in the Company, its subsidiaries and associate companies) consistent with your status and position in the Company.</p>
 
     ${bondHtml}
@@ -328,9 +330,8 @@ function buildSalaryTableHtml(salary, values) {
     ? `<tr><td>Variable Pay</td><td class="num"></td><td class="num">${formatRupees(salary.variableAmount)}</td></tr>`
     : '';
 
-  const pfRows = salary.pfIncluded
-    ? `<tr><td>PF-Employee</td><td class="num">${formatRupees(salary.pfDeduction)}</td><td class="num">${formatRupees(salary.pfDeduction * 12)}</td></tr>
-       <tr><td>PF-Employer</td><td class="num">${formatRupees(salary.employerPf)}</td><td class="num">${formatRupees(salary.employerPf * 12)}</td></tr>`
+  const pfRow = salary.pfIncluded
+    ? `<tr><td>Provident Fund</td><td class="num">${formatRupees(salary.pfDeduction)}</td><td class="num">${formatRupees(salary.pfDeduction * 12)}</td></tr>`
     : '';
 
   const tdsRow = salary.tdsIncluded
@@ -346,10 +347,10 @@ function buildSalaryTableHtml(salary, values) {
         <tr><td>Basic</td><td class="num">${formatRupees(salary.basic)}</td><td class="num">${formatRupees(salary.basic * 12)}</td></tr>
         <tr><td>House Rent Allowance(HRA)</td><td class="num">${formatRupees(salary.hra)}</td><td class="num">${formatRupees(salary.hra * 12)}</td></tr>
         <tr><td>Special Allowance</td><td class="num">${formatRupees(salary.specialAllowance)}</td><td class="num">${formatRupees(salary.specialAllowance * 12)}</td></tr>
-        <tr class="subhead"><td>Gross Pay</td><td class="num">${formatRupees(salary.grossPerMonth)}</td><td class="num">${formatRupees(salary.grossPerMonth * 12)}</td></tr>
+        <tr class="subhead"><td>Total CTC</td><td class="num">${formatRupees(salary.grossPerMonth)}</td><td class="num">${formatRupees(salary.grossPerMonth * 12)}</td></tr>
         ${variableRow}
         <tr class="subhead"><td>Deductions</td><td class="num"></td><td class="num"></td></tr>
-        ${pfRows}
+        ${pfRow}
         <tr><td>Professional Tax</td><td class="num">${formatRupees(salary.professionalTax)}</td><td class="num">${formatRupees(salary.professionalTax * 12)}</td></tr>
         ${tdsRow}
         <tr class="subhead"><td>Total Deductions</td><td class="num">${formatRupees(salary.totalDeductions)}</td><td class="num">${formatRupees(salary.totalDeductions * 12)}</td></tr>
