@@ -80,7 +80,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res) => {
-  const { recipient, candidateName, jobTitle, doj, workLocation } = req.body || {};
+  const { recipient, candidateName, jobTitle, doj, dojDisplay, workLocation } = req.body || {};
   const pdfBuffer = req.file ? req.file.buffer : null;
   const pdfBase64 = pdfBuffer ? pdfBuffer.toString('base64') : null;
 
@@ -94,7 +94,10 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
 
   const name = candidateName || 'Candidate';
   const role = jobTitle || 'the offered role';
-  const joiningDate = doj || 'the agreed date';
+  // dojDisplay ("Sep 18th, 2026") is what goes in the email body text below —
+  // doj (raw ISO, e.g. "2026-09-18") is only used further down when logging
+  // to the offer_sends database row, since Postgres needs ISO format there.
+  const joiningDate = dojDisplay || 'the agreed date';
   const location = workLocation || 'our office';
   const subject = `Offer Letter - ${name}`;
 
@@ -201,6 +204,7 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
             recipientEmail: recipient,
             pdfPath,
             status: 'failed',
+            doj,
           });
         } catch (logErr) {
           console.error('Supabase logging failed:', logErr.details || logErr.message);
@@ -220,6 +224,7 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
           pdfPath,
           status: 'sent',
           resendId: resendData.id || null,
+          doj,
         });
       } catch (logErr) {
         // The email already went out — don't fail the request over a logging error
@@ -245,7 +250,7 @@ app.post('/api/save-offer', requireApiKey, upload.single('pdf'), async (req, res
     return res.status(503).json({ error: 'Supabase is not configured on the server (missing SUPABASE_URL / SUPABASE_SERVICE_KEY).' });
   }
 
-  const { candidateName, jobTitle, recipientEmail } = req.body || {};
+  const { candidateName, jobTitle, recipientEmail, doj } = req.body || {};
   const pdfBuffer = req.file ? req.file.buffer : null;
 
   if (!pdfBuffer) {
@@ -267,6 +272,7 @@ app.post('/api/save-offer', requireApiKey, upload.single('pdf'), async (req, res
         recipientEmail: recipientEmail || null,
         pdfPath,
         status: 'saved',
+        doj,
       });
     } catch (logErr) {
       console.error('Supabase table insert error:', logErr.details || logErr.message);
