@@ -584,7 +584,8 @@ async function handleEmailClick() {
   }
   const name = getElement('empName').value.trim() || 'Candidate';
   const jobTitle = getElement('jobTitle').value.trim() || 'the offered role';
-  const dojFormatted = formatDateMonthFirst(getElement('doj').value);
+  const dojIso = getElement('doj').value; // raw ISO (YYYY-MM-DD) — for the offer_sends database column
+  const dojFormatted = formatDateMonthFirst(dojIso); // "Sep 18th, 2026" — for the email body text
   let workLocation = getElement('workLocation').value;
   if (workLocation === '__custom') {
     workLocation = getElement('customLocation').value.trim();
@@ -602,7 +603,8 @@ async function handleEmailClick() {
     formData.append('recipient', recipient);
     formData.append('candidateName', name);
     formData.append('jobTitle', jobTitle);
-    formData.append('doj', dojFormatted);
+    formData.append('doj', dojIso);
+    formData.append('dojDisplay', dojFormatted);
     formData.append('workLocation', workLocation);
     formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
 
@@ -634,6 +636,7 @@ async function handleSaveClick() {
   const name = getElement('empName').value.trim() || 'Candidate';
   const jobTitle = getElement('jobTitle').value.trim() || 'the offered role';
   const recipientEmail = getElement('emailInput').value.trim();
+  const dojIso = getElement('doj').value; // raw ISO (YYYY-MM-DD) — for the offer_sends database column
 
   const saveBtn = getElement('saveBtn');
   saveBtn.disabled = true;
@@ -648,6 +651,9 @@ async function handleSaveClick() {
     formData.append('jobTitle', jobTitle);
     if (recipientEmail) {
       formData.append('recipientEmail', recipientEmail);
+    }
+    if (dojIso) {
+      formData.append('doj', dojIso);
     }
     formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
 
