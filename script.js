@@ -442,7 +442,17 @@ function checkRequiredFieldsInSequence() {
       el.focus();
       return false;
     }
-    el.setCustomValidity('');
+    // Catches other custom validity messages already set on this field
+    // (e.g. the only-numbers/only-special-characters check on Job Title
+    // and Department) so Generate is blocked, not just triggered on blur.
+    if (!el.validity.valid) {
+      el.reportValidity();
+      el.focus();
+      return false;
+    }
+    if (el.validationMessage === '') {
+      el.setCustomValidity('');
+    }
   }
   return true;
 }
@@ -803,4 +813,44 @@ safeSetup('input character restrictions', () => {
   restrictToNumbers('tdsAmount');
   restrictToNumbers('bondYears');
   restrictToNumbers('bondAmount');
+});
+
+safeSetup('block only-numbers or only-special-characters input', () => {
+  // Job Title and Department can contain letters, numbers, and spaces
+  // together (e.g. "Level 2 Support", "R&D") — what's NOT allowed is a
+  // value made up ENTIRELY of digits (e.g. "12345") or ENTIRELY of
+  // special characters (e.g. "####"), since those aren't valid titles.
+  const DISCLAIMER = 'This field cannot contain only numbers or only special characters — please enter a valid value.';
+
+  function isOnlyNumbersOrOnlySpecialChars(value) {
+    const trimmed = value.trim();
+    if (!trimmed) return false; // empty is handled separately by the "required" check
+    const onlyNumbers = /^[0-9]+$/.test(trimmed);
+    const onlySpecialChars = /^[^A-Za-z0-9]+$/.test(trimmed); // no letters, no digits at all
+    return onlyNumbers || onlySpecialChars;
+  }
+
+  function guardField(elementId) {
+    const el = getElement(elementId);
+    if (!el) return;
+
+    const validate = () => {
+      if (isOnlyNumbersOrOnlySpecialChars(el.value)) {
+        el.setCustomValidity(DISCLAIMER);
+      } else {
+        el.setCustomValidity('');
+      }
+    };
+
+    el.addEventListener('input', validate);
+    el.addEventListener('blur', () => {
+      validate();
+      if (!el.validity.valid) {
+        el.reportValidity();
+      }
+    });
+  }
+
+  guardField('jobTitle');
+  guardField('department');
 });
