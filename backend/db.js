@@ -8,6 +8,9 @@
 //
 // NOTE: if you want to store `resend_id`, add that column to offer_sends first:
 //   alter table offer_sends add column resend_id text;
+//
+// NOTE: to store the Date of Joining, add this column to offer_sends first:
+//   alter table offer_sends add column date_of_joining date;
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
@@ -77,7 +80,7 @@ async function uploadPdfToStorage(buffer, fileName, bucket = 'offer-letters', up
  * Returns the inserted row (with its generated id/created_at) since
  * we request `return=representation`.
  */
-async function logOfferSend({ candidateName, jobTitle, recipientEmail, pdfPath, status, resendId }) {
+async function logOfferSend({ candidateName, jobTitle, recipientEmail, pdfPath, status, resendId, doj }) {
   if (!isConfigured()) {
     throw new Error('Supabase is not configured (missing SUPABASE_URL / SUPABASE_SERVICE_KEY).');
   }
@@ -89,6 +92,13 @@ async function logOfferSend({ candidateName, jobTitle, recipientEmail, pdfPath, 
     pdf_path: pdfPath || null,
     status,
   };
+
+  // Only include date_of_joining if the caller passed one AND the column
+  // exists in your table. Add it first with:
+  //   alter table offer_sends add column date_of_joining date;
+  if (doj) {
+    payload.date_of_joining = doj;
+  }
 
   // Only include resend_id if the caller passed one AND the column exists in your table.
   // Remove this block if you haven't added a resend_id column to offer_sends.
