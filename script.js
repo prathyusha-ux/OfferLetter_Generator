@@ -277,7 +277,7 @@ function buildPage2(values, salary) {
 
   return pageWrapper(`
     <h3>ANNUAL SALARY REVISION:</h3>
-    <p>We follow an April to March performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
+    <p>We follow an <strong>April to March</strong> performance cycle. All salary revisions come up for review in the month of April at the sole discretion of the Company.</p>
     <p>Employees who have joined the organization on or before October 1 in the current calendar year, may be eligible for a proportionate salary review during April of next calendar year. The increment, if any, is dependent on various factors including performance of the employee and would be proportionate to the number of months of service rendered by the employee. Those joining after 1st October will not be eligible for the same.</p>
 
     <h3>TERMINATION OR RESIGNATION FROM SERVICE:</h3>
@@ -286,15 +286,15 @@ function buildPage2(values, salary) {
     <p>The Company reserves the absolute right to terminate your services at any time, without assigning any reason whatsoever, by giving you notice in writing or pay in lieu of notice period.</p>
     <p>The Company reserves the right, at its discretion and at any time during the notice period, to announce to employees, clients, suppliers and customers of the Company, its subsidiaries or associate companies, your termination/resignation. However, you expressly agree hereby not to make any announcement of your termination/resignation, unless the same has been formally intimated to you or accepted by the Company in writing, as the case may be.</p>
 
-    <h3>LEAVE ENTITLEMENT AND POLICY</h3>
-    <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from 1 January and ending on 31 December of each year.</p>
+    <h3>LEAVE ENTITLEMENT AND POLICY:</h3>
+    <p>For the purpose of leave entitlement, the leave year shall be considered as the calendar year commencing from<strong> 1 January and ending on 31 December</strong> of each year.</p>
     <p>The Employee shall be entitled to a total of fifteen (15) days of leave per leave year, subject to the Company's prevailing Leave Policy and applicable rules. The annual leave entitlement shall consist of:</p>
     <ul>
       <li><strong>Casual Leave (CL): 10 days per leave year</strong></li>
       <li><strong>Sick Leave (SL): 5 days per leave year</strong></li>
     </ul>
     <p>Leave shall be availed with the prior approval of the reporting manager or the authorized person, except in cases of emergency or sudden illness, where the Employee shall inform the Company at the earliest possible opportunity.</p>
-    <p>Employees joining during the course of a leave year shall be eligible for leave on a pro-rata basis, as applicable under the Company's Leave Policy.</p>
+    <p>Employees joining during the course of a leave year shall be eligible for leave on a <strong>pro-rata basis</strong>, as applicable under the Company's Leave Policy.</p>
     <p>The carry-forward, lapse, or encashment of unused leave shall be governed by the Company's prevailing policies and applicable statutory requirements.</p>
     <p>The Company reserves the right to amend or modify the Leave Policy from time to time in accordance with business requirements and applicable laws.</p>
   `, false, 2, 4);
@@ -303,7 +303,7 @@ function buildPage2(values, salary) {
 function buildPage3(values) {
   const bondYearWord = values.bondYears === 1 ? 'year' : 'years';
   const bondHtml = values.includeBond ? `
-    <h3>SERVICE BOND CLAUSE</h3>
+    <h3>SERVICE BOND CLAUSE:</h3>
     <p>The Employee agrees to remain in the employment of the Company for a minimum period of <strong>${numberToWords(values.bondYears).toLowerCase()} (${values.bondYears}) ${bondYearWord}</strong> from the date of joining. This commitment is made considering the Company's investment in recruitment, training, onboarding, and skill development. In the event that the Employee voluntarily resigns or discontinues employment before completing the agreed service period, the Employee shall reimburse the Company an amount of <strong>${toLakhsPhrase(values.bondAmount)}</strong> towards the costs incurred by the Company for recruitment, training, and related administrative expenses. This provision shall be interpreted and enforced in accordance with applicable laws and regulations governing employment contracts.</p>
   ` : '';
 
