@@ -251,7 +251,7 @@ function buildPage1(values, salary) {
     <p>This statement dated <strong>${formatDateDayFirst(values.letterDate)}</strong> sets out details of the main terms of your employment with <strong>${COMPANY.name}, ${COMPANY.hqCity}.</strong></p>
     <p><strong>${COMPANY.name}</strong> is pleased to offer you appointment as <strong>${values.jobTitle}</strong>. We trust that your knowledge, skills and experience will be among our most valuable assets.</p>
 
-    <h3>Job Title:</h3>
+    <h3>JOB TITLE:</h3>
     <div class="tight-group">
       <p>The title of the job that you are employed to do is <strong>${values.jobTitle}</strong>. This position will be in the Company's <strong>${values.department}</strong> department.${roleLine}</p>
       <p>The Company may amend your duties from time to time, and in addition to your normal duties you may from time to time be required to undertake additional or other duties as necessary to meet the needs of the business. This may involve a change in department also.</p>
@@ -318,7 +318,7 @@ function buildPage3(values) {
     <h3>COMPANY POLICIES AND PROCEDURE:</h3>
     <p>You shall be required at all times to comply with the Company's rules, policies and procedures as may be amended by the Company from time to time, and the same are to be considered as part of the terms and conditions of this Employment Letter. You are also required to comply generally with the standards reasonably expected of an appointment of your nature.</p>
 
-    <h3>ADDITIONAL DUTIES</h3>
+    <h3>ADDITIONAL DUTIES:</h3>
     <p>You agree and consent that the Company may require you (without additional remuneration) to carry out different or additional duties (including holding any office in the Company, its subsidiaries and associate companies) consistent with your status and position in the Company.</p>
 
     ${bondHtml}
@@ -347,7 +347,7 @@ function buildSalaryTableHtml(salary, values) {
         <tr><td>Basic</td><td class="num">${formatRupees(salary.basic)}</td><td class="num">${formatRupees(salary.basic * 12)}</td></tr>
         <tr><td>House Rent Allowance(HRA)</td><td class="num">${formatRupees(salary.hra)}</td><td class="num">${formatRupees(salary.hra * 12)}</td></tr>
         <tr><td>Special Allowance</td><td class="num">${formatRupees(salary.specialAllowance)}</td><td class="num">${formatRupees(salary.specialAllowance * 12)}</td></tr>
-        <tr class="subhead"><td>Total CTC</td><td class="num">${formatRupees(salary.grossPerMonth)}</td><td class="num">${formatRupees(salary.grossPerMonth * 12)}</td></tr>
+        <tr class="subhead"><td>Gross Pay</td><td class="num">${formatRupees(salary.grossPerMonth)}</td><td class="num">${formatRupees(salary.grossPerMonth * 12)}</td></tr>
         ${variableRow}
         <tr class="subhead"><td>Deductions</td><td class="num"></td><td class="num"></td></tr>
         ${pfRow}
