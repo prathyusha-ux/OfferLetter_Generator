@@ -837,18 +837,19 @@ safeSetup('block only-numbers or only-special-characters input', () => {
     const validate = () => {
       if (isOnlyNumbersOrOnlySpecialChars(el.value)) {
         el.setCustomValidity(DISCLAIMER);
+        // Show the popup immediately as the person types, instead of
+        // waiting for blur — this listener is registered AFTER the
+        // generic "fill-first validation on blur" listener above, so it
+        // runs later and its setCustomValidity call is the one that
+        // sticks for this field.
+        el.reportValidity();
       } else {
         el.setCustomValidity('');
       }
     };
 
     el.addEventListener('input', validate);
-    el.addEventListener('blur', () => {
-      validate();
-      if (!el.validity.valid) {
-        el.reportValidity();
-      }
-    });
+    el.addEventListener('blur', validate);
   }
 
   guardField('jobTitle');
