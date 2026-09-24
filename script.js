@@ -567,6 +567,50 @@ function handleEditClick() {
 }
 
 /* ----------------------------------------------------------------------- *
+ * Collects every remaining form field (beyond name/doj/jobTitle, which the
+ * callers already gather individually) needed to fully populate the wider
+ * offer_sends table, and appends them onto the given FormData. Shared by
+ * both handleEmailClick and handleSaveClick so the two stay in sync.
+ * ----------------------------------------------------------------------- */
+function appendOfferSendFields(formData) {
+  const letterDate = getElement('letterDate').value;
+  const department = getElement('department').value.trim();
+  let workLocation = getElement('workLocation').value;
+  if (workLocation === '__custom') {
+    workLocation = getElement('customLocation').value.trim();
+  }
+  const roleDescription = getElement('roleDesc').value.trim();
+  const annualCtc = parseFloat(getElement('annualCtc').value) || 0;
+  const noticePeriodDays = parseInt(getElement('noticePeriod').value, 10) || 90;
+  const includeBond = getElement('bondToggle').checked;
+  const bondYears = parseInt(getElement('bondYears').value, 10) || 1;
+  const bondAmount = parseFloat(getElement('bondAmount').value) || 0;
+
+  // Recompute the salary breakdown fresh from the current form state, so
+  // PF/variable-pay/TDS figures logged to the database always match what's
+  // actually on screen right now, even if the form changed after the
+  // letter was last generated.
+  const salary = calculateSalaryBreakdown(annualCtc);
+
+  formData.append('letterDate', letterDate);
+  formData.append('department', department);
+  formData.append('workLocation', workLocation);
+  formData.append('roleDescription', roleDescription);
+  formData.append('annualCtc', String(annualCtc));
+  formData.append('noticePeriodDays', String(noticePeriodDays));
+  formData.append('includeBond', String(includeBond));
+  formData.append('bondYears', String(bondYears));
+  formData.append('bondAmount', String(bondAmount));
+  formData.append('pfIncluded', String(salary.pfIncluded));
+  formData.append('employeePf', String(salary.employeePf));
+  formData.append('employerPf', String(salary.employerPf));
+  formData.append('variablePayIncluded', String(salary.variableIncluded));
+  formData.append('variablePayAmount', String(salary.variableAmount));
+  formData.append('tdsIncluded', String(salary.tdsIncluded));
+  formData.append('tdsAmount', String(salary.tdsAmount));
+}
+
+/* ----------------------------------------------------------------------- *
  * EMAIL LETTER
  * ----------------------------------------------------------------------- */
 async function handleEmailClick() {
@@ -606,6 +650,7 @@ async function handleEmailClick() {
     formData.append('doj', dojIso);
     formData.append('dojDisplay', dojFormatted);
     formData.append('workLocation', workLocation);
+    appendOfferSendFields(formData);
     formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
 
     const response = await fetch('https://offerletter-generator-1.onrender.com/api/send-offer', {
@@ -655,6 +700,7 @@ async function handleSaveClick() {
     if (dojIso) {
       formData.append('doj', dojIso);
     }
+    appendOfferSendFields(formData);
     formData.append('pdf', pdfBlob, `${name.replace(/\s+/g, '_')}_Offer_Letter.pdf`);
 
     const response = await fetch('https://offerletter-generator-1.onrender.com/api/save-offer', {
