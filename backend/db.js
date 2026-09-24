@@ -11,6 +11,25 @@
 //
 // NOTE: to store the Date of Joining, add this column to offer_sends first:
 //   alter table offer_sends add column date_of_joining date;
+//
+// NOTE: offer_sends now also expects these columns (run once in SQL Editor):
+//   alter table offer_sends
+//     add column if not exists letter_date date,
+//     add column if not exists department text,
+//     add column if not exists work_location text,
+//     add column if not exists role_description text,
+//     add column if not exists annual_ctc numeric,
+//     add column if not exists notice_period_days integer,
+//     add column if not exists include_bond boolean,
+//     add column if not exists bond_years integer,
+//     add column if not exists bond_amount numeric,
+//     add column if not exists pf_included boolean,
+//     add column if not exists employee_pf numeric,
+//     add column if not exists employer_pf numeric,
+//     add column if not exists variable_pay_included boolean,
+//     add column if not exists variable_pay_amount numeric,
+//     add column if not exists tds_included boolean,
+//     add column if not exists tds_amount numeric;
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
@@ -34,6 +53,29 @@ async function parseErrorBody(response) {
       return {};
     }
   }
+}
+
+/* ----------------------------------------------------------------------- *
+ * TYPE COERCION HELPERS — multipart/form-data arrives as strings, but the
+ * offer_sends columns are typed (numeric/integer/boolean/date). These
+ * convert safely, returning null for anything missing/unparseable.
+ * ----------------------------------------------------------------------- */
+function toBool(v) {
+  if (typeof v === 'boolean') return v;
+  if (v === undefined || v === null || v === '') return null;
+  return v === 'true' || v === '1' || v === 'on';
+}
+
+function toNum(v) {
+  if (v === undefined || v === null || v === '') return null;
+  const n = Number(v);
+  return Number.isNaN(n) ? null : n;
+}
+
+function toInt(v) {
+  if (v === undefined || v === null || v === '') return null;
+  const n = parseInt(v, 10);
+  return Number.isNaN(n) ? null : n;
 }
 
 /**
@@ -79,8 +121,37 @@ async function uploadPdfToStorage(buffer, fileName, bucket = 'offer-letters', up
  *
  * Returns the inserted row (with its generated id/created_at) since
  * we request `return=representation`.
+ *
+ * Every field below except candidateName/jobTitle/pdfPath/status is
+ * OPTIONAL — pass only what the caller has available. Anything omitted
+ * is left out of the payload entirely, so it doesn't overwrite existing
+ * data with null on a partial call.
  */
-async function logOfferSend({ candidateName, jobTitle, recipientEmail, pdfPath, status, resendId, doj }) {
+async function logOfferSend({
+  candidateName,
+  jobTitle,
+  recipientEmail,
+  pdfPath,
+  status,
+  resendId,
+  doj,
+  letterDate,
+  department,
+  workLocation,
+  roleDescription,
+  annualCtc,
+  noticePeriodDays,
+  includeBond,
+  bondYears,
+  bondAmount,
+  pfIncluded,
+  employeePf,
+  employerPf,
+  variablePayIncluded,
+  variablePayAmount,
+  tdsIncluded,
+  tdsAmount,
+}) {
   if (!isConfigured()) {
     throw new Error('Supabase is not configured (missing SUPABASE_URL / SUPABASE_SERVICE_KEY).');
   }
@@ -105,6 +176,26 @@ async function logOfferSend({ candidateName, jobTitle, recipientEmail, pdfPath, 
   if (resendId) {
     payload.resend_id = resendId;
   }
+
+  // The rest of the form fields — each only added if the caller actually
+  // passed it, so a call site that doesn't collect a given field doesn't
+  // null it out.
+  if (letterDate !== undefined) payload.letter_date = letterDate || null;
+  if (department !== undefined) payload.department = department || null;
+  if (workLocation !== undefined) payload.work_location = workLocation || null;
+  if (roleDescription !== undefined) payload.role_description = roleDescription || null;
+  if (annualCtc !== undefined) payload.annual_ctc = toNum(annualCtc);
+  if (noticePeriodDays !== undefined) payload.notice_period_days = toInt(noticePeriodDays);
+  if (includeBond !== undefined) payload.include_bond = toBool(includeBond);
+  if (bondYears !== undefined) payload.bond_years = toInt(bondYears);
+  if (bondAmount !== undefined) payload.bond_amount = toNum(bondAmount);
+  if (pfIncluded !== undefined) payload.pf_included = toBool(pfIncluded);
+  if (employeePf !== undefined) payload.employee_pf = toNum(employeePf);
+  if (employerPf !== undefined) payload.employer_pf = toNum(employerPf);
+  if (variablePayIncluded !== undefined) payload.variable_pay_included = toBool(variablePayIncluded);
+  if (variablePayAmount !== undefined) payload.variable_pay_amount = toNum(variablePayAmount);
+  if (tdsIncluded !== undefined) payload.tds_included = toBool(tdsIncluded);
+  if (tdsAmount !== undefined) payload.tds_amount = toNum(tdsAmount);
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/offer_sends`, {
     method: 'POST',
