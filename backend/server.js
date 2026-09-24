@@ -80,7 +80,12 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res) => {
-  const { recipient, candidateName, jobTitle, doj, dojDisplay, workLocation } = req.body || {};
+  const {
+    recipient, candidateName, jobTitle, doj, dojDisplay, workLocation,
+    letterDate, department, roleDescription, annualCtc, noticePeriodDays,
+    includeBond, bondYears, bondAmount, pfIncluded, employeePf, employerPf,
+    variablePayIncluded, variablePayAmount, tdsIncluded, tdsAmount,
+  } = req.body || {};
   const pdfBuffer = req.file ? req.file.buffer : null;
   const pdfBase64 = pdfBuffer ? pdfBuffer.toString('base64') : null;
 
@@ -205,6 +210,22 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
             pdfPath,
             status: 'failed',
             doj,
+            letterDate,
+            department,
+            workLocation,
+            roleDescription,
+            annualCtc,
+            noticePeriodDays,
+            includeBond,
+            bondYears,
+            bondAmount,
+            pfIncluded,
+            employeePf,
+            employerPf,
+            variablePayIncluded,
+            variablePayAmount,
+            tdsIncluded,
+            tdsAmount,
           });
         } catch (logErr) {
           console.error('Supabase logging failed:', logErr.details || logErr.message);
@@ -225,6 +246,22 @@ app.post('/api/send-offer', requireApiKey, upload.single('pdf'), async (req, res
           status: 'sent',
           resendId: resendData.id || null,
           doj,
+          letterDate,
+          department,
+          workLocation,
+          roleDescription,
+          annualCtc,
+          noticePeriodDays,
+          includeBond,
+          bondYears,
+          bondAmount,
+          pfIncluded,
+          employeePf,
+          employerPf,
+          variablePayIncluded,
+          variablePayAmount,
+          tdsIncluded,
+          tdsAmount,
         });
       } catch (logErr) {
         // The email already went out — don't fail the request over a logging error
@@ -250,7 +287,13 @@ app.post('/api/save-offer', requireApiKey, upload.single('pdf'), async (req, res
     return res.status(503).json({ error: 'Supabase is not configured on the server (missing SUPABASE_URL / SUPABASE_SERVICE_KEY).' });
   }
 
-  const { candidateName, jobTitle, recipientEmail, doj } = req.body || {};
+  const {
+    candidateName, jobTitle, recipientEmail, doj,
+    letterDate, department, workLocation, roleDescription, annualCtc,
+    noticePeriodDays, includeBond, bondYears, bondAmount, pfIncluded,
+    employeePf, employerPf, variablePayIncluded, variablePayAmount,
+    tdsIncluded, tdsAmount,
+  } = req.body || {};
   const pdfBuffer = req.file ? req.file.buffer : null;
 
   if (!pdfBuffer) {
@@ -273,6 +316,22 @@ app.post('/api/save-offer', requireApiKey, upload.single('pdf'), async (req, res
         pdfPath,
         status: 'saved',
         doj,
+        letterDate,
+        department,
+        workLocation,
+        roleDescription,
+        annualCtc,
+        noticePeriodDays,
+        includeBond,
+        bondYears,
+        bondAmount,
+        pfIncluded,
+        employeePf,
+        employerPf,
+        variablePayIncluded,
+        variablePayAmount,
+        tdsIncluded,
+        tdsAmount,
       });
     } catch (logErr) {
       console.error('Supabase table insert error:', logErr.details || logErr.message);
